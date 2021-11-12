@@ -6,7 +6,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **htop** --> TUI supercharged top - shows processes and cpu info
 - **nnn** --> Terminal file explorer (! drops to the command prompt)
 - **ncdu** --> Terminal disk and folder space viewer
-- **nmtui**  --> Terminal Network Manager app (set IPs, etc)
+- **network-manager**  --> installs **nmtui** Terminal Network Manager app (set IPs, etc)
 - **ne** --> Terminal editor (like nano / code highlighting, "esc" or F1 for menus)
 - **hping3** --> check if something is on the network, way more powerful than "ping"
 - **nmap** --> Network scanner
