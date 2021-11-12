@@ -16,7 +16,7 @@ List of Linux Tools I put on almost every linux / Debian host
 - **vim** --> VI editor with tons of extras
 - **vimrc** --> config script for vim (from Github amix/vimrc)
 - **bat** --> "cat" clone with colors and other features (sharkdp/bat on Github)
-- **fish** --> "friendly interactive shell" beats the pants off of bash, ([Fishshell.com](https://fishshell.com)
+- **fish** --> "friendly interactive shell" beats the pants off of bash, ([Fishshell.com](https://fishshell.com))
 - **tig** --> TUI client for git
 - **bmon** --> TUI network bandwidth monitor
 - **dnsutils** --> installs "dig" for DNS troubleshooting
