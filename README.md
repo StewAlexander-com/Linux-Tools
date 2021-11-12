@@ -13,11 +13,11 @@ List of Linux Tools I put on almost every linux / Debian host
 - **wireshark** --> network packet reviewer
 - **lynis** --> Linux security auditing 
 - **apt-show-versions** --> shows package versions / if needing upgrade ("$ apt-show-versions -u")
-- **vim* --> VI editor with tons of extras
+- **vim** --> VI editor with tons of extras
 - **vimrc** --> config script for vim (from Github amix/vimrc)
 - **bat** --> "cat" clone with colors and other features (sharkdp/bat on Github)
 - **fish** --> "friendly interactive shell" beats the pants off of bash, (fishshell.com)
-- **tig **--> TUI client for git
+- **tig** --> TUI client for git
 - **bmon** --> TUI network bandwidth monitor
 - **dnsutils** --> installs "dig" for DNS troubleshooting
 - **glances** --> like "htop" or "top" but more graphical, lots of sys info in one "glance" --installs python
