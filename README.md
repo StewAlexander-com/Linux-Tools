@@ -1,5 +1,5 @@
 # Linux-Tools
-List of Linux Tools I put on almost every linux / Debian host
+List of Linux Tools I put on almost every Linux / Debian host
 ## Installed:
 - **geany** --> GUI editor/ notepad++ like
 - **chkservice** --> TUI Linux service review from the terminal
