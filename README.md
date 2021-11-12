@@ -21,7 +21,7 @@ List of Linux Tools I put on almost every linux / Debian host
 - **bmon** --> TUI network bandwidth monitor
 - **dnsutils** --> installs "dig" for DNS troubleshooting
 - **glances** --> like "htop" or "top" but more graphical, lots of sys info in one "glance" --installs python
-- **python3**--> Development language
+- **python3** --> Development language
 - **code** --> (sudo snap install --classic code) Visual Studio Code IDE for Linux
 - **mtr** --> traceroute and ping in one, great for network troubleshooting
 - **ned** --> a clone of "sed" with an easier syntax (nevdelap/ned on Github)
