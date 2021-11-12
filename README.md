@@ -24,7 +24,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **python3** --> Development language
 - **code** --> (sudo snap install --classic code) Visual Studio Code IDE for Linux
 - **mtr** --> traceroute and ping in one, great for network troubleshooting
-- **ned** --> a clone of "sed" with an easier syntax (nevdelap/ned on Github)
+- **ned** --> a clone of "sed" (search and or replace) with an easier syntax (nevdelap/ned on Github)
 ----
 ## Future
 - Create a bash scipt to install of these in one go...
