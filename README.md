@@ -30,5 +30,5 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **guake** --> GUI terminal client for linux, more options than the built in terminal
 ----
 ## Python App "Linux-Sotware-Installer" Created (Nov 13th, 2021)
-- Requires a Debian-like system such as Ubuntu and Python 3 and "sudo" privalleges 
+- Requires a Debian-like system such as Ubuntu and Python 3 and "sudo" privileges
 - Checks if the above terminal-only software exists, if not installs it
