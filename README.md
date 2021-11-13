@@ -27,7 +27,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **ned** --> a clone of "sed" (search and or replace) with an easier syntax (nevdelap/ned on Github)
 - **miller** --> Does about everything awk and sed do for json/csv/etc files (johnkerl/miller on Github) -- more complex than ned
 - **most** --> Linux pager, better than "less" or "more"
-- **guake** - GUI Terminal client for linux, more options than the built in terminal
+- **guake** --> GUI terminal client for linux, more options than the built in terminal
 ----
 ## Future
 - Create a bash scipt to install of these in one go...
