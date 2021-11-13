@@ -29,5 +29,6 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **most** --> Linux pager, better than "less" or "more"
 - **guake** --> GUI terminal client for linux, more options than the built in terminal
 ----
-## Future
-- Create a bash scipt to install of these in one go...
+## Python app "Linux-Sotware-Installer" (Nov 13th, 2021)
+- Requires a Debian-like system such as Ubuntu and Python 3 and "sudo" privalleges 
+- Checks if the above terminal-only software exists, if not installs it
