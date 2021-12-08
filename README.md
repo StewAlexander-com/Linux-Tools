@@ -32,6 +32,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 ## Python App "Linux-Sotware-Installer" Created (Nov 13th, 2021)
 - Requires a Debian-like system such as Ubuntu and Python 3 and "sudo" privileges
 - Checks if the above terminal-only software exists, if not installs it
+- If you want to migrate this to work on a different OS, just update the code replacing "apt-get" with the package manager syntax such as "yum" "dnf" or "choco" (for Windows)
 ### Output of "Linux-Software-Installer"
 ![image](https://user-images.githubusercontent.com/48565067/141710525-a3ccf69b-f2d1-48f3-9fc3-5350229be8a5.png)
 
