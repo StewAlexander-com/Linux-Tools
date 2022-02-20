@@ -37,7 +37,5 @@ List of Linux Tools I put on almost every Linux / Debian host
 - If you want to migrate this to work on a different OS, just update the code replacing "apt-get" with the different package manager syntax
 ### Output of "Linux-Software-Installer"
 ![image](https://user-images.githubusercontent.com/48565067/141710525-a3ccf69b-f2d1-48f3-9fc3-5350229be8a5.png)
-----
-## To Do's
-- [ ] Add lazydocker to installer 
+
 
