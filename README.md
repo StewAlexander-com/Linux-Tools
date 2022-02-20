@@ -29,6 +29,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **most** --> Linux pager, better than "less" or "more"
 - **guake** --> GUI terminal client for linux, more options than the built in terminal
 - **lazydocker** --> TUI terminal software for Docker containers (jesseduffield/lazydocker on Github)
+- **exa** --> ls-like file / directory lister, adds colors and more to the standard ls output (https://the.exa.website/)
 ----
 ## Python App "Linux-Sotware-Installer" Created (Nov 13th, 2021)
 - Requires a Debian-like system such as Ubuntu (it uses the "apt" package manager)
