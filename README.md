@@ -39,5 +39,5 @@ List of Linux Tools I put on almost every Linux / Debian host
 ![image](https://user-images.githubusercontent.com/48565067/141710525-a3ccf69b-f2d1-48f3-9fc3-5350229be8a5.png)
 ----
 ## To Do's
-- Add "Lazy Docker" to installer 
+- [ ] Add "Lazy Docker" to installer 
 
