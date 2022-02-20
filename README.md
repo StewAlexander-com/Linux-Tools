@@ -28,7 +28,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **miller** --> Does about everything awk and sed do for json/csv/etc files (johnkerl/miller on Github) -- more complex than ned
 - **most** --> Linux pager, better than "less" or "more"
 - **guake** --> GUI terminal client for linux, more options than the built in terminal
-- **LazyDocker** --> TUI terminal software for Docker containers (jesseduffield/lazydocker on Github)
+- **lazydocker** --> TUI terminal software for Docker containers (jesseduffield/lazydocker on Github)
 ----
 ## Python App "Linux-Sotware-Installer" Created (Nov 13th, 2021)
 - Requires a Debian-like system such as Ubuntu (it uses the "apt" package manager)
@@ -39,5 +39,5 @@ List of Linux Tools I put on almost every Linux / Debian host
 ![image](https://user-images.githubusercontent.com/48565067/141710525-a3ccf69b-f2d1-48f3-9fc3-5350229be8a5.png)
 ----
 ## To Do's
-- [ ] Add "Lazy Docker" to installer 
+- [ ] Add lazydocker to installer 
 
