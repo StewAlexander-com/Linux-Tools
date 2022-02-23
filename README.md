@@ -23,14 +23,18 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **glances** --> like "htop" or "top" but more graphical, lots of sys info in one "glance" --installs python
 - **python3** --> Development language
 - **code** --> (sudo snap install --classic code) Visual Studio Code IDE for Linux
-- **mtr** --> traceroute and ping in one, great for network troubleshooting
-- **ned** --> a clone of "sed" (search and or replace) with an easier syntax (nevdelap/ned on Github)
+- **mtr** --> Traceroute and ping in one, great for network troubleshooting
+- **ned** --> A clone of "sed" (search and or replace) with an easier syntax (nevdelap/ned on Github)
 - **miller** --> Does about everything awk and sed do for json/csv/etc files (johnkerl/miller on Github) -- more complex than ned
 - **most** --> Linux pager, better than "less" or "more"
 - **guake** --> GUI terminal client for linux, more options than the built in terminal
 - **lazydocker** --> TUI terminal software for Docker containers (jesseduffield/lazydocker on Github)
 - **exa** --> ls-like file / directory lister, adds colors and more to the standard ls output (https://the.exa.website/)
 - **json-tui** --> Easy way to review json files, has a cool table view (ArthurSonzogni /json-tui Github)
+- **jc** --> Shows common command output in json format
+----
+* Using jc and json-tui together can produce some pretty results, the top of the picture shows the table view output of ```sudo jc -p lsof -i |json-tui``` <br><br>
+![image](https://user-images.githubusercontent.com/48565067/155399052-e619f001-f33b-4272-ab3e-3cd43019cc90.png)
 ----
 ## Python App "Linux-Sotware-Installer" Created (Nov 13th, 2021)
 - Requires a Debian-like system such as Ubuntu (it uses the "apt" package manager)
