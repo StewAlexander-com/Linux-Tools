@@ -34,7 +34,8 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **json-tui** --> Easy way to review json files, has a cool table view (ArthurSonzogni/json-tui Github)
 - **jc** --> Shows common command output in json format
 ----
-* Using jc and json-tui together can produce some pretty results, the top of the picture shows the table view output of ```sudo jc -p lsof -i |json-tui``` <br><br>
+* Using jc and json-tui together can produce some pretty results, the top of the picture shows the table view output of ```sudo jc -p lsof -i |json-tui``` 
+(the bottom showing the standard ```lsof -i``` results<br><br>
 ![image](https://user-images.githubusercontent.com/48565067/155399052-e619f001-f33b-4272-ab3e-3cd43019cc90.png)
 ----
 ## Python App "Linux-Sotware-Installer" Created (Nov 13th, 2021)
