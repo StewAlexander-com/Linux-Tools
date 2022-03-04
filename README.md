@@ -30,7 +30,8 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **guake** --> GUI terminal client for linux, more options than the built in terminal
 - **lazydocker** --> TUI terminal software for Docker containers (jesseduffield/lazydocker on Github)
 - **exa** --> ls-like file / directory lister, adds colors and more to the standard ls output (https://the.exa.website/)
-- **json-tui** --> Easy way to review json files, has a cool table view (ArthurSonzogni /json-tui Github)
+- **lsd** --> Another ls clone, can show directory sizes (Peltoche/lsd GitHub)
+- **json-tui** --> Easy way to review json files, has a cool table view (ArthurSonzogni/json-tui Github)
 - **jc** --> Shows common command output in json format
 ----
 * Using jc and json-tui together can produce some pretty results, the top of the picture shows the table view output of ```sudo jc -p lsof -i |json-tui``` <br><br>
