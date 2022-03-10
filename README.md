@@ -32,7 +32,8 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **exa** --> ls-like file / directory lister, adds colors and more to the standard ls output (https://the.exa.website/)
 - **lsd** --> Another ls clone, can show directory sizes (Peltoche/lsd GitHub)
 - **json-tui** --> Easy way to review json files, has a cool table view (ArthurSonzogni/json-tui Github)
-- **jc** --> Shows common command output in json format
+- **jc** --> Shows common Linux command output in json format 
+- **duf** --> Disk utility TUI (muesli/duf on Github)
 ----
 * Using jc and json-tui together can produce some pretty results, the top of the picture shows the table view output of ```sudo jc -p lsof -i |json-tui``` 
 (the bottom showing the standard ```lsof -i``` results)<br><br>
