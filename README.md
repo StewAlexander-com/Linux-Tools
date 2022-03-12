@@ -34,6 +34,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **json-tui** --> Easy way to review json files, has a cool table view (ArthurSonzogni/json-tui Github)
 - **jc** --> Shows common Linux command output in json format 
 - **duf** --> Disk utility TUI (muesli/duf on Github)
+- **visidata** --> Reading CSV files or other large data sets ([visidata.org](https://www.visidata.org/))
 ----
 * Using jc and json-tui together can produce some pretty results, the top of the picture shows the table view output of ```sudo jc -p lsof -i |json-tui``` 
 (the bottom showing the standard ```lsof -i``` results)<br><br>
