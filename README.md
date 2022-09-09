@@ -16,6 +16,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **vim** --> VI editor with tons of extras
 - **vimrc** --> config script for vim (from Github amix/vimrc)
 - **bat** --> "cat" clone with colors and other features (sharkdp/bat on Github)
+- **fd** --> Linux find clone with saner defualt options (PC, MAC, Linux, Debian, etc) (sharkdp/fd on Github)
 - **fish** --> "friendly interactive shell" beats the pants off of bash, ([Fishshell.com](https://fishshell.com))
 - **tig** --> TUI client for git
 - **bmon** --> TUI network bandwidth monitor
@@ -35,6 +36,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **jc** --> Shows common Linux command output in json format 
 - **duf** --> Disk utility TUI (muesli/duf on Github)
 - **visidata** --> Reading CSV files or other large data sets ([visidata.org](https://www.visidata.org/))
+- **croc** --> Seemlessly and securely send files between 2 systems (PC, MAC, Linux, Debian etc) (schollz/croc on Github)
 ----
 * Using jc and json-tui together can produce some pretty results, the top of the picture shows the table view output of ```sudo jc -p lsof -i |json-tui``` 
 (the bottom showing the standard ```lsof -i``` results)<br><br>
