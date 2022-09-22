@@ -1,1 +1,57 @@
+<h1 id="linux-tools">Linux-Tools</h1>
+<p>List of Linux Tools I put on almost every Linux / Debian host</p>
+<h2 id="installed-">Installed:</h2>
+<ul>
+<li><strong>geany</strong> --&gt; GUI editor/ notepad++ like</li>
+<li><strong>chkservice</strong> --&gt; TUI Linux service review from the terminal</li>
+<li><strong>htop</strong> --&gt; TUI supercharged top - shows processes and cpu info</li>
+<li><strong>nnn</strong> --&gt; Terminal file explorer (! drops to the command prompt)</li>
+<li><strong>ncdu</strong> --&gt; Terminal disk and folder space viewer</li>
+<li><strong>network-manager</strong>  --&gt; installs <strong>nmtui</strong> Terminal Network Manager app (set IPs, etc)</li>
+<li><strong>ne</strong> --&gt; Terminal editor (like nano / code highlighting, &quot;esc&quot; or F1 for menus)</li>
+<li><strong>hping3</strong> --&gt; check if something is on the network, way more powerful than &quot;ping&quot;</li>
+<li><strong>nmap</strong> --&gt; Network scanner</li>
+<li><strong>wireshark</strong> --&gt; network packet reviewer</li>
+<li><strong>lynis</strong> --&gt; Linux security auditing </li>
+<li><strong>apt-show-versions</strong> --&gt; shows package versions / if needing upgrade (&quot;$ apt-show-versions -u&quot;)</li>
+<li><strong>vim</strong> --&gt; VI editor with tons of extras</li>
+<li><strong>vimrc</strong> --&gt; config script for vim (from Github amix/vimrc)</li>
+<li><strong>bat</strong> --&gt; &quot;cat&quot; clone with colors and other features (sharkdp/bat on Github)</li>
+<li><strong>fd</strong> --&gt; Linux find clone with saner defualt options (PC, MAC, Linux, Debian, etc) (sharkdp/fd on Github)</li>
+<li><strong>fish</strong> --&gt; &quot;friendly interactive shell&quot; beats the pants off of bash, (<a href="https://fishshell.com">Fishshell.com</a>)</li>
+<li><strong>tig</strong> --&gt; TUI client for git</li>
+<li><strong>bmon</strong> --&gt; TUI network bandwidth monitor</li>
+<li><strong>dnsutils</strong> --&gt; installs &quot;dig&quot; for DNS troubleshooting</li>
+<li><strong>glances</strong> --&gt; like &quot;htop&quot; or &quot;top&quot; but more graphical, lots of sys info in one &quot;glance&quot; --installs python</li>
+<li><strong>python3</strong> --&gt; Development language</li>
+<li><strong>code</strong> --&gt; (sudo snap install --classic code) Visual Studio Code IDE for Linux</li>
+<li><strong>mtr</strong> --&gt; Traceroute and ping in one, great for network troubleshooting</li>
+<li><strong>ned</strong> --&gt; A clone of &quot;sed&quot; (search and or replace) with an easier syntax (nevdelap/ned on Github)</li>
+<li><strong>miller</strong> --&gt; Does about everything awk and sed do for json/csv/etc files (johnkerl/miller on Github) -- more complex than ned</li>
+<li><strong>most</strong> --&gt; Linux pager, better than &quot;less&quot; or &quot;more&quot;</li>
+<li><strong>guake</strong> --&gt; GUI terminal client for linux, more options than the built in terminal</li>
+<li><strong>lazydocker</strong> --&gt; TUI terminal software for Docker containers (jesseduffield/lazydocker on Github)</li>
+<li><strong>exa</strong> --&gt; ls-like file / directory lister, adds colors and more to the standard ls output (<a href="https://the.exa.website/">https://the.exa.website/</a>)</li>
+<li><strong>lsd</strong> --&gt; Another ls clone, can show directory sizes (Peltoche/lsd GitHub)</li>
+<li><strong>json-tui</strong> --&gt; Easy way to review json files, has a cool table view (ArthurSonzogni/json-tui Github)</li>
+<li><strong>jc</strong> --&gt; Shows common Linux command output in json format </li>
+<li><strong>duf</strong> --&gt; Disk utility TUI (muesli/duf on Github)</li>
+<li><strong>visidata</strong> --&gt; Reading CSV files or other large data sets (<a href="https://www.visidata.org/">visidata.org</a>)</li>
+<li><strong>croc</strong> --&gt; Seemlessly and securely send files between 2 systems (PC, MAC, Linux, Debian etc) (schollz/croc on Github)</li>
+</ul>
+<hr>
+<ul>
+<li>Using jc and json-tui together can produce some pretty results, the top of the picture shows the table view output of <code>sudo jc -p lsof -i |json-tui</code> 
+(the bottom showing the standard <code>lsof -i</code> results)<br><br>
+<img src="https://user-images.githubusercontent.com/48565067/155399052-e619f001-f33b-4272-ab3e-3cd43019cc90.png" alt="image"></li>
+</ul>
+<hr>
+<h2 id="python-app-linux-sotware-installer-created-nov-13th-2021-">Python App &quot;Linux-Sotware-Installer&quot; Created (Nov 13th, 2021)</h2>
+<ul>
+<li>Requires a Debian-like system such as Ubuntu (it uses the &quot;apt&quot; package manager)
+; Also needs Python 3 and &quot;sudo&quot; privileges</li>
+<li>Checks if the above terminal-only software exists, if not installs it</li>
+<li>If you want to migrate this to work on a different OS, just update the code replacing &quot;apt-get&quot; with the different package manager syntax<h3 id="output-of-linux-software-installer-">Output of &quot;Linux-Software-Installer&quot;</h3>
+<img src="https://user-images.githubusercontent.com/48565067/141710525-a3ccf69b-f2d1-48f3-9fc3-5350229be8a5.png" alt="image"></li>
+</ul>
 
