@@ -42,11 +42,12 @@ List of Linux Tools I put on almost every Linux / Debian host
 (the bottom showing the standard ```lsof -i``` results)<br><br>
 ![image](https://user-images.githubusercontent.com/48565067/155399052-e619f001-f33b-4272-ab3e-3cd43019cc90.png)
 ----
-## Python App "Linux-Sotware-Installer" Created (Nov 13th, 2021)
-- Requires a Debian-like system such as Ubuntu (it uses the "apt" package manager)
-; Also needs Python 3 and "sudo" privileges
+## Python App "Linux-Sotware-Installer" (Last Updated in September 2022) available under releases
+- Requires Python 3.x to run the script, and ```sudo``` access privileges
+- Most of the tools require a Debian-like system such as Ubuntu to install (```croc``` by @schollz here on Github is an exception)
 - Checks if the above terminal-only software exists, if not installs it
 - If you want to migrate this to work on a different OS, just update the code replacing "apt-get" with the different package manager syntax
+- Long term goal is to get some of these tools installed via other OS package managers like ```Homebrew``` for ```Mac```and or ```Scoop``` / ```Chocolatey``` for ```Windows```
 ### Output of "Linux-Software-Installer"
 ![image](https://user-images.githubusercontent.com/48565067/141710525-a3ccf69b-f2d1-48f3-9fc3-5350229be8a5.png)
 
