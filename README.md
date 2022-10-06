@@ -1,6 +1,6 @@
 # Linux-Tools
 List of Linux Tools I put on almost every Linux / Debian host
-## Installed:
+## What I (_typically_) Install:
 - **geany** --> GUI editor/ notepad++ like
 - **chkservice** --> TUI Linux service review from the terminal
 - **htop** --> TUI supercharged top - shows processes and cpu info
