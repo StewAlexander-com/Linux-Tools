@@ -42,7 +42,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 (the bottom showing the standard ```lsof -i``` results)<br><br>
 ![image](https://user-images.githubusercontent.com/48565067/155399052-e619f001-f33b-4272-ab3e-3cd43019cc90.png)
 ----
-## Python App "Linux-Sotware-Installer" (Last Updated in September 2022) available under releases
+## Python App "Linux-Sotware-Installer" (Last Updated in September 2022) available under this repo's ```releases``` sectopm
 - Requires Python 3.x to run the script, and ```sudo``` access privileges
 - Most of the tools require a Debian-like system such as Ubuntu to install (```croc``` by @schollz here on Github is an exception)
 - Checks if the above terminal-only software exists, if not installs it
