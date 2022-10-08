@@ -37,7 +37,8 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **duf** --> Disk utility TUI (muesli/duf on Github)
 - **visidata** --> Reading CSV files or other large data sets ([visidata.org](https://www.visidata.org/))
 - **croc** --> Seemlessly and securely send files between 2 systems (PC, MAC, Linux, Debian etc) (schollz/croc on Github)
-- **xplr** --> Very graphical file manager for thr CLI (/sayanarijit/xplr on Github)
+- **xplr** --> Very graphical file manager for thr CLI (sayanarijit/xplr on Github)
+- **eg** --> [TLDR.sh](tldr.sh) like tool that helps with Linux commands (srsudar/eg on Github)
 ----
 * Using jc and json-tui together can produce some pretty results, the top of the picture shows the table view output of ```sudo jc -p lsof -i |json-tui``` 
 (the bottom showing the standard ```lsof -i``` results)<br><br>
