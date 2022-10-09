@@ -10,6 +10,7 @@ List of Linux Tools I put on almost every Linux / Debian host
   * [Process Explorers](#process-explorers)
   * [Network Related Apps](#network-related-apps)
   * [Misc CLI Terminal Apps](#misc-cli-terminal-apps)
+  * [Software Installer App](#software-installer-app)
 
 ## What I (_typically_) Install:
 
@@ -82,7 +83,8 @@ List of Linux Tools I put on almost every Linux / Debian host
 (the bottom showing the standard ```lsof -i``` results)<br><br>
 ![image](https://user-images.githubusercontent.com/48565067/155399052-e619f001-f33b-4272-ab3e-3cd43019cc90.png)
 ----
-## Python App "Linux-Sotware-Installer" (_Last Updated in October 2022_) available under this repo's ```releases``` section
+## Software Installer App 
+### "Linux-Sotware-Installer" (_Last Updated in October 2022_) available under this repo's ```releases``` section
 - Requires Python 3.x to run the script, and ```sudo``` access privileges
 - Most of the tools require a Debian-like system such as Ubuntu to install (```croc``` by @schollz here on Github is an exception)
 - Checks if the above terminal-only software exists, if not installs it
