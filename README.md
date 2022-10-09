@@ -5,6 +5,7 @@ List of Linux Tools I put on almost every Linux / Debian host
   
   * [Desktop GUI Apps](#desktop-gui-apos)
   * [Terminal File Explorers](#terminal-file-explorers)
+  * [LS like Directory Viewers](#ls-like-directory-viewers)
 
 ## What I (_typically_) Install:
 
