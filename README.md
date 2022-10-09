@@ -3,8 +3,8 @@ List of Linux Tools I put on almost every Linux / Debian host
 
 #### Table of Contents
   
-  * [Desktop GUI Apps](###desktop-gui-apos)
-  * [Terminal File Explorers](###terminal-file-explorers)
+  * [Desktop GUI Apps](#desktop-gui-apos)
+  * [Terminal File Explorers](#terminal-file-explorers)
 
 ## What I (_typically_) Install:
 
