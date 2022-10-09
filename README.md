@@ -17,7 +17,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 ---
 
 ### LS like Directory Viewers 
-- **exa** --> ls-like file / directory lister, adds colors and more to the standard ls output [link](https://the.exa.website/)
+- **exa** --> ls-like file / directory lister, adds colors and more to the standard ls output [Exa website link](https://the.exa.website/)
 - **lsd** --> Another ls clone, cross-platform (works on Linux, Mac Win) can also show directory sizes (Peltoche/lsd GitHub) - _personal favorite_
 
 ----
