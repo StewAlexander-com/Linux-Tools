@@ -7,6 +7,9 @@ List of Linux Tools I put on almost every Linux / Debian host
   * [Terminal File Explorers](#terminal-file-explorers)
   * [LS like Directory Viewers](#ls-like-directory-viewers)
   * [Text Editors and Viewers](#text-editors-and-viewers)
+  * [Process Explorers](#process-explorers)
+  * [Network Related Apps](#network-related-apps)
+  * [Misc CLI Terminal Apps](#misc-cli-terminal-apps)
 
 ## What I (_typically_) Install:
 
