@@ -23,7 +23,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 ---
 ### Terminal File Explorers
 - **xplr** --> Very graphical, best on large screens (sayanarijit/xplr on Github)
-- 🌟 **nnn** --> Efficient and elegant (! drops to the command prompt) -  _personal favorite_
+- 🌟 **nnn** --> Efficient and elegant (```!``` drops to the command prompt) -  _personal favorite_
 - **lf** --> Cross platform (best for Windows, _imho_) (gokcehan/lf on Github)
 ---
 
