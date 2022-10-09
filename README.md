@@ -35,23 +35,26 @@ List of Linux Tools I put on almost every Linux / Debian host
 - 🌟 **htop** --> Supercharged _top_ clone — _personal favorite_
 
 ---
+### Network Related Apps
+- **croc** --> Seemlessly and securely send files between 2 systems (PC, MAC, Linux, Debian etc) (schollz/croc on Github)
+- **network-manager**  --> installs **nmtui** Terminal Network Manager app (set IPs, etc)
+- **hping3** --> check if something is on the network, way more powerful than "ping"
+- **nmap** --> Network scanner
+- **bmon** --> TUI network bandwidth monitor
+- **dnsutils** --> installs "dig" for DNS troubleshooting
+- **mtr** --> Traceroute and ping in one, great for network troubleshooting
 
+---
 ### Misc CLI Terminal Apps
 
 - **chkservice** --> TUI Linux service review from the terminal
 - **ncdu** --> Terminal disk and folder space viewer
-- **network-manager**  --> installs **nmtui** Terminal Network Manager app (set IPs, etc)
-- **hping3** --> check if something is on the network, way more powerful than "ping"
-- **nmap** --> Network scanner
 - **lynis** --> Linux security auditing 
 - **apt-show-versions** --> shows package versions / if needing upgrade ("$ apt-show-versions -u")
 - **fd** --> Linux find clone with saner defualt options (PC, MAC, Linux, Debian, etc) (sharkdp/fd on Github)
 - **fish** --> "friendly interactive shell" beats the pants off of bash, ([Fishshell.com](https://fishshell.com))
 - **tig** --> TUI client for git
-- **bmon** --> TUI network bandwidth monitor
-- **dnsutils** --> installs "dig" for DNS troubleshooting
 - **python3** --> Development language
-- **mtr** --> Traceroute and ping in one, great for network troubleshooting
 - **ned** --> A clone of "sed" (search and or replace) with an easier syntax (nevdelap/ned on Github)
 - **miller** --> Does about everything awk and sed do for json/csv/etc files (johnkerl/miller on Github) -- more complex than ned
 - **most** --> Linux pager, better than "less" or "more"
@@ -60,7 +63,6 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **jc** --> Shows common Linux command output in json format 
 - **duf** --> Disk utility TUI (muesli/duf on Github)
 - **visidata** --> Reading CSV files or other large data sets ([visidata.org](https://www.visidata.org/))
-- **croc** --> Seemlessly and securely send files between 2 systems (PC, MAC, Linux, Debian etc) (schollz/croc on Github)
 - **eg** --> [TLDR.sh](https://tldr.sh/) like tool that helps with Linux commands (srsudar/eg on Github)
 ——-
 * Using jc and json-tui together can produce some pretty results, the top of the picture shows the table view output of ```sudo jc -p lsof -i |json-tui``` 
