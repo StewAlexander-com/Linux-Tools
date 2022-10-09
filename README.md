@@ -12,29 +12,33 @@ List of Linux Tools I put on almost every Linux / Debian host
 ---
 ### Terminal File Explorers
 - **xplr** --> Very graphical, best on large screens (sayanarijit/xplr on Github)
-- **nnn** --> Efficient and elegant (! drops to the command prompt) - _my personal favorite_
+- 🌟 **nnn** --> Efficient and elegant (! drops to the command prompt) -  _personal favorite_
 - ***lf*** --> Cross platform (best for Windows, _imho_) (gokcehan/lf on Github)
 ---
 
 ### LS like Directory Viewers 
-- **exa** --> ls-like file / directory lister, adds colors and more to the standard ls output [Exa website link](https://the.exa.website/)
-- **lsd** --> Another ls clone, cross-platform (works on Linux, Mac Win) can also show directory sizes (Peltoche/lsd GitHub) - _personal favorite_
+- **exa** --> ls-like file / directory lister, adds colors and more to the standard ls output ([Exa website link](https://the.exa.website/))
+- 🌟 **lsd** --> Another ls clone, cross-platform (works on Linux, Mac Win) can also show directory sizes (Peltoche/lsd GitHub) - _personal favorite_
 
 ----
 
 ### Text Editors and Viewers
 - **micro** --> For those new to Linux, or aren’t into _vi_ or _vim_ (/zyedidia/micro on Github)
 - **ne** --> Terminal editor (like nano / code highlighting, "esc" or F1 for menus)
-- **vim** --> VI editor with tons of extras - _personal favorite_
+- 🌟 **vim** --> VI editor with tons of extras - _personal favorite_
 - **vimrc** --> config script for vim (from Github amix/vimrc)
 - **bat** --> "cat" clone with colors and other features (sharkdp/bat on Github)
+
+---
+### Process Explorers 
+- **glances** -->Lots of system info in one "glance", cross-platform (available for Windows) --_installs python_
+- 🌟 **htop** --> Supercharged _top_ clone — _personal favorite_
 
 ---
 
 ### Misc CLI Terminal Apps
 
 - **chkservice** --> TUI Linux service review from the terminal
-- **htop** --> TUI supercharged top - shows processes and cpu info
 - **ncdu** --> Terminal disk and folder space viewer
 - **network-manager**  --> installs **nmtui** Terminal Network Manager app (set IPs, etc)
 - **hping3** --> check if something is on the network, way more powerful than "ping"
@@ -46,7 +50,6 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **tig** --> TUI client for git
 - **bmon** --> TUI network bandwidth monitor
 - **dnsutils** --> installs "dig" for DNS troubleshooting
-- **glances** --> like "htop" or "top" but more graphical, lots of sys info in one "glance" --installs python
 - **python3** --> Development language
 - **mtr** --> Traceroute and ping in one, great for network troubleshooting
 - **ned** --> A clone of "sed" (search and or replace) with an easier syntax (nevdelap/ned on Github)
@@ -72,4 +75,3 @@ List of Linux Tools I put on almost every Linux / Debian host
 - Long term goal is to get some of these tools installed via other OS package managers like ```Homebrew``` for ```Mac```and or ```Scoop``` / ```Chocolatey``` for ```Windows```
 ### Output of "Linux-Software-Installer"
 ![image](https://user-images.githubusercontent.com/48565067/141710525-a3ccf69b-f2d1-48f3-9fc3-5350229be8a5.png)
-
