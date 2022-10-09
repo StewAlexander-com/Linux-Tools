@@ -31,7 +31,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 
 ---
 ### Process Explorers 
-- **glances** -->Lots of system info in one "glance", cross-platform (available for Windows) --_installs python_
+- **glances** --> Lots of system info in one "glance", cross-platform (available for Windows) --_installs python_
 - 🌟 **htop** --> Supercharged _top_ clone — _personal favorite_
 
 ---
