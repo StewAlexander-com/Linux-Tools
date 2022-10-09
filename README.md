@@ -14,7 +14,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 
 ## What I (_typically_) Install:
 
-### Desktop GUI Apps 
+### Desktop GUI Apps
 - **geany** --> GUI editor/ like “notepad++” for Windows
 - **wireshark** --> network packet reviewer
 - **code** --> (```sudo snap install --classic code```) _Microsoft Visual Studio Code IDE_ for Linux
