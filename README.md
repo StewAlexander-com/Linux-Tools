@@ -75,6 +75,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **duf** --> Disk utility TUI (aka a ```df``` clone (muesli/duf on Github)
 - **visidata** --> Reading CSV files or other large data sets ([visidata.org](https://www.visidata.org/))
 - **eg** --> [TLDR.sh](https://tldr.sh/) like tool that helps with Linux commands (srsudar/eg on Github)
+- **procs** --> A ```ps ``` process explorer clone with a GUI (dalance/procs on Github) 
 
 ---
 ## Sometimes using 2 apps together can be helpful
