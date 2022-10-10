@@ -72,7 +72,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **lazydocker** --> TUI terminal software for Docker containers (jesseduffield/lazydocker on Github)
 - **json-tui** --> Easy way to review json files, has a cool table view (ArthurSonzogni/json-tui Github)
 - **jc** --> Shows common Linux command output in json format 
-- **duf** --> Disk utility TUI (muesli/duf on Github)
+- **duf** --> Disk utility TUI (aka a ```df``` clone (muesli/duf on Github)
 - **visidata** --> Reading CSV files or other large data sets ([visidata.org](https://www.visidata.org/))
 - **eg** --> [TLDR.sh](https://tldr.sh/) like tool that helps with Linux commands (srsudar/eg on Github)
 
