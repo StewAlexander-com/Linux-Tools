@@ -52,9 +52,8 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **hping3** --> check if something is on the network, way more powerful than "ping"
 - **nmap** --> Network scanner
 - **bmon** --> TUI network bandwidth monitor
-- **dnsutils** --> installs "dig" for DNS troubleshooting
 - **mtr** --> Traceroute and ping in one, great for network troubleshooting
-- **dog** --> Dig clone DNS explorer with a TUI
+- **dog** --> ``` Dig ``` clone DNS explorer with a TUI
 
 ---
 ### Misc CLI Terminal Apps
