@@ -76,7 +76,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **visidata** --> Reading CSV files or other large data sets ([visidata.org](https://www.visidata.org/))
 - **eg** --> [TLDR.sh](https://tldr.sh/) like tool that helps with Linux commands (srsudar/eg on Github)
 - **procs** --> A ```ps ``` process explorer clone with a GUI (dalance/procs on Github)
-- *sd** --> A ```sed ``` search & replace clone with saner syntax (/chmln/sd on Github)
+- **sd** --> A ```sed ``` search & replace clone with saner syntax (/chmln/sd on Github)
 - **ripgrep-all** - A ```grep ``` clone but faster, and can search pdfs, csv, zip, .gz etc (/phiresky/ripgrep-all)
 
 ---
