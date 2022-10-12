@@ -66,7 +66,6 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **fish** --> "friendly interactive shell" beats the pants off of bash, ([Fishshell.com](https://fishshell.com))
 - **tig** --> TUI client for git
 - **python3** --> Development language
-- **ned** --> A clone of "sed" (search and or replace) with an easier syntax (nevdelap/ned on Github)
 - **miller** --> Does about everything awk and sed do for json/csv/etc files (johnkerl/miller on Github) -- more complex than ned
 - **most** --> Linux pager, better than "less" or "more"
 - **lazydocker** --> TUI terminal software for Docker containers (jesseduffield/lazydocker on Github)
