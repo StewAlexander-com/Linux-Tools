@@ -54,6 +54,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **bmon** --> TUI network bandwidth monitor
 - **dnsutils** --> installs "dig" for DNS troubleshooting
 - **mtr** --> Traceroute and ping in one, great for network troubleshooting
+- **dog** --> Dig clone DNS explorer with a TUI
 
 ---
 ### Misc CLI Terminal Apps
@@ -75,7 +76,9 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **duf** --> Disk utility TUI (aka a ```df``` clone (muesli/duf on Github)
 - **visidata** --> Reading CSV files or other large data sets ([visidata.org](https://www.visidata.org/))
 - **eg** --> [TLDR.sh](https://tldr.sh/) like tool that helps with Linux commands (srsudar/eg on Github)
-- **procs** --> A ```ps ``` process explorer clone with a GUI (dalance/procs on Github) 
+- **procs** --> A ```ps ``` process explorer clone with a GUI (dalance/procs on Github)
+- *sd** --> A ```sed ``` search & replace clone with saner syntax (/chmln/sd on Github)
+- **ripgrep-all** - A ```grep ``` clone but faster, and can search pdfs, csv, zip, .gz etc (/phiresky/ripgrep-all)
 
 ---
 ## Sometimes using 2 apps together can be helpful
