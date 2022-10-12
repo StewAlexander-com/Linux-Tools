@@ -53,7 +53,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - **nmap** --> Network scanner
 - **bmon** --> TUI network bandwidth monitor
 - **mtr** --> Traceroute and ping in one, great for network troubleshooting
-- **dog** --> ``` Dig ``` clone DNS explorer with a TUI
+- **dog** --> ``` Dig ``` clone DNS explorer with a TUI (/ogham/dog on Github)
 
 ---
 ### Misc CLI Terminal Apps
