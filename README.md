@@ -15,16 +15,16 @@ List of Linux Tools I put on almost every Linux / Debian host
 ## What I (_typically_) Install:
 
 ### Desktop GUI Apps
-- **geany** --> GUI editor/ like “notepad++” for Windows
-- **wireshark** --> network packet reviewer
-- **code** --> (```sudo snap install --classic code```) _Microsoft Visual Studio Code IDE_ for Linux
-- **guake** --> GUI terminal client for linux, more options than the built in terminal
+- [**geany**](https://www.geany.org)-> GUI editor/ like “notepad++” for Windows
+- [**wireshark**](https://www.wireshark.org)--> network packet reviewer
+- [**visual Studio Code**](https://code.visualstudio.com) --> (```sudo snap install --classic code```) _Microsoft Visual Studio Code IDE_ for Linux
+- [**guake**](http://guake-project.org)-> GUI terminal client for linux, more options than the built in terminal
 
 ---
 ### Terminal File Explorers
-- **xplr** --> Very graphical, best on large screens (sayanarijit/xplr on Github)
-- 🌟 **nnn** --> Efficient and elegant (```!``` drops to the command prompt) -  _personal favorite_
-- **lf** --> Cross platform (best for Windows, _imho_) (gokcehan/lf on Github)
+- [**xplr**](https://github.com/sayanarijit/xplr) --> Very graphical, best on large screens (sayanarijit/xplr on Github)
+- [🌟 **nnn**](https://github.com/jarun/nnn)--> Efficient and elegant (```!``` drops to the command prompt) -  _personal favorite_
+- [**lf**](https://github.com/gokcehan/lf)--> Cross platform (best for Windows, _imho_) (gokcehan/lf on Github)
 ---
 
 ### LS like Directory Viewers 
