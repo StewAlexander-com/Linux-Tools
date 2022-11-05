@@ -42,9 +42,10 @@ List of Linux Tools I put on almost every Linux / Debian host
 
 ---
 ### Process Explorers 
-- **glances** --> Lots of system info in one "glance", cross-platform (available for Windows) --_installs python_
-- 🌟 **htop** --> Supercharged _top_ clone — _personal favorite_
-- **btop** --> TUI CLI graphics, fast, less dependencies than _Glances_ (aristocratos/btop on Github)
+- [**glances**](https://nicolargo.github.io/glances/) --> Lots of system info in one "glance", cross-platform (available for Windows) --_installs python_
+- [🌟 **htop**](https://htop.dev) --> Supercharged _top_ clone — _personal favorite_
+- [**btop**](https://github.com/aristocratos/btop)--> TUI CLI graphics, fast, less dependencies than _Glances_ (aristocratos/btop on Github)
+- [**bottom**](https://github.com/ClementTsang/bottom) --> A _**btop**_ inspired process monitor, _cross platform_
 
 ---
 ### Network Related Apps
