@@ -69,15 +69,19 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**tig**](https://github.com/jonas/tig)--> TUI client for git (jonas/tig on Github)
 - [**miller**](https://github.com/johnkerl/miller) --> Does about everything awk and sed does for json/csv/etc files (johnkerl/miller on Github) 
 - [**most**](https://www.makeuseof.com/most-linux-pager/)--> Linux pager, better than "less" or "more"
-- **lazydocker** --> TUI terminal software for Docker containers (jesseduffield/lazydocker on Github)
-- **json-tui** --> Easy way to review json files, has a cool table view (ArthurSonzogni/json-tui Github)
-- **jc** --> Shows common Linux command output in json format 
-- **duf** --> Disk utility TUI (aka a ```df``` clone (muesli/duf on Github)
-- **visidata** --> Reading CSV files or other large data sets ([visidata.org](https://www.visidata.org/))
-- **eg** --> [TLDR.sh](https://tldr.sh/) like tool that helps with Linux commands (srsudar/eg on Github)
-- **procs** --> A ```ps ``` process explorer clone with a GUI (dalance/procs on Github)
-- **sd** --> A ```sed ``` search & replace clone with saner syntax (/chmln/sd on Github)
-- **ripgrep-all** --> A ```grep ``` clone but faster, and can search pdfs, csv, zip, .gz etc (/phiresky/ripgrep-all)
+- [**lazydocker**](https://github.com/jesseduffield/lazydocker) --> TUI terminal software for Docker containers (jesseduffield/lazydocker on Github)
+- [**json-tui**](https://github.com/ArthurSonzogni/json-tui)--> Easy way to review json files, has a cool table view (ArthurSonzogni/json-tui Github)
+- [**jc**](https://github.com/kellyjonbrazil/jc)--> Shows common Linux command output in json format (kellyjonbrazil/jc on Github)
+- [**duf**](https://github.com/muesli/duf) --> Disk utility TUI (aka a ```df``` clone, muesli/duf on Github)
+- [**visidata**](https://www.visidata.org/) --> Reading CSV files or other large data sets ([visidata.org](https://www.visidata.org/))
+- [**eg**](https://github.com/srsudar/eg) --> [TLDR.sh](https://tldr.sh/) like tool that helps with Linux commands (srsudar/eg on Github)
+- [**procs**](https://github.com/dalance/procs) --> A ```ps ``` process explorer clone with a GUI (dalance/procs on Github)
+- [**sd**](https://github.com/chmln/sd) --> A ```sed ``` search & replace clone with saner syntax (/chmln/sd on Github)
+- [**ripgrep-all**](https://github.com//phiresky/ripgrep-all) --> A ```grep ``` clone but faster, and can search pdfs, csv, zip, .gz etc, _cross platform_ (/phiresky/ripgrep-all on Github)
+
+---
+## Updates 
+* 11/05/22 - Now the apps at the left are links to where you can get these tools (happy holidays 🥳)!
 
 ---
 ## Sometimes using 2 apps together can be helpful
