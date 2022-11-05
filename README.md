@@ -81,7 +81,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 
 ---
 ## Updates 
-* 11/05/22 - Now the apps at the left are links to where you can get these tools (happy holidays 🥳)!
+* 11/05/22 - Now the apps at the left are links to where you can get these tools (_happy holidays 🥳_)!
 
 ---
 ## Sometimes using 2 apps together can be helpful
