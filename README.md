@@ -60,16 +60,15 @@ List of Linux Tools I put on almost every Linux / Debian host
 ---
 ### Misc CLI Terminal Apps
 
-- **chkservice** --> TUI Linux service review from the terminal
-- **ncdu** --> Terminal disk and folder space viewer
-- **lynis** --> Linux security auditing 
-- **apt-show-versions** --> shows package versions / if needing upgrade ("$ apt-show-versions -u")
-- **fd** --> Linux find clone with saner defualt options (PC, MAC, Linux, Debian, etc) (sharkdp/fd on Github)
-- **fish** --> "friendly interactive shell" beats the pants off of bash, ([Fishshell.com](https://fishshell.com))
-- **tig** --> TUI client for git
-- **python3** --> Development language
-- **miller** --> Does about everything awk and sed do for json/csv/etc files (johnkerl/miller on Github) -- more complex than ned
-- **most** --> Linux pager, better than "less" or "more"
+- [**chkservice**](https://github.com/linuxenko/chkservice)--> TUI Linux _**systemd**_ service review from the terminal (_linuxenko/chkservice_ on Github)
+- [**ncdu**](https://dev.yorhel.nl/ncdu)--> Terminal disk and folder space viewer
+- [**lynis**](https://cisofy.com/lynis/)--> Linux security auditing by _**CISOFY**_
+- [**apt-show-versions**](https://packages.ubuntu.com/source/focal/apt-show-versions)--> shows package versions / if needing upgrade ("$ apt-show-versions -u")
+- [**fd**](https://github.com/sharkdp/fd)--> Linux find clone with saner defualt options (PC, MAC, Linux, Debian, etc) (sharkdp/fd on Github)
+- [**fish**](https://fishshell.com) --> "friendly interactive shell" beats the pants off of bash, ([Fishshell.com](https://fishshell.com))
+- [**tig**](https://github.com/jonas/tig)--> TUI client for git (jonas/tig on Github)
+- [**miller**](https://github.com/johnkerl/miller) --> Does about everything awk and sed does for json/csv/etc files (johnkerl/miller on Github) 
+- [**most**](https://www.makeuseof.com/most-linux-pager/)--> Linux pager, better than "less" or "more"
 - **lazydocker** --> TUI terminal software for Docker containers (jesseduffield/lazydocker on Github)
 - **json-tui** --> Easy way to review json files, has a cool table view (ArthurSonzogni/json-tui Github)
 - **jc** --> Shows common Linux command output in json format 
