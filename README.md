@@ -28,17 +28,17 @@ List of Linux Tools I put on almost every Linux / Debian host
 ---
 
 ### LS like Directory Viewers 
-- **exa** --> ls-like file / directory lister, adds colors and more to the standard ls output ([Exa website link](https://the.exa.website/))
-- 🌟 **lsd** --> Another ls clone, cross-platform (works on Linux, Mac Win) can also show directory sizes (Peltoche/lsd GitHub) - _personal favorite_
+- [**exa**](https://the.exa.website)--> ls-like file / directory lister, adds colors and more to the standard ls output ([Exa website link](https://the.exa.website/))
+- [🌟 **lsd**](https://github.com/Peltoche/lsd)-> Another ls clone, cross-platform (works on Linux, Mac Win) can also show directory sizes (Peltoche/lsd GitHub) - _personal favorite_
 
 ----
 
 ### Text Editors and Viewers
-- **micro** --> For those new to Linux, or aren’t into _vi_ or _vim_ (/zyedidia/micro on Github)
-- **ne** --> Terminal editor (like nano / code highlighting, "esc" or F1 for menus)
-- 🌟 **vim** --> VI editor with tons of extras - _personal favorite_
-- **vimrc** --> config script for vim (from Github amix/vimrc)
-- **bat** --> "cat" clone with colors and other features (sharkdp/bat on Github)
+- [**micro**](https://github.com/zyedidia/micro)--> For those new to Linux, or aren’t into _vi_ or _vim_ (/zyedidia/micro on Github)
+- [**ne**](https://ne.di.unimi.it)--> Terminal editor (like nano / code highlighting, "esc" or F1 for menus)
+- [🌟 **vim**](https://github.com/vim/vim)--> VI editor with tons of extras - _personal favorite_
+- [**vimrc**](https://github.com/amix/vimrc)--> config script for vim (from Github amix/vimrc) --> [⭐ _Try out **vim_awesome** based on this_](https://github.com/ArthurChiao/vim_awesome)
+- [**bat**](https://github.com/sharkdp/bat)--> "cat" clone with colors and other features (sharkdp/bat on Github)
 
 ---
 ### Process Explorers 
