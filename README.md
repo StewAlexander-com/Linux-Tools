@@ -1,6 +1,11 @@
 # Linux-Tools
 List of Linux Tools I put on almost every Linux / Debian host
 
+## Use Eget to download apps from Github
+* [Click here to download eget](https://github.com/zyedidia/eget), then type ```$ eget schollz/croc``` to download croc (which copies files between systems)
+* Change "schollz/croc" to any github repo discussed below …
+
+
 #### Table of Contents
   
   * [Desktop GUI Apps](#desktop-gui-apps)
