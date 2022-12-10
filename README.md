@@ -61,7 +61,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**bmon**](https://github.com/tgraf/bmon)-> TUI network bandwidth monitor
 - [**mtr**](https://www.bitwizard.nl/mtr/)--> Traceroute and ping in one, great for network troubleshooting
 - [**dog**](https://github.com/ogham/dog)--> ``` Dig ``` clone DNS explorer with a TUI (/ogham/dog on Github)
-
+- [**neoss**](https://github.com/PabloLec/neoss) -- ```ss``` clone, shows socket statisitcs in an easy to search TUI (PabloLec/neoss on Github)
 ---
 ### Misc CLI Terminal Apps
 
