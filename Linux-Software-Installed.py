@@ -34,7 +34,7 @@ print("""\nChecking if these programs are installed or not:\n
 
 #Check if these programs exist [chkservice,htop,nnn,ncdu,network-manager,ne,hping3,nmap,lynis,apt-show-versions,vim,fish,tig,bmon,dnsutils,most], if not install them
 def check_programs():
-    programs = ['chkservice','htop','nnn','ncdu','network-manager','ne','hping3','nmap','lynis','apt-show-versions','vim','fish','tig','bmon','dnsutils','most']
+    programs = ['chkservice','htop','nnn','ncdu','network-manager','ne','hping3','nmap','lynis','apt-show-versions','vim','fish','tig','bmon','dnsutils','most','curl']
     for program in programs:
         if which(program) is None:
             print("\n>> \"" + program + '\" is not installed')
@@ -92,6 +92,8 @@ def install_program(program):
     elif program == 'most':
         os.system('sudo apt-get install most')
         print("\n")
+    elif program == 'curl':
+        os.system('sudo apt-get install curl')    
     else:
         print('Program not found\n')
 
