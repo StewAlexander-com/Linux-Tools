@@ -102,11 +102,13 @@ def eget_installer ():
 #check if eget exists as a program
     eget_exists = os.path.exists('/usr/bin/eget')
     if not eget_exists:
+       print("Eget does not exist, installing",'\n') 
        #install eget
        os.system("curl https://zyedidia.github.io/eget.sh | sh")
        #move eget to /usr/bin
        os.system("sudo mv eget /usr/bin/eget")
     else:
+        print("Eget already installed",'\n')
         pass
 
 #run eget_installer()
