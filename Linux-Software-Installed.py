@@ -4,6 +4,14 @@ import sys
 import uuid
 from shutil import which
 
+#Check if the system is debian, else halt program
+is_debian = which("apt-get")
+
+if is_debian:
+    pass
+else:
+    sys.exit("This script requires a Debian-like system such as Ubuntu, Debian or Linux Mint")
+
 #Print checking if these programs are installed or not
 print("""\nChecking if these programs are installed or not:\n
 >> chkservice
@@ -21,7 +29,8 @@ print("""\nChecking if these programs are installed or not:\n
 >> tig
 >> bmon
 >> dnsutils
->> most\n""")
+>> most
+>> \n""")
 
 #Check if these programs exist [chkservice,htop,nnn,ncdu,network-manager,ne,hping3,nmap,lynis,apt-show-versions,vim,fish,tig,bmon,dnsutils,most], if not install them
 def check_programs():
@@ -85,6 +94,21 @@ def install_program(program):
         print("\n")
     else:
         print('Program not found\n')
+
+#Check if eget is installed, if not install eget
+def eget_installer ():
+#check if eget exists as a program
+    eget_exists = os.path.exists('/usr/bin/eget')
+    if not eget_exists:
+       #install eget
+       os.system("curl https://zyedidia.github.io/eget.sh | sh")
+       #move eget to /usr/bin
+       os.system("sudo mv eget /usr/bin/eget")
+    else:
+        pass
+
+#run eget_installer()
+eget_installer
 
 #run check_programs()
 check_programs()
