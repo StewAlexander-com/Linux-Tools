@@ -135,11 +135,6 @@ eget_installer
 #run check_programs()
 check_programs()
 
-# Check if eget GitHub related programs are installed or not
-
-
-
-
 #Press reuturn to quit
 input('\n\nPress return to quit')
 sys.exit()
