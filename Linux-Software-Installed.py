@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+
+import apt
 import os
 import sys
 import uuid
@@ -64,11 +66,7 @@ def check_programs():
         else:
             print("- \"" + program + '\" is installed')
             
-# Will change the below 
-# code into a for loop, iterating
-# through the list of elements in 
-# list "programs" and intalling them 
-# using 'sudo apt-get -y'  
+# Will change the below code 
 # This if / elif switch was a quick but
 # overly wordy solution
 
@@ -127,13 +125,13 @@ def install_program(program):
     else:
         print('Program not found\n')
         
-# for loop
 # Initial thoughts …
 # def install_program(program):
-# check if software is available in apt
+# check if program in list programs is available in apt
 # repos if so download it, otherwise say it isn't 
-#		if os.system ('sudo apt-cache search'+ program) == true 
-#			os.system('sudo apt install - y' + program)
+# cache = apt.cache()
+#		if program in cache:
+#			os.system('sudo apt install - y ' + program)
 #		else 
 #			print('program not found in apt')
 
