@@ -5,6 +5,11 @@ import uuid
 import shutil
 from shutil import which
 
+# Why do this in python instead of 
+# bash? I don't use bash, second of all
+# eventually I want to make this cross
+# platform, and why not?
+
 file_pass = 'a'
 
 #Check if the system is debian, else halt program
@@ -57,6 +62,14 @@ def check_programs():
             install_program(program)
         else:
             print("- \"" + program + '\" is installed')
+            
+# Will change the below 
+# code into a for loop, iterating
+# through the list of elements in 
+# list "programs" and intalling them 
+# using 'sudo apt-get -y'  
+# This if / elif switch was a quick but
+# overly wordy solution
 
 #Install programs
 def install_program(program):
@@ -173,4 +186,3 @@ check_programs()
 #Press reuturn to quit
 input('\n\nPress return to quit')
 sys.exit()
-
