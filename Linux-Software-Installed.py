@@ -56,6 +56,7 @@ else:
 #Check if these programs exist [chkservice,htop,nnn,ncdu,network-manager,ne,hping3,nmap,lynis,apt-show-versions,vim,fish,tig,bmon,dnsutils,most], if not install them
 def check_programs():
     programs = ['chkservice','htop','nnn','ncdu','network-manager','ne','hping3','nmap','lynis','apt-show-versions','vim','fish','tig','bmon','dnsutils','most','curl']
+    os.system('sudo apt update')
     for program in programs:
         if which(program) is None:
             print("\n>> \"" + program + '\" is not installed')
@@ -125,6 +126,16 @@ def install_program(program):
         os.system('sudo apt-get install curl')    
     else:
         print('Program not found\n')
+        
+# for loop
+# Initial thoughts …
+# def install_program(program):
+# check if software is available in apt
+# repos if so download it, otherwise say it isn't 
+#		if os.system ('sudo apt-cache search'+ program) == true 
+#			os.system('sudo apt install - y' + program)
+#		else 
+#			print('program not found in apt')
 
 #Check if eget is installed, if not install eget
 def eget_installer ():
