@@ -86,6 +86,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 
 ---
 ## Updates 
+* 01/29/23 - Huge improvements to the linux installer, added ```eget``` as a software installer
 * 11/05/22 - Now the apps at the left are links to where you can get these tools (_happy holidays 🥳_)!
 
 ---
