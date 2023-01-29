@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import apt
+import subprocess
 import os
 import sys
 import uuid
@@ -66,74 +66,19 @@ def check_programs():
         else:
             print("- \"" + program + '\" is installed')
             
-# Will change the below code 
-# This if / elif switch was a quick but
-# overly wordy solution
 
-#Install programs
+# Check if program in list programs appears to be available in apt, if so download it
 def install_program(program):
-    if program == 'chkservice':
-        os.system('sudo apt-get install chkservice')
-        print("\n")
-    elif program == 'htop':
-        os.system('sudo apt-get install htop')
-        print("\n")
-    elif program == 'nnn':
-        os.system('sudo apt-get install nnn')
-        print("\n")
-    elif program == 'ncdu':
-        os.system('sudo apt-get install ncdu')
-        print("\n")
-    elif program == 'network-manager':
-        os.system('sudo apt-get install network-manager')
-        print("\n")
-    elif program == 'ne':
-        os.system('sudo apt-get install ne')
-        print("\n")
-    elif program == 'hping3':
-        os.system('sudo apt-get install hping3')
-        print("\n")
-    elif program == 'nmap':
-        os.system('sudo apt-get install nmap')
-        print("\n")
-    elif program == 'lynis':
-        os.system('sudo apt-get install lynis')
-        print("\n")
-    elif program == 'apt-show-versions':
-        os.system('sudo apt-get install apt-show-versions')
-        print("\n")
-    elif program == 'vim':
-        os.system('sudo apt-get install vim')
-        print("\n")
-    elif program == 'fish':
-        os.system('sudo apt-get install fish')
-        print("\n")
-    elif program == 'tig':
-        os.system('sudo apt-get install tig')
-        print("\n")
-    elif program == 'bmon':
-        os.system('sudo apt-get install bmon')
-        print("\n")
-    elif program == 'dnsutils':
-        os.system('sudo apt-get install dnsutils')
-        print("\n")
-    elif program == 'most':
-        os.system('sudo apt-get install most')
-        print("\n")
-    elif program == 'curl':
-        os.system('sudo apt-get install curl')    
-    else:
-        print('Program not found\n')
-        
-# Initial thoughts …
-# def install_program(program):
-# check if program in list programs is available in apt
-# repos if so download it, otherwise say it isn't 
-# cache = apt.cache()
-#		if program in cache:
-#			os.system('sudo apt install - y ' + program)
-#		else 
-#			print('program not found in apt')
+    try:
+        output = subprocess.run(["apt-cache", "search",program], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if output.returncode == 0:
+            os.system("sudo apt-get install -y " + program)
+            print(f"{program} has been installed successfully.")
+        else:
+            print(f"{program} is not available via apt.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e}")
+
 
 #Check if eget is installed, if not install eget
 def eget_installer ():
