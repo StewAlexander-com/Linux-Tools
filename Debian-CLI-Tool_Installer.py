@@ -12,6 +12,12 @@ from shutil import which
 # eventually I want to make this cross
 # platform, and why not?
 
+# Basically a learning tool 
+# Tha vast majority of this
+# Can be solved by a xargs call
+# to a flat file list of apps, and a check if
+# apt doesn't have it, try eget
+
 file_pass = 'a'
 
 #Check if the system is debian, else halt program
