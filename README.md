@@ -83,9 +83,10 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**procs**](https://github.com/dalance/procs) --> A ```ps ``` process explorer clone with a GUI (dalance/procs on Github)
 - [**sd**](https://github.com/chmln/sd) --> A ```sed ``` search & replace clone with saner syntax (/chmln/sd on Github)
 - [**ripgrep-all**](https://github.com//phiresky/ripgrep-all) --> A ```grep ``` clone but faster, and can search pdfs, csv, zip, .gz etc, _cross platform_ (/phiresky/ripgrep-all on Github)
-
+- [**fzf**](https://github.com/junegunn/fzf) --> A command-line fuzzy finder that enhances search and navigation in the terminal. Ideal for quickly finding files, command history, git, and more (junegunn/fzf on GitHub)
 ---
-## Updates 
+## Updates
+* 11/19/23 - Updated Readme for consistency and readability
 * 01/29/23 - Huge improvements to the linux installer, added ```eget``` as a software installer
 * 11/05/22 - Now the apps at the left are links to where you can get these tools (_happy holidays 🥳_)!
 
