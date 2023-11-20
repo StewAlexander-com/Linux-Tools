@@ -56,7 +56,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 ### Network Related Apps
 - [**croc**](https://github.com/schollz/croc)--> Seemlessly and securely send files between 2 systems (_cross platform_ runs on PC, MAC, Linux, Debian etc) (schollz/croc on Github)
 - [**network-manager**](https://wiki.gnome.org/Projects/NetworkManager)--> installs **nmtui** Terminal Network Manager app (set IPs, etc)
-- [**hping3**](http://www.hping.org)--> check if something is on the network, way more powerful than "ping"
+- [**hping3**](https://github.com/antirez/hping)--> check if something is on the network, way more powerful than "ping"
 - [**nmap**](https://nmap.org)-> Network scanner --> [_Check out **ncrack** for a network authentication tool_](https://github.com/nmap/ncrack)
 - [**bmon**](https://github.com/tgraf/bmon)-> TUI network bandwidth monitor
 - [**mtr**](https://www.bitwizard.nl/mtr/)--> Traceroute and ping in one, great for network troubleshooting
