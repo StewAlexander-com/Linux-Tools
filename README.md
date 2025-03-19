@@ -55,7 +55,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [🌟 **htop**](https://htop.dev) -> Supercharged _top_ clone — _personal favorite_[4]
 - [**btop**](https://github.com/aristocratos/btop) -> TUI CLI graphics, fast, less dependencies than _Glances_[8]
 - [**bottom**](https://github.com/ClementTsang/bottom) -> A _**btop**_ inspired process monitor, _cross platform_
-- [**system informer**]([https://github.com/systeminformer/systeminformer](https://www.systeminformer.com/) -> Official successor to Process Hacker - a powerful, multi-purpose tool to monitor system resources and detect malware[4]
+- [**system informer**](https://www.systeminformer.com/) -> Official successor to Process Hacker - a powerful, multi-purpose tool to monitor system resources and detect malware[4]
 
 ---
 ### Network Related Apps
