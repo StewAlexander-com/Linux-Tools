@@ -100,6 +100,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**pandoc**](https://pandoc.org) -> Universal document converter that can convert between various markup formats[8]
 ---
 ## Updates
+* 09/06/25 - README formatting and links improvements; improved ripgrep-all description
 * 03/18/25 - Major 2025 update with latest alternatives: eza (exa successor), neovim, tldr, zoxide, starship, dust, nala, fastfetch
 * 11/19/23 - Updated Readme for consistency and readability
 * 01/29/23 - Huge improvements to the linux installer, added ```eget```
