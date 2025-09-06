@@ -94,7 +94,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**procs**](https://github.com/dalance/procs) -> ps replacement
 - [**sd**](https://github.com/chmln/sd) -> sed replacement
 - [**ripgrep**](https://github.com/BurntSushi/ripgrep) -> Extremely fast text search tool that respects gitignore rules[8]
-- [**ripgrep-all**](https://github.com/phiresky/ripgrep-all) -> A ```grep ```
+- [**ripgrep-all**](https://github.com/phiresky/ripgrep-all) -> A grep tool with improvements on speed and document formats
 - [**fzf**](https://github.com/junegunn/fzf) -> A command-line fuzzy finder that enhances search and navigation in the terminal. Ideal for quickly finding files, command history, git, and more (junegunn/fzf on GitHub)
 - [**fastfetch**](https://github.com/fastfetch-cli/fastfetch) -> Faster, more feature-rich neofetch alternative for system information display[8]
 - [**pandoc**](https://pandoc.org) -> Universal document converter that can convert between various markup formats[8]
