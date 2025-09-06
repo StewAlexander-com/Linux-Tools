@@ -18,25 +18,25 @@ List of Linux Tools I put on almost every Linux / Debian host
   * [Misc CLI Terminal Apps](#misc-cli-terminal-apps)
   * [Software Installer App](#software-installer-app)
 
-## What I (_typically_) Install:
+## What I (_typically_) Install
 
 ### Desktop GUI Apps
 - [**geany**](https://www.geany.org) -> GUI editor/ like "notepad++" for Windows
 - [**wireshark**](https://www.wireshark.org) -> network packet reviewer
-- [**visual Studio Code**](https://code.visualstudio.com) -> (```sudo snap install --classic code```
-- [**guake**](http://guake-project.org) -> GUI terminal client for linux, more options than the built in terminal
+- [**Visual Studio Code**](https://code.visualstudio.com) -> (```sudo snap install --classic code```)
+- [**guake**](https://github.com/Guake/guake) -> GUI terminal client for linux, more options than the built in terminal
 - [**tabby**](https://tabby.sh) -> Modern, feature-rich terminal emulator with excellent cross-platform support[8]
 
 ---
 ### Terminal File Explorers
 - [**xplr**](https://github.com/sayanarijit/xplr) -> Very graphical, best on large screens (sayanarijit/xplr on Github)
-- [🌟 **nnn**](https://github.com/jarun/nnn) -> Efficient and elegant (```!```
+- [🌟 **nnn**](https://github.com/jarun/nnn) -> Efficient and elegant
 - [**lf**](https://github.com/gokcehan/lf) -> Cross platform (best for Windows, _imho_) (gokcehan/lf on Github)
 ---
 
-### LS like Directory Viewers 
+### LS-like Directory Viewers 
 - [**eza**](https://github.com/eza-community/eza) -> Modern replacement for ls with more features, colors and Git integration (successor to exa)[8]
-- [🌟 **lsd**](https://github.com/Peltoche/lsd) -> Another ls clone, cross-platform (works on Linux, Mac Win) can also show directory sizes (Peltoche/lsd GitHub) - _personal favorite_
+- [🌟 **lsd**](https://github.com/lsd-rs/lsd) -> Another ls clone, cross-platform (works on Linux, Mac Win) can also show directory sizes (Peltoche/lsd GitHub) - _personal favorite_
 
 ----
 
@@ -58,7 +58,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**system informer**](https://www.systeminformer.com/) -> Official successor to Process Hacker - a powerful, multi-purpose tool to monitor system resources and detect malware[4]
 
 ---
-### Network Related Apps
+### Network-Related Apps
 - [**croc**](https://github.com/schollz/croc) -> Seamlessly and securely send files between 2 systems (_cross platform_ runs on PC, MAC, Linux, Debian etc) (schollz/croc on Github)
 - [**network-manager**](https://wiki.gnome.org/Projects/NetworkManager) -> installs **nmtui** Terminal Network Manager app (set IPs, etc)
 - [**hping3**](https://github.com/antirez/hping) -> check if something is on the network, way more powerful than "ping"
@@ -74,7 +74,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**chkservice**](https://github.com/linuxenko/chkservice) -> TUI Linux _**systemd**_ service review from the terminal (_linuxenko/chkservice_ on Github)
 - [**ncdu**](https://dev.yorhel.nl/ncdu) -> Terminal disk and folder space viewer
 - [**dust**](https://github.com/bootandy/dust) -> More intuitive version of du with bar chart visualization[8]
-- [**duf**](https://github.com/muesli/duf) -> Disk utility TUI with pretty graphs (a better ```df```
+- [**duf**](https://github.com/muesli/duf) -> Disk utility TUI with pretty graphs (a better ```df```)
 - [**lynis**](https://cisofy.com/lynis/) -> Linux security auditing by _**CISOFY**_
 - [**apt-show-versions**](https://packages.ubuntu.com/source/focal/apt-show-versions) -> shows package versions / if needing upgrade ("$ apt-show-versions -u")
 - [**nala**](https://gitlab.com/volian/nala) -> Frontend for apt with a more user-friendly interface and colored output[8]
@@ -84,17 +84,17 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**zoxide**](https://github.com/ajeetdsouza/zoxide) -> Smarter cd command that learns your habits and helps you navigate faster[8]
 - [**tig**](https://github.com/jonas/tig) -> TUI client for git (jonas/tig on Github)
 - [**miller**](https://github.com/johnkerl/miller) -> Does about everything awk and sed does for json/csv/etc files (johnkerl/miller on Github) 
-- [**most**](https://www.makeuseof.com/most-linux-pager/) -> Linux pager, better than "less" or "more"
+- [**most**](https://www.jedsoft.org/most/) -> Linux pager, better than "less" or "more"
 - [**tldr**](https://tldr.sh) -> Simplified man pages that just tell you what you need to know with practical examples[8]
 - [**lazydocker**](https://github.com/jesseduffield/lazydocker) -> TUI terminal software for Docker containers (jesseduffield/lazydocker on Github)
 - [**json-tui**](https://github.com/ArthurSonzogni/json-tui) -> Easy way to review json files, has a cool table view (ArthurSonzogni/json-tui Github)
 - [**jc**](https://github.com/kellyjonbrazil/jc) -> Shows common Linux command output in json format (kellyjonbrazil/jc on Github)
 - [**visidata**](https://www.visidata.org/) -> Reading CSV files or other large data sets ([visidata.org](https://www.visidata.org/))
 - [**eg**](https://github.com/srsudar/eg) -> [TLDR.sh](https://tldr.sh/) like tool that helps with Linux commands (srsudar/eg on Github)
-- [**procs**](https://github.com/dalance/procs) -> A ```ps ```
-- [**sd**](https://github.com/chmln/sd) -> A ```sed ```
+- [**procs**](https://github.com/dalance/procs) -> ps replacement
+- [**sd**](https://github.com/chmln/sd) -> sed replacement
 - [**ripgrep**](https://github.com/BurntSushi/ripgrep) -> Extremely fast text search tool that respects gitignore rules[8]
-- [**ripgrep-all**](https://github.com//phiresky/ripgrep-all) -> A ```grep ```
+- [**ripgrep-all**](https://github.com/phiresky/ripgrep-all) -> A ```grep ```
 - [**fzf**](https://github.com/junegunn/fzf) -> A command-line fuzzy finder that enhances search and navigation in the terminal. Ideal for quickly finding files, command history, git, and more (junegunn/fzf on GitHub)
 - [**fastfetch**](https://github.com/fastfetch-cli/fastfetch) -> Faster, more feature-rich neofetch alternative for system information display[8]
 - [**pandoc**](https://pandoc.org) -> Universal document converter that can convert between various markup formats[8]
@@ -106,15 +106,17 @@ List of Linux Tools I put on almost every Linux / Debian host
 * 11/05/22 - Now the apps at the left are links to where you can get these tools (_happy holidays 🥳_)!
 
 ---
-## Sometimes using 2 apps together can be helpful
+## Sometimes using two apps together can be helpful
 
-* Using jc and json-tui together can produce some pretty results, the top of the picture shows the table view output of ```sudo jc -p lsof -i |json-tui```
-(the bottom showing the standard ```lsof -i```
+* Using jc and json-tui together can produce some pretty results, the top of the picture shows the table view output of
+```sudo jc -p lsof -i |json-tui```
+(the bottom showing the standard ```lsof -i```)
 image
 
-* Another powerful combination is using ripgrep with fzf for interactive file searching: ```rg --files | fzf```
+* Another powerful combination is using ripgrep with fzf for interactive file searching:
+```rg --files | fzf```
 
-* For terminal productivity, combining zoxide with starship creates an efficient navigation experience with informative prompts
+* For terminal productivity, combining zoxide with starship creates an efficient navigation experience with informative prompts.
 
 Sources
 [1] Top Embedded Linux Alternatives in 2025 - Slashdot https://slashdot.org/software/p/Embedded-Linux/alternatives
