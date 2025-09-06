@@ -118,12 +118,13 @@ image
 
 * For terminal productivity, combining zoxide with starship creates an efficient navigation experience with informative prompts.
 
-Sources
-[1] Top Embedded Linux Alternatives in 2025 - Slashdot https://slashdot.org/software/p/Embedded-Linux/alternatives
-[2] Top Linux Mint Alternatives in 2025 - Slashdot https://slashdot.org/software/p/Linux-Mint/alternatives
-[3] Top 10 Acme Text Editor Alternatives & Competitors in 2025 - G2 https://www.g2.com/products/acme-text-editor/competitors/alternatives
-[4] 12 Great Process Explorer Alternatives: Top Process Monitoring ... https://alternativeto.net/software/process-explorer/
-[5] 20 Best Linux Network Monitor Tools - 2025 (All Distributions) https://www.websentra.com/linux-network-monitor-software-and-tools/
-[6] Debian running on Android (March 2025 update) : r/linux - Reddit https://www.reddit.com/r/linux/comments/1j6iqek/debian_running_on_android_march_2025_update/
-[7] Security update for libxml2 SUSE-SU-2025:0348-1 https://www.suse.com/support/update/announcement/2025/suse-su-20250348-1/
-[8] Linux CLI Tool Upgrades/Alternatives : r/selfhosted - Reddit https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/
+---
+## Sources
+1. [Top Embedded Linux Alternatives in 2025 — Slashdot](https://slashdot.org/software/p/Embedded-Linux/alternatives)
+2. [Top Linux Mint Alternatives in 2025 — Slashdot](https://slashdot.org/software/p/Linux-Mint/alternatives)
+3. [Top 10 Acme Text Editor Alternatives & Competitors in 2025 — G2](https://www.g2.com/products/acme-text-editor/competitors/alternatives)
+4. [12 Great Process Explorer Alternatives — AlternativeTo](https://alternativeto.net/software/process-explorer/)
+5. [20 Best Linux Network Monitor Tools — 2025 — WebSentra](https://www.websentra.com/linux-network-monitor-software-and-tools/)
+6. [Debian running on Android (March 2025 update) — r/linux](https://www.reddit.com/r/linux/comments/1j6iqek/debian_running_on_android_march_2025_update/)
+7. [Security update for libxml2 SUSE-SU-2025:0348-1 — SUSE](https://www.suse.com/support/update/announcement/2025/suse-su-20250348-1/)
+8. [Linux CLI Tool Upgrades/Alternatives — r/selfhosted](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)
