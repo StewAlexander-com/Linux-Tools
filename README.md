@@ -123,6 +123,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**just**](https://github.com/casey/just) -> Command runner - a better alternative to make, with simpler syntax and no dependencies
 ---
 ## Updates
+* 12/02/25 - Added server/minimal mode (--server) and dry-run flag (--dry-run/-n) to installer; server mode excludes GUI tools for headless servers; dry-run mode previews installations without making changes
 * 12/02/25 - Renamed to Lazy-Linux-Tool-Installer.py for clarity; improved user experience with clearer output and friendly messages; refactored with Python 3 best practices (type hints, dataclasses, structured classes); added comprehensive test suite with platform-independent tests; fixed hanging issues and improved error handling
 * 12/02/25 - Verified all links and replaced unavailable chkservice; added quality tools: lazygit, delta, atuin, gping, hyperfine, just
 * 09/06/25 - README formatting and links improvements; improved ripgrep-all description
@@ -209,6 +210,36 @@ The script will:
 - ✅ Give you a nice summary at the end
 
 **That's it!** Perfect for lazy users who just want everything to work. 🚀
+
+#### Command-Line Options
+
+The installer supports several useful options:
+
+**Server/Minimal Mode** (`--server`):
+Perfect for server admins - only installs CLI tools, excludes GUI applications:
+```bash
+python3 Lazy-Linux-Tool-Installer.py --server
+```
+
+**Dry-Run Mode** (`--dry-run` or `-n`):
+Preview what would be installed without making any changes:
+```bash
+python3 Lazy-Linux-Tool-Installer.py --dry-run
+# or
+python3 Lazy-Linux-Tool-Installer.py -n
+```
+
+**Combined Usage**:
+Preview a server installation before actually installing:
+```bash
+python3 Lazy-Linux-Tool-Installer.py --server --dry-run
+```
+
+**Help**:
+See all available options:
+```bash
+python3 Lazy-Linux-Tool-Installer.py --help
+```
 
 ---
 
