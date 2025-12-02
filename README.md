@@ -22,6 +22,7 @@ List of Linux Tools I put on almost every Linux / Debian host
     - [Misc CLI Terminal Apps](#misc-cli-terminal-apps)
   - [Updates](#updates)
   - [Installation](#installation)
+    - [Command-Line Options](#command-line-options)
     - [Option 1: One-Liner (Easiest for Lazy Users) 🚀](#option-1-one-liner-easiest-for-lazy-users-)
     - [Option 2: Download and Run Separately](#option-2-download-and-run-separately)
     - [Option 3: Clone the Repository](#option-3-clone-the-repository)
@@ -137,6 +138,36 @@ List of Linux Tools I put on almost every Linux / Debian host
 
 If you just want to install these tools all at once, I created a **Lazy-Linux-Tool-Installer** to do it automatically. It checks which tools you already have, installs the missing ones, and organizes everything by category - perfect for lazy users who want everything set up with minimal effort!
 
+### Command-Line Options
+
+The installer supports several useful options:
+
+**Server/Minimal Mode** (`--server`):
+Perfect for server admins - only installs CLI tools, excludes GUI applications:
+```bash
+python3 Lazy-Linux-Tool-Installer.py --server
+```
+
+**Dry-Run Mode** (`--dry-run` or `-n`):
+Preview what would be installed without making any changes:
+```bash
+python3 Lazy-Linux-Tool-Installer.py --dry-run
+# or
+python3 Lazy-Linux-Tool-Installer.py -n
+```
+
+**Combined Usage**:
+Preview a server installation before actually installing:
+```bash
+python3 Lazy-Linux-Tool-Installer.py --server --dry-run
+```
+
+**Help**:
+See all available options:
+```bash
+python3 Lazy-Linux-Tool-Installer.py --help
+```
+
 ### Option 1: One-Liner (Easiest for Lazy Users) 🚀
 
 Just copy and paste this into your terminal:
@@ -210,36 +241,6 @@ The script will:
 - ✅ Give you a nice summary at the end
 
 **That's it!** Perfect for lazy users who just want everything to work. 🚀
-
-#### Command-Line Options
-
-The installer supports several useful options:
-
-**Server/Minimal Mode** (`--server`):
-Perfect for server admins - only installs CLI tools, excludes GUI applications:
-```bash
-python3 Lazy-Linux-Tool-Installer.py --server
-```
-
-**Dry-Run Mode** (`--dry-run` or `-n`):
-Preview what would be installed without making any changes:
-```bash
-python3 Lazy-Linux-Tool-Installer.py --dry-run
-# or
-python3 Lazy-Linux-Tool-Installer.py -n
-```
-
-**Combined Usage**:
-Preview a server installation before actually installing:
-```bash
-python3 Lazy-Linux-Tool-Installer.py --server --dry-run
-```
-
-**Help**:
-See all available options:
-```bash
-python3 Lazy-Linux-Tool-Installer.py --help
-```
 
 ---
 
