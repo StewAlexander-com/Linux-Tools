@@ -12,6 +12,7 @@ build/
 eget
 *.exe
 *.bin
+# Note: validate_*.py scripts are kept in repo for validation purposes
 
 # IDE
 .vscode/

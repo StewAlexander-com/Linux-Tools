@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Linux Tools Installer - Desktop Edition
-Installs tools from README.md with proper system checks and user consent.
+Lazy Linux Tool Installer
+Automatically installs all Linux tools from README.md - perfect for lazy users!
+Just run it and it handles everything: checking, installing, and organizing tools.
 """
 
 import subprocess
@@ -86,13 +87,14 @@ class Installer:
             print(f"Command timed out after {timeout}s: {' '.join(cmd)}")
             return subprocess.CompletedProcess(cmd, 124)
         except subprocess.CalledProcessError as e:
+            # Return CompletedProcess with actual error code for consistency
             print(f"Error running command: {' '.join(cmd)}")
             print(f"Error: {e}")
-            return e
+            return subprocess.CompletedProcess(cmd, e.returncode)
         except FileNotFoundError:
-            # Command missing from PATH - return error code without crashing
+            # Command missing from PATH - use standard exit code 127
             print(f"Command not found: {cmd[0]}")
-            return subprocess.CompletedProcess(cmd, 1)
+            return subprocess.CompletedProcess(cmd, 127)
     
     @staticmethod
     def install_via_apt(package: str) -> bool:
@@ -405,17 +407,19 @@ class ToolManager:
 
 
 def get_user_consent() -> bool:
-    """Get user consent once upfront."""
+    """Get user consent once upfront - simple and clear for lazy users."""
     print("\n" + "="*70)
-    print("Linux Tools Installer - Desktop Edition")
+    print("🚀 Lazy Linux Tool Installer")
     print("="*70)
-    print("\nThis script will check and install Linux tools from README.md")
-    print("You will be prompted for sudo password when needed.")
-    print("\nThe script will:")
-    print("  • Check which tools are already installed")
-    print("  • Install missing tools using appropriate methods (apt, pip, eget, snap)")
-    print("  • Skip tools that are already installed")
-    print("\n" + "="*70)
+    print("\nThis script will automatically install all Linux tools from README.md")
+    print("Perfect for lazy users - just say 'yes' and it handles everything!")
+    print("\nWhat it does:")
+    print("  ✓ Checks which tools you already have")
+    print("  ✓ Installs missing tools automatically (apt, pip, eget, snap)")
+    print("  ✓ Skips tools that are already installed")
+    print("  ✓ Organizes everything by category")
+    print("\nYou'll be prompted for your sudo password when needed.")
+    print("="*70)
     
     # Limit retries to prevent infinite loops on invalid input
     max_attempts = 5
@@ -478,12 +482,12 @@ def main():
     failed_count = 0
     
     print("\n" + "="*70)
-    print("Checking and installing tools...")
+    print("🔍 Checking and installing tools...")
     print("="*70 + "\n")
     
     # Process tools by category
     for category, tools in tools_by_category.items():
-        print(f"\n[{category}]")
+        print(f"\n📦 [{category}]")
         print("-" * 70)
         
         # Sort alphabetically for consistent output
@@ -500,19 +504,25 @@ def main():
                     print(f"  ✗ {tool.name} installation failed")
                     failed_count += 1
     
-    # Summary
+    # Summary - clear and friendly for lazy users
     print("\n" + "="*70)
-    print("Installation Summary")
+    print("✨ Installation Complete!")
     print("="*70)
-    print(f"Already installed: {skipped_count}")
-    print(f"Newly installed:   {installed_count}")
-    print(f"Failed:            {failed_count}")
+    print(f"✓ Already installed: {skipped_count}")
+    print(f"✓ Newly installed:   {installed_count}")
+    if failed_count > 0:
+        print(f"⚠ Failed:            {failed_count}")
+    else:
+        print(f"✓ Failed:            {failed_count}")
     print("="*70)
     
     if failed_count > 0:
-        print("\nSome tools failed to install. Check the output above for details.")
-        print("Some tools may require manual installation or different methods.")
+        print("\n⚠ Some tools failed to install. Check the output above for details.")
+        print("   Some tools may require manual installation or different methods.")
+    else:
+        print("\n🎉 All tools installed successfully! You're all set!")
     
+    print("\n💡 Tip: You can run this script again anytime to check for updates.")
     input("\nPress Enter to exit...")
     sys.exit(0)
 

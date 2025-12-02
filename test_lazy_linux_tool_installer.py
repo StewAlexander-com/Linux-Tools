@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test suite for Desktop-Linux-Tools.py
+Test suite for Lazy-Linux-Tool-Installer.py
 Non-invasive tests using mocks to avoid actual system modifications.
 Platform-independent - works on Mac, Linux, and Windows.
 """
@@ -16,8 +16,8 @@ import shutil
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import importlib.util
 spec = importlib.util.spec_from_file_location(
-    "desktop_linux_tools",
-    os.path.join(os.path.dirname(__file__), "Desktop-Linux-Tools.py")
+    "lazy_linux_tool_installer",
+    os.path.join(os.path.dirname(__file__), "Lazy-Linux-Tool-Installer.py")
 )
 dlt = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(dlt)
@@ -124,12 +124,22 @@ class TestInstaller(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
     
     @patch.object(dlt.subprocess, 'run')
+    def test_run_command_called_process_error(self, mock_run):
+        """Test command execution when CalledProcessError is raised."""
+        error = subprocess.CalledProcessError(5, ['test', 'cmd'])
+        mock_run.side_effect = error
+        with patch('builtins.print'):  # Suppress print output
+            result = dlt.Installer.run_command(['test', 'cmd'])
+        self.assertEqual(result.returncode, 5)  # Should return the error's return code
+        self.assertIsInstance(result, subprocess.CompletedProcess)
+    
+    @patch.object(dlt.subprocess, 'run')
     def test_run_command_file_not_found(self, mock_run):
         """Test command execution when command not found."""
         mock_run.side_effect = FileNotFoundError("Command not found")
         with patch('builtins.print'):  # Suppress print output
             result = dlt.Installer.run_command(['nonexistent'])
-        self.assertEqual(result.returncode, 1)  # FileNotFoundError returns 1 per implementation
+        self.assertEqual(result.returncode, 127)  # Standard exit code for command not found
         # CompletedProcess defaults to None for stdout/stderr when not specified
         self.assertIsNone(result.stdout)
         self.assertIsNone(result.stderr)

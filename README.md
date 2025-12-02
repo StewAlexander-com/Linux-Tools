@@ -21,6 +21,7 @@ List of Linux Tools I put on almost every Linux / Debian host
     - [Network-Related Apps](#network-related-apps)
     - [Misc CLI Terminal Apps](#misc-cli-terminal-apps)
   - [Updates](#updates)
+  - [Quick Start (For Lazy Users)](#quick-start-for-lazy-users)
   - [Testing](#testing)
     - [Running Tests](#running-tests)
     - [Test Results](#test-results)
@@ -117,7 +118,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**just**](https://github.com/casey/just) -> Command runner - a better alternative to make, with simpler syntax and no dependencies
 ---
 ## Updates
-* 12/02/25 - Refactored Desktop-Linux-Tools.py with Python 3 best practices (type hints, dataclasses, structured classes); added comprehensive test suite with platform-independent tests; fixed hanging issues and improved error handling
+* 12/02/25 - Renamed to Lazy-Linux-Tool-Installer.py for clarity; improved user experience with clearer output and friendly messages; refactored with Python 3 best practices (type hints, dataclasses, structured classes); added comprehensive test suite with platform-independent tests; fixed hanging issues and improved error handling
 * 12/02/25 - Verified all links and replaced unavailable chkservice; added quality tools: lazygit, delta, atuin, gping, hyperfine, just
 * 09/06/25 - README formatting and links improvements; improved ripgrep-all description
 * 03/18/25 - Major 2025 update with latest alternatives: eza (exa successor), neovim, tldr, zoxide, starship, dust, nala, fastfetch
@@ -126,25 +127,52 @@ List of Linux Tools I put on almost every Linux / Debian host
 * 11/05/22 - Now the apps at the left are links to where you can get these tools (_happy holidays 🥳_)!
 
 ---
+## Quick Start (For Lazy Users)
+
+Just run the installer and it handles everything:
+
+```bash
+python3 Lazy-Linux-Tool-Installer.py
+```
+
+Or make it executable and run directly:
+
+```bash
+chmod +x Lazy-Linux-Tool-Installer.py
+./Lazy-Linux-Tool-Installer.py
+```
+
+The script will:
+- ✅ Check your system compatibility
+- ✅ Show you what it will install
+- ✅ Ask for your confirmation (just type 'y')
+- ✅ Install all missing tools automatically
+- ✅ Skip tools you already have
+- ✅ Give you a nice summary at the end
+
+**That's it!** Perfect for lazy users who just want everything to work. 🚀
+
+---
+
 ## Testing
 
-The `Desktop-Linux-Tools.py` script includes a comprehensive test suite (`test_desktop_linux_tools.py`) that ensures code quality and reliability.
+The `Lazy-Linux-Tool-Installer.py` script includes a comprehensive test suite (`test_lazy_linux_tool_installer.py`) that ensures code quality and reliability.
 
 ### Running Tests
 
 To run all tests:
 ```bash
-python3 -m unittest test_desktop_linux_tools
+python3 -m unittest test_lazy_linux_tool_installer
 ```
 
 To run with verbose output:
 ```bash
-python3 -m unittest test_desktop_linux_tools -v
+python3 -m unittest test_lazy_linux_tool_installer -v
 ```
 
 To run a specific test class:
 ```bash
-python3 -m unittest test_desktop_linux_tools.TestSystemChecker -v
+python3 -m unittest test_lazy_linux_tool_installer.TestSystemChecker -v
 ```
 
 ### Test Results
