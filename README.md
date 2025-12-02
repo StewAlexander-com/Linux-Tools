@@ -22,12 +22,6 @@ List of Linux Tools I put on almost every Linux / Debian host
     - [Misc CLI Terminal Apps](#misc-cli-terminal-apps)
   - [Updates](#updates)
   - [Installation](#installation)
-    - [Command-Line Options](#command-line-options)
-    - [Option 1: One-Liner (Easiest for Lazy Users) 🚀](#option-1-one-liner-easiest-for-lazy-users-)
-    - [Option 2: Download and Run Separately](#option-2-download-and-run-separately)
-    - [Option 3: Clone the Repository](#option-3-clone-the-repository)
-    - [Option 4: Direct Download from GitHub](#option-4-direct-download-from-github)
-    - [Running the Installer](#running-the-installer)
   - [Testing](#testing)
     - [Running Tests](#running-tests)
     - [Test Results](#test-results)
@@ -138,109 +132,39 @@ List of Linux Tools I put on almost every Linux / Debian host
 
 If you just want to install these tools all at once, I created a **Lazy-Linux-Tool-Installer** to do it automatically. It checks which tools you already have, installs the missing ones, and organizes everything by category - perfect for lazy users who want everything set up with minimal effort!
 
-### Command-Line Options
-
-The installer supports several useful options:
-
-**Server/Minimal Mode** (`--server`):
-Perfect for server admins - only installs CLI tools, excludes GUI applications:
-```bash
-python3 Lazy-Linux-Tool-Installer.py --server
-```
-
-**Dry-Run Mode** (`--dry-run` or `-n`):
-Preview what would be installed without making any changes:
-```bash
-python3 Lazy-Linux-Tool-Installer.py --dry-run
-# or
-python3 Lazy-Linux-Tool-Installer.py -n
-```
-
-**Combined Usage**:
-Preview a server installation before actually installing:
-```bash
-python3 Lazy-Linux-Tool-Installer.py --server --dry-run
-```
-
-**Help**:
-See all available options:
-```bash
-python3 Lazy-Linux-Tool-Installer.py --help
-```
-
-### Option 1: One-Liner (Easiest for Lazy Users) 🚀
-
-Just copy and paste this into your terminal:
+### Quick Install (One-Liner) 🚀
 
 ```bash
 curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/main/Lazy-Linux-Tool-Installer.py && chmod +x Lazy-Linux-Tool-Installer.py && python3 Lazy-Linux-Tool-Installer.py
 ```
 
-This will:
-1. Download the installer script
-2. Make it executable
-3. Run it immediately
+### Download and Run
 
-### Option 2: Download and Run Separately
-
-Download the script:
 ```bash
+# Download
 curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/main/Lazy-Linux-Tool-Installer.py
-```
+# Or: wget https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/main/Lazy-Linux-Tool-Installer.py
 
-Or using wget:
-```bash
-wget https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/main/Lazy-Linux-Tool-Installer.py
-```
-
-Make it executable and run:
-```bash
+# Make executable and run
 chmod +x Lazy-Linux-Tool-Installer.py
 python3 Lazy-Linux-Tool-Installer.py
 ```
 
-### Option 3: Clone the Repository
+### Options
 
-If you want the full repository (including README and tests):
+- **Default**: Installs all tools (GUI + CLI)
+- **`--server`**: Server mode - only CLI tools (no GUI apps)
+- **`--dry-run` or `-n`**: Preview what would be installed (no changes)
+- **`--help`**: Show all options
+
+**Examples:**
 ```bash
-git clone https://github.com/StewAlexander-com/Linux-Tools.git
-cd Linux-Tools
-python3 Lazy-Linux-Tool-Installer.py
+python3 Lazy-Linux-Tool-Installer.py --server          # Server install
+python3 Lazy-Linux-Tool-Installer.py --dry-run         # Preview
+python3 Lazy-Linux-Tool-Installer.py --server --dry-run # Preview server install
 ```
 
-### Option 4: Direct Download from GitHub
-
-1. Visit: https://github.com/StewAlexander-com/Linux-Tools
-2. Click on `Lazy-Linux-Tool-Installer.py`
-3. Click the "Raw" button
-4. Save the file (or copy/paste into a new file)
-5. Make it executable: `chmod +x Lazy-Linux-Tool-Installer.py`
-6. Run: `python3 Lazy-Linux-Tool-Installer.py`
-
-### Running the Installer
-
-Once you have the script, just run it:
-
-```bash
-python3 Lazy-Linux-Tool-Installer.py
-```
-
-Or make it executable and run directly:
-
-```bash
-chmod +x Lazy-Linux-Tool-Installer.py
-./Lazy-Linux-Tool-Installer.py
-```
-
-The script will:
-- ✅ Check your system compatibility
-- ✅ Show you what it will install
-- ✅ Ask for your confirmation (just type 'y')
-- ✅ Install all missing tools automatically
-- ✅ Skip tools you already have
-- ✅ Give you a nice summary at the end
-
-**That's it!** Perfect for lazy users who just want everything to work. 🚀
+The script will check your system, show what it will install, ask for confirmation, then install everything automatically. Perfect for lazy users! 🚀
 
 ---
 
