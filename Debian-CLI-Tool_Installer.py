@@ -20,7 +20,7 @@ from shutil import which
 
 file_pass = 'a'
 
-#Check if the system is debian, else halt program
+# Verify Debian-based system via apt-get presence
 is_debian = which("apt-get")
 
 if is_debian:
@@ -61,7 +61,7 @@ else:
 
 
 
-#Check if these programs exist [chkservice,htop,nnn,ncdu,network-manager,ne,hping3,nmap,lynis,apt-show-versions,vim,fish,tig,bmon,dnsutils,most], if not install them
+# Check each program in PATH; install missing ones via apt
 def check_programs():
     programs = ['chkservice','htop','nnn','ncdu','network-manager','ne','hping3','nmap','lynis','apt-show-versions','vim','fish','tig','bmon','dnsutils','most','curl']
     os.system('sudo apt update')
@@ -73,7 +73,7 @@ def check_programs():
             print("- \"" + program + '\" is installed')
             
 
-# Check if program in list programs appears to be available in apt, if so download it
+# Verify package exists in apt cache before installing
 def install_program(program):
     try:
         output = subprocess.run(["apt-cache", "search",program], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -86,21 +86,19 @@ def install_program(program):
         print(f"Error: {e}")
 
 
-#Check if eget is installed, if not install eget
+# Install eget if missing; downloads to current dir, then moves to /usr/bin
 def eget_installer ():
-#check if eget exists as a program
     eget_exists = os.path.exists('/usr/bin/eget')
     if not eget_exists:
        print("Eget does not exist, installing",'\n') 
-       #install eget
+       # Pipe curl output directly to sh for installation
        os.system("curl https://zyedidia.github.io/eget.sh | sh")
-       #move eget to /usr/bin
        os.system("sudo mv eget /usr/bin/eget")
     else:
         print("- \"eget\" is is installed",'\n')
         pass
 
-#Install eget programs from github source
+# Download binaries from GitHub releases using eget
 def eget_install():
     if eget_program == 'lsd':
         os.system("eget Peltoche/lsd")
@@ -112,8 +110,7 @@ def eget_install():
         print('Program not found\n')
 
 
-#Copies the file downloaded via eget to the /usr/bin/
-
+# Move eget-downloaded binaries from current dir to PATH
 def eget_copy():
     for eget_program in eget_programs:
         if os.path.exists(eget_program):

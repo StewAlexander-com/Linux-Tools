@@ -82,13 +82,15 @@ class Installer:
                 timeout=timeout
             )
         except subprocess.TimeoutExpired:
+            # Return CompletedProcess with timeout exit code (124) to avoid crashes
             print(f"Command timed out after {timeout}s: {' '.join(cmd)}")
-            return subprocess.CompletedProcess(cmd, 124)  # 124 is timeout exit code
+            return subprocess.CompletedProcess(cmd, 124)
         except subprocess.CalledProcessError as e:
             print(f"Error running command: {' '.join(cmd)}")
             print(f"Error: {e}")
             return e
         except FileNotFoundError:
+            # Command missing from PATH - return error code without crashing
             print(f"Command not found: {cmd[0]}")
             return subprocess.CompletedProcess(cmd, 1)
     
@@ -138,7 +140,7 @@ class Installer:
         )
         
         if result.returncode == 0 and os.path.exists(binary_name):
-            # Move to /usr/local/bin (better than /usr/bin for user-installed tools)
+            # eget downloads to current dir; move to PATH for system-wide access
             move_cmd = ["sudo", "mv", binary_name, "/usr/local/bin/"]
             move_result = Installer.run_command(move_cmd)
             return move_result.returncode == 0
@@ -148,10 +150,11 @@ class Installer:
     def install_eget() -> bool:
         """Install eget if not present."""
         print("Installing eget...")
+        # Timeout flags prevent hanging on slow networks; pipe directly to sh for install
         result = Installer.run_command(
             ["sh", "-c", "curl --connect-timeout 10 --max-time 30 https://zyedidia.github.io/eget.sh | sh"],
             capture_output=True,
-            timeout=60  # Longer timeout for network operations
+            timeout=60
         )
         
         if result.returncode == 0 and os.path.exists("eget"):
@@ -173,6 +176,7 @@ class Installer:
     @staticmethod
     def check_apt_available(package: str) -> bool:
         """Check if package is available in apt repositories."""
+        # Regex anchors (^$) ensure exact match, not substring
         result = Installer.run_command(
             ["apt-cache", "search", "--names-only", "^" + package + "$"],
             capture_output=True
@@ -413,6 +417,7 @@ def get_user_consent() -> bool:
     print("  • Skip tools that are already installed")
     print("\n" + "="*70)
     
+    # Limit retries to prevent infinite loops on invalid input
     max_attempts = 5
     attempts = 0
     
@@ -431,6 +436,7 @@ def get_user_consent() -> bool:
                     print("Maximum attempts reached. Defaulting to 'no'.")
                     return False
         except (EOFError, KeyboardInterrupt):
+            # Handle Ctrl+C and EOF gracefully without crashing
             print("\n\nInterrupted by user. Exiting.")
             return False
     
@@ -480,6 +486,7 @@ def main():
         print(f"\n[{category}]")
         print("-" * 70)
         
+        # Sort alphabetically for consistent output
         for tool in sorted(tools, key=lambda t: t.name):
             if ToolManager.check_tool_installed(tool):
                 print(f"✓ {tool.name:30} - Already installed")
