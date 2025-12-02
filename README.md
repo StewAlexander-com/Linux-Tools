@@ -71,6 +71,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**nmap**](https://nmap.org) -> Network scanner -> [_Check out **ncrack** for a network authentication tool_](https://github.com/nmap/ncrack)
 - [**bmon**](https://github.com/tgraf/bmon) -> TUI network bandwidth monitor
 - [**mtr**](https://www.bitwizard.nl/mtr/) -> Traceroute and ping in one, great for network troubleshooting
+- [**gping**](https://github.com/orf/gping) -> Ping with a graph - visual ping tool that shows latency over time
 - [**dog**](https://github.com/ogham/dog) -> ``` Dig ```
 - [**neoss**](https://github.com/PabloLec/neoss) -- ```ss```
 - [**zabbix**](https://www.zabbix.com) -> Free monitoring system for networks, servers, and applications that can monitor on-premises resources and cloud services [5](https://www.websentra.com/linux-network-monitor-software-and-tools/)
@@ -88,7 +89,10 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**fish**](https://fishshell.com) -> "friendly interactive shell" beats the pants off of bash, ([Fishshell.com](https://fishshell.com))
 - [**starship**](https://starship.rs) -> Customizable cross-shell prompt with extensive customization options [8](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)
 - [**zoxide**](https://github.com/ajeetdsouza/zoxide) -> Smarter cd command that learns your habits and helps you navigate faster [8](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)
+- [**atuin**](https://github.com/atuinsh/atuin) -> Magical shell history - search, sync, and backup your command history across machines
 - [**tig**](https://github.com/jonas/tig) -> TUI client for git (jonas/tig on Github)
+- [**lazygit**](https://github.com/jesseduffield/lazygit) -> Simple terminal UI for git commands, great for interactive git workflows (jesseduffield/lazygit on Github)
+- [**delta**](https://github.com/dandavison/delta) -> Syntax-highlighting pager for git, diff, grep, and blame output - makes git diffs beautiful
 - [**miller**](https://github.com/johnkerl/miller) -> Does about everything awk and sed does for json/csv/etc files (johnkerl/miller on Github) 
 - [**most**](https://www.jedsoft.org/most/) -> Linux pager, better than "less" or "more"
 - [**tldr**](https://tldr.sh) -> Simplified man pages that just tell you what you need to know with practical examples [8](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)
@@ -104,8 +108,11 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**fzf**](https://github.com/junegunn/fzf) -> A command-line fuzzy finder that enhances search and navigation in the terminal. Ideal for quickly finding files, command history, git, and more (junegunn/fzf on GitHub)
 - [**fastfetch**](https://github.com/fastfetch-cli/fastfetch) -> Faster, more feature-rich neofetch alternative for system information display [8](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)
 - [**pandoc**](https://pandoc.org) -> Universal document converter that can convert between various markup formats [8](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)
+- [**hyperfine**](https://github.com/sharkdp/hyperfine) -> Command-line benchmarking tool - measure and compare command execution times
+- [**just**](https://github.com/casey/just) -> Command runner - a better alternative to make, with simpler syntax and no dependencies
 ---
 ## Updates
+* 12/02/25 - Verified all links and replaced unavailable chkservice; added quality tools: lazygit, delta, atuin, gping, hyperfine, just
 * 09/06/25 - README formatting and links improvements; improved ripgrep-all description
 * 03/18/25 - Major 2025 update with latest alternatives: eza (exa successor), neovim, tldr, zoxide, starship, dust, nala, fastfetch
 * 11/19/23 - Updated Readme for consistency and readability
