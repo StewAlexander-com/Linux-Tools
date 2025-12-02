@@ -21,6 +21,7 @@ List of Linux Tools I put on almost every Linux / Debian host
     - [Network-Related Apps](#network-related-apps)
     - [Misc CLI Terminal Apps](#misc-cli-terminal-apps)
   - [Updates](#updates)
+  - [Installation](#installation)
   - [Quick Start (For Lazy Users)](#quick-start-for-lazy-users)
   - [Testing](#testing)
     - [Running Tests](#running-tests)
@@ -125,6 +126,58 @@ List of Linux Tools I put on almost every Linux / Debian host
 * 11/19/23 - Updated Readme for consistency and readability
 * 01/29/23 - Huge improvements to the linux installer, added ```eget```
 * 11/05/22 - Now the apps at the left are links to where you can get these tools (_happy holidays 🥳_)!
+
+---
+## Installation
+
+### Option 1: One-Liner (Easiest for Lazy Users) 🚀
+
+Just copy and paste this into your terminal:
+
+```bash
+curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/main/Lazy-Linux-Tool-Installer.py && chmod +x Lazy-Linux-Tool-Installer.py && python3 Lazy-Linux-Tool-Installer.py
+```
+
+This will:
+1. Download the installer script
+2. Make it executable
+3. Run it immediately
+
+### Option 2: Download and Run Separately
+
+Download the script:
+```bash
+curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/main/Lazy-Linux-Tool-Installer.py
+```
+
+Or using wget:
+```bash
+wget https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/main/Lazy-Linux-Tool-Installer.py
+```
+
+Make it executable and run:
+```bash
+chmod +x Lazy-Linux-Tool-Installer.py
+python3 Lazy-Linux-Tool-Installer.py
+```
+
+### Option 3: Clone the Repository
+
+If you want the full repository (including README and tests):
+```bash
+git clone https://github.com/StewAlexander-com/Linux-Tools.git
+cd Linux-Tools
+python3 Lazy-Linux-Tool-Installer.py
+```
+
+### Option 4: Direct Download from GitHub
+
+1. Visit: https://github.com/StewAlexander-com/Linux-Tools
+2. Click on `Lazy-Linux-Tool-Installer.py`
+3. Click the "Raw" button
+4. Save the file (or copy/paste into a new file)
+5. Make it executable: `chmod +x Lazy-Linux-Tool-Installer.py`
+6. Run: `python3 Lazy-Linux-Tool-Installer.py`
 
 ---
 ## Quick Start (For Lazy Users)
