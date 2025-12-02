@@ -22,6 +22,10 @@ List of Linux Tools I put on almost every Linux / Debian host
     - [Misc CLI Terminal Apps](#misc-cli-terminal-apps)
   - [Updates](#updates)
   - [Testing](#testing)
+    - [Running Tests](#running-tests)
+    - [Test Results](#test-results)
+    - [Test Coverage](#test-coverage)
+    - [Platform Independence](#platform-independence)
   - [Sometimes using two apps together can be helpful](#sometimes-using-two-apps-together-can-be-helpful)
   - [Sources](#sources)
 
@@ -54,15 +58,15 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**neovim**](https://neovim.io) -> Text editor that can be configured to mirror VS Code, with a lot of plugins and extensibility [8](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)
 - [**vimrc**](https://github.com/amix/vimrc) -> config script for vim (from Github amix/vimrc) -> [⭐ _Try out **vim_awesome** based on this_](https://github.com/ArthurChiao/vim_awesome)
 - [**bat**](https://github.com/sharkdp/bat) -> "cat" clone with syntax highlighting, git integration and other features [8](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)
-- [**sublime text**](https://www.sublimetext.com) -> Sophisticated text editor for code, markup and prose with slick UI and amazing performance [3](https://www.g2.com/products/acme-text-editor/competitors/alternatives)
+- [**sublime text**](https://www.sublimetext.com) -> Sophisticated text editor for code, markup and prose with slick UI and amazing performance
 
 ---
 ### Process Explorers 
 - [**glances**](https://nicolargo.github.io/glances/) -> Lots of system info in one "glance", cross-platform (available for Windows) --_installs python_
-- [🌟 **htop**](https://htop.dev) -> Supercharged _top_ clone — _personal favorite_ [4](https://alternativeto.net/software/process-explorer/)
+- [🌟 **htop**](https://htop.dev) -> Supercharged _top_ clone — _personal favorite_
 - [**btop**](https://github.com/aristocratos/btop) -> TUI CLI graphics, fast, less dependencies than _Glances_ [8](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)
 - [**bottom**](https://github.com/ClementTsang/bottom) -> A _**btop**_ inspired process monitor, _cross platform_
-- [**system informer**](https://www.systeminformer.com/) -> Official successor to Process Hacker - a powerful, multi-purpose tool to monitor system resources and detect malware [4](https://alternativeto.net/software/process-explorer/)
+- [**system informer**](https://www.systeminformer.com/) -> Official successor to Process Hacker - a powerful, multi-purpose tool to monitor system resources and detect malware
 
 ---
 ### Network-Related Apps
@@ -75,16 +79,16 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**gping**](https://github.com/orf/gping) -> Ping with a graph - visual ping tool that shows latency over time
 - [**dog**](https://github.com/ogham/dog) -> ``` Dig ```
 - [**neoss**](https://github.com/PabloLec/neoss) -- ```ss```
-- [**zabbix**](https://www.zabbix.com) -> Free monitoring system for networks, servers, and applications that can monitor on-premises resources and cloud services [5](https://www.websentra.com/linux-network-monitor-software-and-tools/)
+- [**zabbix**](https://www.zabbix.com) -> Free monitoring system for networks, servers, and applications that can monitor on-premises resources and cloud services
 ---
 ### Misc CLI Terminal Apps
 
-- [**systemctl**](https://www.freedesktop.org/software/systemd/man/systemctl.html) -> Built-in Linux _**systemd**_ service manager (use `systemctl status`, `systemctl list-units`, etc. for service management) - _Note: chkservice (TUI wrapper) is no longer available_
+- [**systemctl**](https://www.freedesktop.org/software/systemd/man/latest/systemctl.html) -> Built-in Linux _**systemd**_ service manager (use `systemctl status`, `systemctl list-units`, etc. for service management) - _Note: chkservice (TUI wrapper) is no longer available_
 - [**ncdu**](https://dev.yorhel.nl/ncdu) -> Terminal disk and folder space viewer
 - [**dust**](https://github.com/bootandy/dust) -> More intuitive version of du with bar chart visualization [8](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)
 - [**duf**](https://github.com/muesli/duf) -> Disk utility TUI with pretty graphs (a better ```df```)
 - [**lynis**](https://cisofy.com/lynis/) -> Linux security auditing by _**CISOFY**_
-- [**apt-show-versions**](https://packages.ubuntu.com/source/focal/apt-show-versions) -> shows package versions / if needing upgrade ("$ apt-show-versions -u")
+- [**apt-show-versions**](https://packages.debian.org/apt-show-versions) -> shows package versions / if needing upgrade ("$ apt-show-versions -u")
 - [**nala**](https://gitlab.com/volian/nala) -> Frontend for apt with a more user-friendly interface and colored output [8](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)
 - [**fd**](https://github.com/sharkdp/fd) -> Linux find clone with saner default options (PC, MAC, Linux, Debian, etc) (sharkdp/fd on Github)
 - [**fish**](https://fishshell.com) -> "friendly interactive shell" beats the pants off of bash, ([Fishshell.com](https://fishshell.com))
@@ -189,9 +193,6 @@ image
 ## Sources
 1. [Top Embedded Linux Alternatives in 2025 — Slashdot](https://slashdot.org/software/p/Embedded-Linux/alternatives)
 2. [Top Linux Mint Alternatives in 2025 — Slashdot](https://slashdot.org/software/p/Linux-Mint/alternatives)
-3. [Top 10 Acme Text Editor Alternatives & Competitors in 2025 — G2](https://www.g2.com/products/acme-text-editor/competitors/alternatives)
-4. [12 Great Process Explorer Alternatives — AlternativeTo](https://alternativeto.net/software/process-explorer/)
-5. [20 Best Linux Network Monitor Tools — 2025 — WebSentra](https://www.websentra.com/linux-network-monitor-software-and-tools/)
 6. [Debian running on Android (March 2025 update) — r/linux](https://www.reddit.com/r/linux/comments/1j6iqek/debian_running_on_android_march_2025_update/)
 7. [Security update for libxml2 SUSE-SU-2025:0348-1 — SUSE](https://www.suse.com/support/update/announcement/2025/suse-su-20250348-1/)
 8. [Linux CLI Tool Upgrades/Alternatives — r/selfhosted](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)
