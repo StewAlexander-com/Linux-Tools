@@ -22,6 +22,10 @@ List of Linux Tools I put on almost every Linux / Debian host
     - [Misc CLI Terminal Apps](#misc-cli-terminal-apps)
   - [Updates](#updates)
   - [Installation](#installation)
+    - [Option 1: One-Liner (Easiest for Lazy Users) 🚀](#option-1-one-liner-easiest-for-lazy-users-)
+    - [Option 2: Download and Run Separately](#option-2-download-and-run-separately)
+    - [Option 3: Clone the Repository](#option-3-clone-the-repository)
+    - [Option 4: Direct Download from GitHub](#option-4-direct-download-from-github)
   - [Quick Start (For Lazy Users)](#quick-start-for-lazy-users)
   - [Testing](#testing)
     - [Running Tests](#running-tests)
@@ -129,6 +133,8 @@ List of Linux Tools I put on almost every Linux / Debian host
 
 ---
 ## Installation
+
+If you just want to install these tools all at once, I created a **Lazy-Linux-Tool-Installer** to do it automatically. It checks which tools you already have, installs the missing ones, and organizes everything by category - perfect for lazy users who want everything set up with minimal effort!
 
 ### Option 1: One-Liner (Easiest for Lazy Users) 🚀
 
