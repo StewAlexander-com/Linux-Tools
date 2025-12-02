@@ -9,14 +9,20 @@ List of Linux Tools I put on almost every Linux / Debian host
 
 #### Table of Contents
   
-  * [Desktop GUI Apps](#desktop-gui-apps)
-  * [Terminal File Explorers](#terminal-file-explorers)
-  * [LS like Directory Viewers](#ls-like-directory-viewers)
-  * [Text Editors and Viewers](#text-editors-and-viewers)
-  * [Process Explorers](#process-explorers)
-  * [Network Related Apps](#network-related-apps)
-  * [Misc CLI Terminal Apps](#misc-cli-terminal-apps)
-  * [Software Installer App](#software-installer-app)
+- [Linux Tools: 2025 Edition](#linux-tools-2025-edition)
+  - [Use Eget to download apps from Github](#use-eget-to-download-apps-from-github)
+      - [Table of Contents](#table-of-contents)
+  - [What I (_typically_) Install](#what-i-typically-install)
+    - [Desktop GUI Apps](#desktop-gui-apps)
+    - [Terminal File Explorers](#terminal-file-explorers)
+    - [LS-like Directory Viewers](#ls-like-directory-viewers)
+    - [Text Editors and Viewers](#text-editors-and-viewers)
+    - [Process Explorers](#process-explorers)
+    - [Network-Related Apps](#network-related-apps)
+    - [Misc CLI Terminal Apps](#misc-cli-terminal-apps)
+  - [Updates](#updates)
+  - [Sometimes using two apps together can be helpful](#sometimes-using-two-apps-together-can-be-helpful)
+  - [Sources](#sources)
 
 ## What I (_typically_) Install
 
@@ -71,7 +77,7 @@ List of Linux Tools I put on almost every Linux / Debian host
 ---
 ### Misc CLI Terminal Apps
 
-- [**chkservice**](https://github.com/linuxenko/chkservice) -> TUI Linux _**systemd**_ service review from the terminal (_linuxenko/chkservice_ on Github)
+- [**systemctl**](https://www.freedesktop.org/software/systemd/man/systemctl.html) -> Built-in Linux _**systemd**_ service manager (use `systemctl status`, `systemctl list-units`, etc. for service management) - _Note: chkservice (TUI wrapper) is no longer available_
 - [**ncdu**](https://dev.yorhel.nl/ncdu) -> Terminal disk and folder space viewer
 - [**dust**](https://github.com/bootandy/dust) -> More intuitive version of du with bar chart visualization [8](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)
 - [**duf**](https://github.com/muesli/duf) -> Disk utility TUI with pretty graphs (a better ```df```)
