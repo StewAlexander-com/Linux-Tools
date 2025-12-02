@@ -9,6 +9,7 @@ import subprocess
 import os
 import sys
 import shutil
+import argparse
 from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass
 from enum import Enum
@@ -36,6 +37,7 @@ class Tool:
     requires_root: bool = True
     github_repo: Optional[str] = None  # For eget installations
     classic: bool = False  # For snap installations
+    requires_gui: bool = False  # Whether tool requires GUI (excluded in server mode)
 
 
 class SystemChecker:
@@ -193,21 +195,21 @@ class ToolManager:
     TOOLS: Dict[str, Tool] = {
         # Desktop GUI Apps
         "geany": Tool("geany", "geany", InstallMethod.APT, "geany",
-                     "GUI editor like notepad++", "Desktop GUI Apps"),
+                     "GUI editor like notepad++", "Desktop GUI Apps", requires_gui=True),
         "wireshark": Tool("wireshark", "wireshark", InstallMethod.APT, "wireshark",
-                         "Network packet reviewer", "Desktop GUI Apps"),
+                         "Network packet reviewer", "Desktop GUI Apps", requires_gui=True),
         "code": Tool("code", "code", InstallMethod.SNAP, "code",
-                    "Visual Studio Code", "Desktop GUI Apps", classic=True),
+                    "Visual Studio Code", "Desktop GUI Apps", classic=True, requires_gui=True),
         "guake": Tool("guake", "guake", InstallMethod.APT, "guake",
-                     "GUI terminal client", "Desktop GUI Apps"),
+                     "GUI terminal client", "Desktop GUI Apps", requires_gui=True),
         "tabby": Tool("tabby", "tabby", InstallMethod.EGET, "tabby",
                      "Modern terminal emulator", "Desktop GUI Apps",
-                     github_repo="Eugeny/tabby"),
+                     github_repo="Eugeny/tabby", requires_gui=True),
         
         # Terminal File Explorers
         "xplr": Tool("xplr", "xplr", InstallMethod.EGET, "xplr",
                     "Very graphical file explorer", "Terminal File Explorers",
-                    github_repo="sayanarijit/xplr"),
+                    github_repo="sayanarijit/xplr", requires_gui=True),
         "nnn": Tool("nnn", "nnn", InstallMethod.APT, "nnn",
                    "Efficient file explorer", "Terminal File Explorers"),
         "lf": Tool("lf", "lf", InstallMethod.EGET, "lf",
@@ -356,10 +358,13 @@ class ToolManager:
     }
     
     @staticmethod
-    def get_tools_by_category() -> Dict[str, List[Tool]]:
-        """Group tools by category."""
+    def get_tools_by_category(server_mode: bool = False) -> Dict[str, List[Tool]]:
+        """Group tools by category, optionally filtering out GUI tools for server mode."""
         categories: Dict[str, List[Tool]] = {}
         for tool in ToolManager.TOOLS.values():
+            # Skip GUI tools in server mode
+            if server_mode and tool.requires_gui:
+                continue
             if tool.category not in categories:
                 categories[tool.category] = []
             categories[tool.category].append(tool)
@@ -371,11 +376,27 @@ class ToolManager:
         return SystemChecker.has_command(tool.command)
     
     @staticmethod
-    def install_tool(tool: Tool) -> bool:
+    def install_tool(tool: Tool, dry_run: bool = False) -> bool:
         """Install a tool using its defined method."""
         if tool.method == InstallMethod.BUILTIN:
             print(f"✓ {tool.name} is built-in (no installation needed)")
             return True
+        
+        if dry_run:
+            # In dry-run mode, just show what would be done
+            method_str = tool.method.value
+            if tool.method == InstallMethod.APT:
+                print(f"[DRY RUN] Would install {tool.package} via apt")
+            elif tool.method == InstallMethod.PIP:
+                print(f"[DRY RUN] Would install {tool.package} via pip3")
+            elif tool.method == InstallMethod.SNAP:
+                classic_str = " (classic)" if tool.classic else ""
+                print(f"[DRY RUN] Would install {tool.package} via snap{classic_str}")
+            elif tool.method == InstallMethod.EGET:
+                print(f"[DRY RUN] Would install {tool.command} via eget from {tool.github_repo}")
+            elif tool.method == InstallMethod.MANUAL:
+                print(f"[DRY RUN] Would install {tool.name} manually")
+            return True  # Pretend success in dry-run mode
         
         if tool.method == InstallMethod.APT:
             if Installer.check_apt_available(tool.package):
@@ -406,19 +427,35 @@ class ToolManager:
         return False
 
 
-def get_user_consent() -> bool:
+def get_user_consent(server_mode: bool = False, dry_run: bool = False) -> bool:
     """Get user consent once upfront - simple and clear for lazy users."""
     print("\n" + "="*70)
     print("🚀 Lazy Linux Tool Installer")
     print("="*70)
+    
+    mode_info = []
+    if server_mode:
+        mode_info.append("🔧 SERVER MODE (CLI tools only, no GUI)")
+    if dry_run:
+        mode_info.append("👀 DRY RUN (preview only, no changes)")
+    
+    if mode_info:
+        print("\n" + " | ".join(mode_info))
+    
     print("\nThis script will automatically install all Linux tools from README.md")
     print("Perfect for lazy users - just say 'yes' and it handles everything!")
     print("\nWhat it does:")
     print("  ✓ Checks which tools you already have")
-    print("  ✓ Installs missing tools automatically (apt, pip, eget, snap)")
+    if dry_run:
+        print("  👀 Shows what would be installed (DRY RUN - no changes)")
+    else:
+        print("  ✓ Installs missing tools automatically (apt, pip, eget, snap)")
     print("  ✓ Skips tools that are already installed")
     print("  ✓ Organizes everything by category")
-    print("\nYou'll be prompted for your sudo password when needed.")
+    if server_mode:
+        print("  🔧 Excludes GUI tools (server-friendly)")
+    if not dry_run:
+        print("\nYou'll be prompted for your sudo password when needed.")
     print("="*70)
     
     # Limit retries to prevent infinite loops on invalid input
@@ -447,8 +484,11 @@ def get_user_consent() -> bool:
     return False
 
 
-def update_package_lists() -> bool:
+def update_package_lists(dry_run: bool = False) -> bool:
     """Update apt package lists."""
+    if dry_run:
+        print("\n[DRY RUN] Would update package lists (apt-get update)")
+        return True
     print("\nUpdating package lists...")
     result = Installer.run_command(
         ["sudo", "apt-get", "update"],
@@ -457,8 +497,40 @@ def update_package_lists() -> bool:
     return result.returncode == 0
 
 
+def parse_arguments() -> argparse.Namespace:
+    """Parse command-line arguments."""
+    parser = argparse.ArgumentParser(
+        description="Lazy Linux Tool Installer - Automatically install Linux tools from README.md",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  %(prog)s                    # Install all tools (default)
+  %(prog)s --server           # Install only CLI tools (no GUI)
+  %(prog)s --dry-run          # Preview what would be installed
+  %(prog)s --server --dry-run # Preview server installation
+        """
+    )
+    parser.add_argument(
+        "--server",
+        action="store_true",
+        help="Server/minimal mode: only install CLI tools (exclude GUI applications)"
+    )
+    parser.add_argument(
+        "--dry-run",
+        "-n",
+        action="store_true",
+        help="Dry run mode: show what would be installed without making changes"
+    )
+    return parser.parse_args()
+
+
 def main():
     """Main execution function."""
+    # Parse command-line arguments
+    args = parse_arguments()
+    server_mode = args.server
+    dry_run = args.dry_run
+    
     # System check
     is_compatible, error_msg = SystemChecker.check_system()
     if not is_compatible:
@@ -466,15 +538,15 @@ def main():
         sys.exit(1)
     
     # Get user consent
-    if not get_user_consent():
+    if not get_user_consent(server_mode=server_mode, dry_run=dry_run):
         print("\nInstallation cancelled by user.")
         sys.exit(0)
     
     # Update package lists
-    update_package_lists()
+    update_package_lists(dry_run=dry_run)
     
     # Get tools by category for better organization
-    tools_by_category = ToolManager.get_tools_by_category()
+    tools_by_category = ToolManager.get_tools_by_category(server_mode=server_mode)
     
     # Track installation results
     installed_count = 0
@@ -482,7 +554,10 @@ def main():
     failed_count = 0
     
     print("\n" + "="*70)
-    print("🔍 Checking and installing tools...")
+    if dry_run:
+        print("👀 DRY RUN: Previewing what would be installed...")
+    else:
+        print("🔍 Checking and installing tools...")
     print("="*70 + "\n")
     
     # Process tools by category
@@ -496,9 +571,12 @@ def main():
                 print(f"✓ {tool.name:30} - Already installed")
                 skipped_count += 1
             else:
-                print(f"✗ {tool.name:30} - Not installed, installing...")
-                if ToolManager.install_tool(tool):
-                    print(f"  ✓ {tool.name} installed successfully")
+                print(f"✗ {tool.name:30} - Not installed, {'would install' if dry_run else 'installing'}...")
+                if ToolManager.install_tool(tool, dry_run=dry_run):
+                    if dry_run:
+                        print(f"  ✓ {tool.name} would be installed successfully")
+                    else:
+                        print(f"  ✓ {tool.name} installed successfully")
                     installed_count += 1
                 else:
                     print(f"  ✗ {tool.name} installation failed")
@@ -506,24 +584,34 @@ def main():
     
     # Summary - clear and friendly for lazy users
     print("\n" + "="*70)
-    print("✨ Installation Complete!")
+    if dry_run:
+        print("👀 DRY RUN Complete!")
+    else:
+        print("✨ Installation Complete!")
     print("="*70)
     print(f"✓ Already installed: {skipped_count}")
-    print(f"✓ Newly installed:   {installed_count}")
+    if dry_run:
+        print(f"👀 Would install:      {installed_count}")
+    else:
+        print(f"✓ Newly installed:   {installed_count}")
     if failed_count > 0:
         print(f"⚠ Failed:            {failed_count}")
     else:
         print(f"✓ Failed:            {failed_count}")
     print("="*70)
     
-    if failed_count > 0:
+    if dry_run:
+        print("\n👀 This was a DRY RUN - no changes were made.")
+        print("   Run without --dry-run to actually install the tools.")
+    elif failed_count > 0:
         print("\n⚠ Some tools failed to install. Check the output above for details.")
         print("   Some tools may require manual installation or different methods.")
     else:
         print("\n🎉 All tools installed successfully! You're all set!")
     
     print("\n💡 Tip: You can run this script again anytime to check for updates.")
-    input("\nPress Enter to exit...")
+    if not dry_run:
+        input("\nPress Enter to exit...")
     sys.exit(0)
 
 
