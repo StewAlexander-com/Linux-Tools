@@ -21,6 +21,7 @@ List of Linux Tools I put on almost every Linux / Debian host
     - [Network-Related Apps](#network-related-apps)
     - [Misc CLI Terminal Apps](#misc-cli-terminal-apps)
   - [Updates](#updates)
+  - [Testing](#testing)
   - [Sometimes using two apps together can be helpful](#sometimes-using-two-apps-together-can-be-helpful)
   - [Sources](#sources)
 
@@ -112,12 +113,64 @@ List of Linux Tools I put on almost every Linux / Debian host
 - [**just**](https://github.com/casey/just) -> Command runner - a better alternative to make, with simpler syntax and no dependencies
 ---
 ## Updates
+* 12/02/25 - Refactored Desktop-Linux-Tools.py with Python 3 best practices (type hints, dataclasses, structured classes); added comprehensive test suite with platform-independent tests; fixed hanging issues and improved error handling
 * 12/02/25 - Verified all links and replaced unavailable chkservice; added quality tools: lazygit, delta, atuin, gping, hyperfine, just
 * 09/06/25 - README formatting and links improvements; improved ripgrep-all description
 * 03/18/25 - Major 2025 update with latest alternatives: eza (exa successor), neovim, tldr, zoxide, starship, dust, nala, fastfetch
 * 11/19/23 - Updated Readme for consistency and readability
 * 01/29/23 - Huge improvements to the linux installer, added ```eget```
 * 11/05/22 - Now the apps at the left are links to where you can get these tools (_happy holidays 🥳_)!
+
+---
+## Testing
+
+The `Desktop-Linux-Tools.py` script includes a comprehensive test suite (`test_desktop_linux_tools.py`) that ensures code quality and reliability.
+
+### Running Tests
+
+To run all tests:
+```bash
+python3 -m unittest test_desktop_linux_tools
+```
+
+To run with verbose output:
+```bash
+python3 -m unittest test_desktop_linux_tools -v
+```
+
+To run a specific test class:
+```bash
+python3 -m unittest test_desktop_linux_tools.TestSystemChecker -v
+```
+
+### Test Results
+
+**Current Status:** ✅ All tests passing
+
+```
+Ran 41 tests in 0.011s
+OK
+```
+
+### Test Coverage
+
+The test suite includes:
+
+- **SystemChecker Tests** - Validates system compatibility checks (Debian-like detection, command availability, root user detection)
+- **Installer Tests** - Tests command execution, timeout handling, file not found errors, and installation methods (apt, pip, eget, snap)
+- **ToolManager Tests** - Verifies tool definitions, category organization, installation status checks, and tool installation logic
+- **User Consent Tests** - Ensures proper handling of user input with retry limits and keyboard interrupt handling
+- **Main Function Tests** - Validates the main execution flow, system check failures, and user consent scenarios
+
+### Platform Independence
+
+All tests are **platform-independent** and use extensive mocking to avoid:
+- Actual system modifications
+- Real package installations
+- OS-specific command dependencies
+- Network operations
+
+Tests can be run on any platform (Linux, macOS, Windows) without requiring actual tool installations or system changes.
 
 ---
 ## Sometimes using two apps together can be helpful
