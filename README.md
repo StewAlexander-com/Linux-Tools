@@ -26,7 +26,7 @@ List of Linux Tools I put on almost every Linux / Debian host
     - [Option 2: Download and Run Separately](#option-2-download-and-run-separately)
     - [Option 3: Clone the Repository](#option-3-clone-the-repository)
     - [Option 4: Direct Download from GitHub](#option-4-direct-download-from-github)
-  - [Quick Start (For Lazy Users)](#quick-start-for-lazy-users)
+    - [Running the Installer](#running-the-installer)
   - [Testing](#testing)
     - [Running Tests](#running-tests)
     - [Test Results](#test-results)
@@ -185,10 +185,9 @@ python3 Lazy-Linux-Tool-Installer.py
 5. Make it executable: `chmod +x Lazy-Linux-Tool-Installer.py`
 6. Run: `python3 Lazy-Linux-Tool-Installer.py`
 
----
-## Quick Start (For Lazy Users)
+### Running the Installer
 
-Just run the installer and it handles everything:
+Once you have the script, just run it:
 
 ```bash
 python3 Lazy-Linux-Tool-Installer.py
