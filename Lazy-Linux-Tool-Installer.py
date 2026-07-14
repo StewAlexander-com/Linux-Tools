@@ -532,7 +532,7 @@ class ToolManager:
         # Terminal File Explorers
         "xplr": Tool("xplr", "xplr", InstallMethod.EGET, "xplr",
                     "Very graphical file explorer", "Terminal File Explorers",
-                    github_repo="sayanarijit/xplr", requires_gui=True),
+                    github_repo="sayanarijit/xplr"),
         "nnn": Tool("nnn", "nnn", InstallMethod.APT, "nnn",
                    "Efficient file explorer", "Terminal File Explorers"),
         "lf": Tool("lf", "lf", InstallMethod.EGET, "lf",
