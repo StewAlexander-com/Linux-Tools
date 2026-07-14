@@ -71,6 +71,8 @@ class TestSystemChecker(unittest.TestCase):
                 return '/usr/bin/apt-get'
             elif cmd == 'sudo':
                 return '/usr/bin/sudo'
+            elif cmd == 'curl':
+                return '/usr/bin/curl'
             return None
         mock_shutil.which.side_effect = which_side_effect
         is_compatible, error = dlt.SystemChecker.check_system()
@@ -94,12 +96,31 @@ class TestSystemChecker(unittest.TestCase):
                 return '/usr/bin/apt-get'
             elif cmd == 'sudo':
                 return None
+            elif cmd == 'curl':
+                return '/usr/bin/curl'
             return None
         mock_shutil.which.side_effect = which_side_effect
         is_compatible, error = dlt.SystemChecker.check_system()
         self.assertFalse(is_compatible)
         self.assertIsNotNone(error)
         self.assertIn('sudo', error)
+
+    @patch.object(dlt, 'shutil')
+    def test_check_system_no_curl(self, mock_shutil):
+        """Test system check when curl is missing."""
+        def which_side_effect(cmd):
+            if cmd == 'apt-get':
+                return '/usr/bin/apt-get'
+            elif cmd == 'sudo':
+                return '/usr/bin/sudo'
+            elif cmd == 'curl':
+                return None
+            return None
+        mock_shutil.which.side_effect = which_side_effect
+        is_compatible, error = dlt.SystemChecker.check_system()
+        self.assertFalse(is_compatible)
+        self.assertIsNotNone(error)
+        self.assertIn('curl', error)
 
 
 class TestInstaller(unittest.TestCase):
@@ -194,40 +215,58 @@ class TestInstaller(unittest.TestCase):
         call_kwargs = mock_subprocess.run.call_args[1]
         self.assertIn('timeout', call_kwargs)
     
+    @patch.object(dlt.Installer, 'install_binary_to_path')
     @patch.object(dlt, 'subprocess')
     @patch.object(dlt, 'os')
     @patch.object(dlt, 'shutil')
-    def test_install_via_eget_success(self, mock_shutil, mock_os, mock_subprocess):
+    def test_install_via_eget_success(self, mock_shutil, mock_os, mock_subprocess, mock_install_bin):
         """Test successful eget installation."""
         mock_shutil.which.return_value = '/usr/local/bin/eget'
         mock_subprocess.run.return_value = subprocess.CompletedProcess(['eget'], 0)
         mock_os.path.exists.return_value = True
+        mock_install_bin.return_value = True
         
         result = dlt.Installer.install_via_eget('sharkdp/bat', 'bat')
         self.assertTrue(result)
+        mock_install_bin.assert_called_once_with('bat', 'bat')
         # Verify timeout is set for network operations
         call_kwargs = mock_subprocess.run.call_args[1]
         self.assertIn('timeout', call_kwargs)
         self.assertGreaterEqual(call_kwargs['timeout'], 30)
-    
+
+    @patch.object(dlt.Installer, 'install_eget')
     @patch.object(dlt, 'subprocess')
     @patch.object(dlt, 'os')
     @patch.object(dlt, 'shutil')
-    def test_install_via_eget_no_eget(self, mock_shutil, mock_os, mock_subprocess):
+    def test_install_via_eget_no_eget(self, mock_shutil, mock_os, mock_subprocess, mock_install_eget):
         """Test eget installation when eget is not installed."""
         mock_shutil.which.return_value = None
-        mock_subprocess.run.return_value = subprocess.CompletedProcess(['sh'], 0)
-        mock_os.path.exists.side_effect = [False, True]  # eget not found, then eget binary exists
+        mock_install_eget.return_value = False
         
         result = dlt.Installer.install_via_eget('sharkdp/bat', 'bat')
-        # Should try to install eget first with longer timeout
-        self.assertTrue(mock_subprocess.run.called)
-        # Check that eget installation has longer timeout
-        calls = [call for call in mock_subprocess.run.call_args_list if len(call[0]) > 0 and 'curl' in str(call[0][0])]
-        if calls:
-            call_kwargs = calls[0][1]
-            self.assertGreaterEqual(call_kwargs.get('timeout', 0), 60)
-    
+        self.assertFalse(result)
+        mock_install_eget.assert_called_once()
+
+    def test_parse_checksums_file(self):
+        """Test checksum file parsing."""
+        content = "abc123  foo.tar.gz\ndef456 *bar.tar.gz\n"
+        mapping = dlt.Installer.parse_checksums_file(content)
+        self.assertEqual(mapping['foo.tar.gz'], 'abc123')
+        self.assertEqual(mapping['bar.tar.gz'], 'def456')
+
+    def test_is_plausible_binary_rejects_missing(self):
+        """Test binary sanity check rejects missing paths."""
+        self.assertFalse(dlt.Installer.is_plausible_binary('/tmp/definitely-missing-linux-tools-bin'))
+
+    def test_no_curl_pipe_to_shell_in_installer_source(self):
+        """Guard against reintroducing curl|sh / curl|bash bootstrap."""
+        source_path = os.path.join(os.path.dirname(__file__), 'Lazy-Linux-Tool-Installer.py')
+        with open(source_path, encoding='utf-8') as handle:
+            source = handle.read()
+        self.assertNotIn('| sh', source)
+        self.assertNotIn('| bash', source)
+        self.assertNotIn('getcroc.schollz.com', source)
+        self.assertNotIn('eget.sh |', source)
     @patch.object(dlt, 'subprocess')
     def test_check_apt_available_true(self, mock_subprocess):
         """Test apt package availability check when available."""
@@ -295,12 +334,14 @@ class TestToolManager(unittest.TestCase):
         result = dlt.ToolManager.check_tool_installed(tool)
         self.assertFalse(result)
     
+    @patch.object(dlt, 'shutil')
     @patch.object(dlt.Installer, 'check_apt_available')
     @patch.object(dlt.Installer, 'install_via_apt')
-    def test_install_tool_apt_success(self, mock_install, mock_check):
+    def test_install_tool_apt_success(self, mock_install, mock_check, mock_shutil):
         """Test installing tool via apt."""
         mock_check.return_value = True
         mock_install.return_value = True
+        mock_shutil.which.return_value = '/usr/bin/vim'
         tool = dlt.ToolManager.TOOLS['vim']
         result = dlt.ToolManager.install_tool(tool)
         self.assertTrue(result)
@@ -314,15 +355,16 @@ class TestToolManager(unittest.TestCase):
         result = dlt.ToolManager.install_tool(tool)
         self.assertFalse(result)
     
+    @patch.object(dlt, 'shutil')
     @patch.object(dlt.Installer, 'install_via_pip')
-    def test_install_tool_pip(self, mock_install):
+    def test_install_tool_pip(self, mock_install, mock_shutil):
         """Test installing tool via pip."""
         mock_install.return_value = True
+        mock_shutil.which.return_value = '/usr/bin/glances'
         tool = dlt.ToolManager.TOOLS['glances']
         result = dlt.ToolManager.install_tool(tool)
         self.assertTrue(result)
-        mock_install.assert_called_once()
-    
+        mock_install.assert_called_once() 
     def test_install_tool_builtin(self):
         """Test builtin tool (no installation needed)."""
         tool = dlt.ToolManager.TOOLS['systemctl']
@@ -418,6 +460,14 @@ class TestGetUserConsent(unittest.TestCase):
 
 class TestMainFunction(unittest.TestCase):
     """Test main function logic - simplified to avoid infinite loops and real execution."""
+
+    def setUp(self):
+        # Keep argparse from choking on unittest CLI args (e.g. python -m unittest ...)
+        self._argv_patcher = patch.object(sys, 'argv', ['Lazy-Linux-Tool-Installer.py'])
+        self._argv_patcher.start()
+
+    def tearDown(self):
+        self._argv_patcher.stop()
     
     @patch.object(dlt.SystemChecker, 'check_system')
     def test_main_system_check_fails(self, mock_check):

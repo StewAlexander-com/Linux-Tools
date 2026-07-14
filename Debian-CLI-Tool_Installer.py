@@ -86,22 +86,95 @@ def install_program(program):
         print(f"Error: {e}")
 
 
-# Install eget if missing; downloads to current dir, then moves to /usr/bin
-def eget_installer ():
-    eget_exists = os.path.exists('/usr/bin/eget')
-    if not eget_exists:
-       print("Eget does not exist, installing",'\n') 
-       # Pipe curl output directly to sh for installation
-       os.system("curl https://zyedidia.github.io/eget.sh | sh")
-       os.system("sudo mv eget /usr/bin/eget")
-    else:
-        print("- \"eget\" is is installed",'\n')
-        pass
+# Install eget if missing; downloads verified GitHub release (no curl|sh)
+def eget_installer():
+    eget_exists = which("eget") is not None or os.path.exists('/usr/local/bin/eget') or os.path.exists('/usr/bin/eget')
+    if eget_exists:
+        print("- \"eget\" is installed", '\n')
+        return
+
+    print("Eget does not exist, installing from GitHub releases (no curl|sh)", '\n')
+    import platform
+    import tempfile
+    import tarfile
+    import json
+    from pathlib import Path
+
+    arch_map = {
+        "x86_64": "amd64", "amd64": "amd64",
+        "aarch64": "arm64", "arm64": "arm64",
+        "armv7l": "arm", "i386": "386", "i686": "386",
+    }
+    arch = arch_map.get(platform.machine().lower())
+    if not arch:
+        print(f"Unsupported architecture: {platform.machine()}")
+        return
+
+    api = "https://api.github.com/repos/zyedidia/eget/releases/latest"
+    with tempfile.TemporaryDirectory(prefix="eget-") as tmpdir:
+        meta_path = os.path.join(tmpdir, "release.json")
+        if os.system(
+            f'curl --fail --location --silent --show-error '
+            f'--connect-timeout 30 --max-time 120 -o "{meta_path}" "{api}"'
+        ) != 0:
+            print("Failed to fetch eget release metadata")
+            return
+        with open(meta_path, encoding="utf-8") as handle:
+            release = json.load(handle)
+        tag = release.get("tag_name", "").lstrip("v")
+        asset_name = f"eget-{tag}-linux_{arch}.tar.gz"
+        url = next(
+            (a.get("browser_download_url") for a in release.get("assets", [])
+             if a.get("name") == asset_name),
+            None,
+        )
+        if not url:
+            print(f"No release asset {asset_name}")
+            return
+        archive = os.path.join(tmpdir, asset_name)
+        if os.system(
+            f'curl --fail --location --silent --show-error '
+            f'--connect-timeout 30 --max-time 120 -o "{archive}" "{url}"'
+        ) != 0:
+            print("Failed to download eget archive")
+            return
+        with tarfile.open(archive, "r:gz") as tar:
+            member = next(
+                (m for m in tar.getmembers() if Path(m.name).name == "eget" and m.isfile()),
+                None,
+            )
+            if member is None:
+                print("eget binary missing from archive")
+                return
+            # Reject path traversal in older Python without tar filter=
+            if os.path.isabs(member.name) or ".." in Path(member.name).parts:
+                print("Refusing unsafe tar member")
+                return
+            try:
+                tar.extract(member, path=tmpdir, filter="data")
+            except TypeError:
+                tar.extract(member, path=tmpdir)
+            extracted = os.path.join(tmpdir, member.name)
+        # Basic ELF sanity check before privileged install
+        with open(extracted, "rb") as handle:
+            if handle.read(4) != b"\x7fELF":
+                print("Refusing to install non-ELF eget binary")
+                return
+        os.chmod(extracted, 0o755)
+        staged = os.path.join(os.getcwd(), "eget")
+        shutil.copy2(extracted, staged)
+        os.system(f'sudo mv "{staged}" /usr/local/bin/eget')
+        # Post-install validation
+        if which("eget") or os.path.exists("/usr/local/bin/eget"):
+            print("eget installed and present on PATH")
+        else:
+            print("eget install may have failed validation")
+
 
 # Download binaries from GitHub releases using eget
 def eget_install():
     if eget_program == 'lsd':
-        os.system("eget Peltoche/lsd")
+        os.system("eget lsd-rs/lsd")
     elif eget_program == 'sd':
         os.system("eget chmln/sd")
     elif eget_program == 'lazygit':
