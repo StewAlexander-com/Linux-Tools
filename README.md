@@ -1,15 +1,17 @@
 # Linux Tools: 2026 Edition
 
-Sixty-four command-line tools for Debian and Ubuntu: what each one replaces,
-and what Debian actually calls it once installed.
+Sixty-four command-line tools for Debian and Ubuntu. Each entry says what the
+tool does, the command that installs it, and what you type to run it — which is
+not always the same word.
 
-- **Start with —** [the seven essentials](#start-here) · [replacing a command you already use](#looking-for-a-replacement-for-something) · [why a command isn't found](#installed-it-but-the-command-isnt-found)
+- **Start with —** [the seven essentials](#start-here) · [a better tool for a classic command](#looking-for-a-replacement-for-something) · [when the command isn't found](#installed-it-but-the-command-isnt-found)
 - **Browse by job —** [Files, search, disk](#files-search-and-disk-8) · [Shell & prompt](#shell-and-prompt-4) · [`ls` replacements](#ls-replacements-2) · [Editors](#text-editors-and-viewers-7) · [Monitors](#process-and-system-monitors-5) · [Network](#network-10) · [Git](#git-3) · [Data & documents](#data-and-documents-5) · [System & packages](#system-and-packages-6) · [Docs & benchmarks](#docs-containers-and-benchmarks-6) · [File explorers](#terminal-file-explorers-3) · [Desktop GUI](#desktop-gui-apps-5)
 
 ## Or install all of them at once ...
 
 [`Lazy-Linux-Tool-Installer.py`](Lazy-Linux-Tool-Installer.py) skips anything you
-already have. Debian-family only; needs `sudo` and `curl`.
+already have. Works on Debian, Ubuntu, and anything built on them such as Mint
+or Pop!_OS. You need `sudo` and `curl`.
 
 ```bash
 curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/main/Lazy-Linux-Tool-Installer.py
@@ -24,15 +26,15 @@ Flags, pinning to a release, and the security notes are
 
 ## Start here
 
-The seven worth having on any box:
+If you install nothing else, install these seven:
 
-- **[bat](https://github.com/sharkdp/bat)** — `cat` with syntax highlighting and paging
-- **[fd](https://github.com/sharkdp/fd)** — `find` with sane defaults, and far less typing
-- **[ripgrep](https://github.com/BurntSushi/ripgrep)** — `grep`, dramatically faster
-- **[fzf](https://github.com/junegunn/fzf)** — fuzzy-find anything; pipe any list into it
-- **[htop](https://htop.dev)** — a `top` you can actually read
-- **[ncdu](https://dev.yorhel.nl/ncdu)** — find what filled the disk
-- **[tldr](https://tldr.sh)** — man pages as practical examples
+- **[bat](https://github.com/sharkdp/bat)** — read a file with colour and line numbers (a nicer `cat`)
+- **[fd](https://github.com/sharkdp/fd)** — find files by name, quickly (a nicer `find`)
+- **[ripgrep](https://github.com/BurntSushi/ripgrep)** — search inside files, very fast (a nicer `grep`)
+- **[fzf](https://github.com/junegunn/fzf)** — type a few letters to pick from any list
+- **[htop](https://htop.dev)** — see what is using CPU and memory (a nicer `top`)
+- **[ncdu](https://dev.yorhel.nl/ncdu)** — find what is filling up the disk
+- **[tldr](https://tldr.sh)** — short worked examples instead of long manual pages
 
 ```bash
 sudo apt install bat fd-find ripgrep fzf htop ncdu tealdeer
@@ -43,9 +45,10 @@ sudo apt install bat fd-find ripgrep fzf htop ncdu tealdeer
 #   tldr     is what tealdeer installs
 ```
 
-Four more worth having. These are single binaries rather than apt packages, so
-they need [eget](https://github.com/zyedidia/eget), which is not in apt. Get it
-once, checksum-verified:
+Four more worth having. These are not in apt, so you fetch them straight from
+the project's own downloads using a helper called
+[eget](https://github.com/zyedidia/eget). eget is not in apt either, so install
+it once, verifying the download against its published checksum:
 
 ```bash
 curl -o eget.sh https://zyedidia.github.io/eget.sh
@@ -67,10 +70,10 @@ for r in eza-community/eza ajeetdsouza/zoxide bootandy/dust micro-editor/micro; 
 
 ## Looking for a replacement for something?
 
-Most people arrive here wanting a better version of a command they already use,
-so this is sorted by the command you already know. One recommendation per row;
-alternatives are in the notes. The [full list](#the-full-list) below
-is grouped by category instead, for browsing.
+Sorted by the older command being replaced, so you can look up whichever one
+you have run into. One recommendation per row, with alternatives in the notes.
+The [full list](#the-full-list) below is grouped by category instead, for
+browsing.
 
 | You already use | Try instead | Notes |
 |---|---|---|
@@ -134,7 +137,7 @@ source ~/.bashrc
 ## The full list
 
 Sixty-four tools in twelve groups. Every group starts with the command that
-installs it. A few entries are reference-only and marked as such.
+installs it. A few are listed for reference only, and say so.
 
 The `eget` lines fetch a binary straight from a project's GitHub releases and
 drop it on your PATH. They need eget itself, which is
