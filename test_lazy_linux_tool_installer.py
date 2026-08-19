@@ -11,6 +11,11 @@ import sys
 import os
 import subprocess
 import shutil
+import io
+import json
+import contextlib
+import urllib.request
+import urllib.error
 
 # Import the module to test (handle hyphen in filename)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -215,6 +220,34 @@ class TestInstaller(unittest.TestCase):
         call_kwargs = mock_subprocess.run.call_args[1]
         self.assertIn('timeout', call_kwargs)
     
+    @patch.object(dlt, 'subprocess')
+    @patch.object(dlt, 'shutil')
+    def test_install_via_npm_success(self, mock_shutil, mock_subprocess):
+        """npm already present: install the package globally."""
+        mock_shutil.which.return_value = '/usr/bin/npm'
+        mock_subprocess.run.return_value = subprocess.CompletedProcess(['sudo'], 0)
+        self.assertTrue(dlt.Installer.install_via_npm('neoss'))
+        self.assertIn('timeout', mock_subprocess.run.call_args[1])
+
+    @patch.object(dlt.Installer, 'install_via_apt')
+    @patch.object(dlt, 'subprocess')
+    @patch.object(dlt, 'shutil')
+    def test_install_via_npm_bootstraps_npm(self, mock_shutil, mock_subprocess, mock_apt):
+        """npm missing: apt-install npm first rather than failing with 'not found'."""
+        mock_shutil.which.return_value = None
+        mock_apt.return_value = True
+        mock_subprocess.run.return_value = subprocess.CompletedProcess(['sudo'], 0)
+        self.assertTrue(dlt.Installer.install_via_npm('neoss'))
+        mock_apt.assert_called_once_with('npm')
+
+    @patch.object(dlt.Installer, 'install_via_apt')
+    @patch.object(dlt, 'shutil')
+    def test_install_via_npm_gives_up_if_npm_unavailable(self, mock_shutil, mock_apt):
+        """If npm cannot be installed, report failure instead of pressing on."""
+        mock_shutil.which.return_value = None
+        mock_apt.return_value = False
+        self.assertFalse(dlt.Installer.install_via_npm('neoss'))
+
     @patch.object(dlt.Installer, 'install_binary_to_path')
     @patch.object(dlt, 'subprocess')
     @patch.object(dlt, 'os')
@@ -382,6 +415,44 @@ class TestToolManager(unittest.TestCase):
         self.assertTrue(result)
         mock_install.assert_called_once()
 
+    @patch.object(dlt.Installer, 'install_via_npm')
+    @patch.object(dlt, 'shutil')
+    def test_install_tool_npm(self, mock_shutil, mock_install):
+        """Test installing tool via npm."""
+        mock_shutil.which.return_value = '/usr/local/bin/neoss'
+        mock_install.return_value = True
+        tool = dlt.ToolManager.TOOLS['neoss']
+        self.assertTrue(dlt.ToolManager.install_tool(tool))
+        mock_install.assert_called_once_with('neoss')
+
+    def test_every_method_is_handled_by_install_tool(self):
+        """Every InstallMethod a tool actually uses must have a dry-run branch.
+
+        Adding an enum member without wiring it up would otherwise leave the
+        tool silently unhandled, which is how neoss and eg went unnoticed.
+        """
+        used = {t.method for t in dlt.ToolManager.TOOLS.values()}
+        for method in used:
+            with self.subTest(method=method.value):
+                tool = next(t for t in dlt.ToolManager.TOOLS.values() if t.method == method)
+                buf = io.StringIO()
+                with contextlib.redirect_stdout(buf):
+                    handled = dlt.ToolManager.install_tool(tool, dry_run=True)
+                self.assertTrue(handled)
+                self.assertTrue(buf.getvalue().strip(),
+                                f"{method.value} produced no dry-run output")
+
+    def test_eget_tools_declare_a_repo_and_others_do_not(self):
+        """A github_repo is required for eget and meaningless for anything else."""
+        for name, tool in dlt.ToolManager.TOOLS.items():
+            with self.subTest(tool=name):
+                if tool.method == dlt.InstallMethod.EGET:
+                    self.assertTrue(tool.github_repo,
+                                    f"{name} installs via eget but names no repo")
+                else:
+                    self.assertIsNone(tool.github_repo,
+                                      f"{name} does not use eget but names a repo")
+
 
 class TestToolDataClass(unittest.TestCase):
     """Test Tool dataclass."""
@@ -527,6 +598,109 @@ class TestMainFunction(unittest.TestCase):
             self.assertEqual(cm.exception.code, 0)
         # Should call input once for final "Press Enter"
         self.assertEqual(mock_input.call_count, 1)
+
+
+@unittest.skipUnless(
+    os.environ.get("LINUX_TOOLS_NETWORK_TESTS") == "1",
+    "network test; set LINUX_TOOLS_NETWORK_TESTS=1 to run",
+)
+class TestEgetToolsResolveUpstream(unittest.TestCase):
+    """Ask GitHub whether every eget tool can still actually be fetched.
+
+    The mocked tests above prove the installer calls eget correctly. They
+    cannot prove eget will find anything at the other end, and that is the
+    failure that reached users: neoss stopped attaching release assets when it
+    moved to npm, and eg never cut a GitHub release at all. Both were declared
+    as eget tools for a long time, and both failed only at install time on a
+    real machine.
+
+    This test is off by default because it needs the network and spends
+    GitHub's unauthenticated rate limit. Set GITHUB_TOKEN to raise that limit.
+    """
+
+    # Files that mention Linux but are not something eget can install: update
+    # manifests, checksums, signatures, and distro packages it will not unpack.
+    NON_BINARY_SUFFIXES = (
+        ".yml", ".yaml", ".json", ".txt", ".md", ".sha256", ".sha256sum",
+        ".sig", ".asc", ".pem", ".sbom", ".deb", ".rpm",
+    )
+
+    @classmethod
+    def _usable_linux_asset(cls, asset_name: str) -> bool:
+        lowered = asset_name.lower()
+        return "linux" in lowered and not lowered.endswith(cls.NON_BINARY_SUFFIXES)
+
+    def _get(self, url: str) -> dict:
+        headers = {
+            "User-Agent": "Linux-Tools-test",
+            "Accept": "application/vnd.github+json",
+        }
+        token = os.environ.get("GITHUB_TOKEN")
+        if token:
+            headers["Authorization"] = f"Bearer {token}"
+        request = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(request, timeout=30) as response:
+            return json.load(response)
+
+    def _require_api_budget(self, needed: int) -> None:
+        """Skip before starting rather than half-checking the list.
+
+        Anonymous callers get sixty requests an hour, which one run can
+        exhaust. Discovering that partway through would leave most tools
+        unchecked while the run still reported success, so establish up front
+        that the whole sweep can complete.
+        """
+        try:
+            rate = self._get("https://api.github.com/rate_limit")["rate"]
+        except urllib.error.URLError as error:
+            raise unittest.SkipTest(f"network unavailable: {error.reason}")
+        if rate["remaining"] < needed:
+            raise unittest.SkipTest(
+                f"GitHub API budget too low: {rate['remaining']} left, {needed} "
+                f"needed. Set GITHUB_TOKEN (export GITHUB_TOKEN=$(gh auth token))."
+            )
+
+    def test_every_eget_tool_resolves_to_a_downloadable_asset(self):
+        eget_tools = {
+            name: tool.github_repo
+            for name, tool in dlt.ToolManager.TOOLS.items()
+            if tool.method == dlt.InstallMethod.EGET
+        }
+        self.assertTrue(eget_tools, "expected the installer to define eget tools")
+        self._require_api_budget(len(eget_tools))
+
+        failures = []
+        for name, repo in sorted(eget_tools.items()):
+            try:
+                release = self._get(
+                    f"https://api.github.com/repos/{repo}/releases/latest"
+                )
+            except urllib.error.HTTPError as error:
+                if error.code in (403, 429):
+                    raise unittest.SkipTest(
+                        f"rate limited after checking {len(failures)} tools; "
+                        f"set GITHUB_TOKEN and rerun"
+                    )
+                failures.append(
+                    f"{name}: no published release at {repo} (HTTP {error.code}), "
+                    f"so eget has nothing to download"
+                )
+                continue
+            except urllib.error.URLError as error:
+                raise unittest.SkipTest(f"network unavailable: {error.reason}")
+
+            assets = [asset["name"] for asset in release.get("assets", [])]
+            if not [a for a in assets if self._usable_linux_asset(a)]:
+                failures.append(
+                    f"{name}: {repo} release {release.get('tag_name')!r} publishes "
+                    f"no Linux binary eget can install (assets: {assets or 'none'})"
+                )
+
+        self.assertEqual(
+            [], failures,
+            "eget tools that cannot actually be installed:\n  "
+            + "\n  ".join(failures),
+        )
 
 
 if __name__ == '__main__':

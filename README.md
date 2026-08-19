@@ -334,7 +334,7 @@ sudo snap install --classic code
 
 ## Installer options and notes
 
-`Lazy-Linux-Tool-Installer.py` routes each tool to apt, pip, snap, or eget,
+`Lazy-Linux-Tool-Installer.py` routes each tool to apt, pip, snap, eget, or npm,
 whichever suits it.
 
 ```bash
@@ -373,14 +373,32 @@ python3 -m unittest test_lazy_linux_tool_installer -v
 python3 -m unittest test_lazy_linux_tool_installer.TestSystemChecker -v
 ```
 
+### Checking the eget tools against upstream
+
+The mocked tests prove the installer calls `eget` correctly. They cannot prove
+`eget` will find anything at the other end — a project can stop publishing
+release binaries at any time, and that failure only shows up on a real machine.
+One extra test asks GitHub whether every `eget` tool still ships a Linux binary.
+It needs the network, so it is off unless you ask for it:
+
+```bash
+export GITHUB_TOKEN=$(gh auth token)   # optional, but avoids the 60/hour limit
+LINUX_TOOLS_NETWORK_TESTS=1 python3 -m unittest test_lazy_linux_tool_installer
+```
+
+If the API budget is too low to check every tool, the test skips rather than
+passing on a partial sweep.
+
 ### Test Results
 
 **Current Status:** ✅ All tests passing
 
 ```
-Ran 46 tests in 0.008s
-OK
+Ran 53 tests in 0.011s
+OK (skipped=1)
 ```
+
+The skip is the network test above, which stays out of the offline run.
 
 ### Test Coverage
 

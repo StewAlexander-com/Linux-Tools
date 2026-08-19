@@ -39,6 +39,7 @@ class InstallMethod(Enum):
     PIP = "pip"
     EGET = "eget"
     SNAP = "snap"
+    NPM = "npm"
     BUILTIN = "builtin"  # Already available (e.g., systemctl)
     MANUAL = "manual"  # Requires manual installation
 
@@ -300,6 +301,27 @@ class Installer:
         )
         return result.returncode == 0
     
+    @staticmethod
+    def install_via_npm(package: str) -> bool:
+        """Install a global npm package, pulling in npm itself if it is absent.
+
+        Node is not part of a base Debian install, so the one tool that ships
+        this way would otherwise fail on a clean machine with a bare
+        "npm: not found".
+        """
+        if not SystemChecker.has_command("npm"):
+            print("npm not found, installing npm first...")
+            if not Installer.install_via_apt("npm"):
+                print("Could not install npm")
+                return False
+        print(f"Installing {package} via npm...")
+        result = Installer.run_command(
+            ["sudo", "npm", "install", "-g", package],
+            capture_output=True,
+            timeout=NETWORK_CMD_TIMEOUT,
+        )
+        return result.returncode == 0
+
     @staticmethod
     def install_via_snap(package: str, classic: bool = False) -> bool:
         """Install package via snap."""
@@ -591,9 +613,10 @@ class ToolManager:
         "doggo": Tool("doggo", "doggo", InstallMethod.EGET, "doggo",
                    "Modern dig alternative (dog successor)", "Network-Related Apps",
                    github_repo="mr-karan/doggo"),
-        "neoss": Tool("neoss", "neoss", InstallMethod.EGET, "neoss",
-                     "Modern ss alternative", "Network-Related Apps",
-                     github_repo="PabloLec/neoss"),
+        # Published on npm, not as a GitHub release binary: the project is
+        # TypeScript and has never attached an asset to any of its releases.
+        "neoss": Tool("neoss", "neoss", InstallMethod.NPM, "neoss",
+                     "Modern ss alternative", "Network-Related Apps"),
         
         # Misc CLI Terminal Apps
         "systemctl": Tool("systemctl", "systemctl", InstallMethod.BUILTIN, "systemd",
@@ -651,9 +674,9 @@ class ToolManager:
                   "Parse command output to JSON", "Misc CLI Terminal Apps"),
         "visidata": Tool("visidata", "visidata", InstallMethod.PIP, "visidata",
                         "CSV/data viewer", "Misc CLI Terminal Apps"),
-        "eg": Tool("eg", "eg", InstallMethod.EGET, "eg",
-                  "TLDR-like command helper", "Misc CLI Terminal Apps",
-                  github_repo="srsudar/eg"),
+        # Distributed on PyPI; the GitHub project cuts no releases at all.
+        "eg": Tool("eg", "eg", InstallMethod.PIP, "eg",
+                  "TLDR-like command helper", "Misc CLI Terminal Apps"),
         "procs": Tool("procs", "procs", InstallMethod.EGET, "procs",
                      "Modern ps replacement", "Misc CLI Terminal Apps",
                      github_repo="dalance/procs"),
@@ -714,6 +737,8 @@ class ToolManager:
             elif tool.method == InstallMethod.SNAP:
                 classic_str = " (classic)" if tool.classic else ""
                 print(f"[DRY RUN] Would install {tool.package} via snap{classic_str}")
+            elif tool.method == InstallMethod.NPM:
+                print(f"[DRY RUN] Would install {tool.package} via npm")
             elif tool.method == InstallMethod.EGET:
                 print(f"[DRY RUN] Would install {tool.command} via eget from {tool.github_repo}")
             elif tool.method == InstallMethod.MANUAL:
@@ -733,6 +758,9 @@ class ToolManager:
         
         elif tool.method == InstallMethod.SNAP:
             ok = Installer.install_via_snap(tool.package, classic=tool.classic)
+
+        elif tool.method == InstallMethod.NPM:
+            ok = Installer.install_via_npm(tool.package)
         
         elif tool.method == InstallMethod.EGET:
             if tool.github_repo:
@@ -784,7 +812,7 @@ def get_user_consent(server_mode: bool = False, dry_run: bool = False) -> bool:
     if dry_run:
         print("  👀 Shows what would be installed (DRY RUN - no changes)")
     else:
-        print("  ✓ Installs missing tools automatically (apt, pip, eget, snap)")
+        print("  ✓ Installs missing tools automatically (apt, pip, eget, snap, npm)")
     print("  ✓ Skips tools that are already installed")
     print("  ✓ Organizes everything by category")
     if server_mode:
