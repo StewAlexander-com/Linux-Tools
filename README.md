@@ -213,8 +213,9 @@ pip3 install --user glances
 
 ```bash
 sudo apt install bmon hping3 mtr-tiny network-manager nmap
-for r in orf/gping mr-karan/doggo PabloLec/neoss; do sudo eget --to /usr/local/bin "$r"; done
+for r in orf/gping mr-karan/doggo; do sudo eget --to /usr/local/bin "$r"; done
 sudo eget --to /usr/local/bin schollz/croc   # installer verifies its SHA-256
+sudo apt install npm && sudo npm install -g neoss   # neoss ships on npm, not a binary
 ```
 
 - [**croc**](https://github.com/schollz/croc) — Securely send files between machines (cross-platform; schollz/croc)
@@ -225,7 +226,7 @@ sudo eget --to /usr/local/bin schollz/croc   # installer verifies its SHA-256
 - [**mtr**](https://www.bitwizard.nl/mtr/) — Traceroute + ping (apt package is often `mtr-tiny`; command `mtr`)
 - [**gping**](https://github.com/orf/gping) — Ping with a live latency graph
 - [**doggo**](https://github.com/mr-karan/doggo) — Modern `dig` alternative (DoH/DoT/DoQ); actively maintained successor to [ogham/dog](https://github.com/ogham/dog)
-- [**neoss**](https://github.com/PabloLec/neoss) — User-friendly `ss` alternative with a TUI
+- [**neoss**](https://github.com/PabloLec/neoss) — User-friendly `ss` alternative with a TUI — installed with `npm install -g neoss`
 - [**zabbix**](https://www.zabbix.com) — Full monitoring stack — _not in the Lazy installer (much heavier than a CLI utility)_
 
 ### Git (3)
@@ -271,12 +272,13 @@ for r in fastfetch-cli/fastfetch dalance/procs; do sudo eget --to /usr/local/bin
 
 ```bash
 sudo apt install most
-for r in srsudar/eg jesseduffield/lazydocker sharkdp/hyperfine casey/just; do sudo eget --to /usr/local/bin "$r"; done
-pip3 install --user tldr
+for r in jesseduffield/lazydocker sharkdp/hyperfine casey/just; do sudo eget --to /usr/local/bin "$r"; done
+pip3 install --user eg
+sudo apt install tealdeer                    # provides the tldr command
 ```
 
 - [**tldr**](https://tldr.sh) — Simplified practical man pages — Lazy installer uses `pip3 install --user tldr`
-- [**eg**](https://github.com/srsudar/eg) — Useful command examples at the CLI (similar niche to [tldr](https://tldr.sh/))
+- [**eg**](https://github.com/srsudar/eg) — Useful command examples at the CLI (similar niche to [tldr](https://tldr.sh/)) — installed with `pip3 install --user eg`
 - [**most**](https://www.jedsoft.org/most/) — Pager with more features than less/more
 - [**lazydocker**](https://github.com/jesseduffield/lazydocker) — TUI for Docker
 - [**hyperfine**](https://github.com/sharkdp/hyperfine) — Command-line benchmarking
