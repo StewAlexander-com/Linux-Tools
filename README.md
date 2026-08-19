@@ -68,13 +68,6 @@ source ~/.bashrc
   - [Looking for a replacement for something?](#looking-for-a-replacement-for-something)
   - [Installed it, but the command isn't found?](#installed-it-but-the-command-isnt-found)
   - [What I (_typically_) Install](#what-i-typically-install)
-    - [Desktop GUI Apps](#desktop-gui-apps)
-    - [Terminal File Explorers](#terminal-file-explorers)
-    - [LS-like Directory Viewers](#ls-like-directory-viewers)
-    - [Text Editors and Viewers](#text-editors-and-viewers)
-    - [Process Explorers](#process-explorers)
-    - [Network-Related Apps](#network-related-apps)
-    - [Misc CLI Terminal Apps](#misc-cli-terminal-apps)
   - [Updates](#updates)
   - [Installation](#installation)
     - [One tool at a time](#one-tool-at-a-time)
@@ -90,32 +83,45 @@ source ~/.bashrc
 
 ## What I (_typically_) Install
 
+
 > **How to read this list:** Most entries are also installed by
 > [`Lazy-Linux-Tool-Installer.py`](Lazy-Linux-Tool-Installer.py). A few are
 > **reference-only** (configs, Windows-only, or too heavy) and are marked
 > *not in the Lazy installer*.
 
-### Desktop GUI Apps
+Each category is collapsed. The tool names stay visible on every row, so you can scan or `Ctrl+F` the whole set without opening anything — click a row only when you want the descriptions.
+
+<details>
+<summary><b>Desktop GUI Apps</b> · 5 tools — geany, wireshark, Visual Studio Code, guake, tabby</summary>
+
 - [**geany**](https://www.geany.org) -> GUI editor like "notepad++" for Windows
 - [**wireshark**](https://www.wireshark.org) -> network packet analyzer
 - [**Visual Studio Code**](https://code.visualstudio.com) -> via snap: ```sudo snap install --classic code``` (Lazy installer uses the same)
 - [**guake**](https://github.com/Guake/guake) -> dropdown GUI terminal for Linux
 - [**tabby**](https://tabby.sh) -> Modern cross-platform terminal (desktop app; GitHub releases are AppImage/`.deb`/tarballs, not a tiny static CLI) ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/))
 
----
-### Terminal File Explorers
+</details>
+
+<details>
+<summary><b>Terminal File Explorers</b> · 3 tools — xplr, nnn, lf</summary>
+
 - [**xplr**](https://github.com/sayanarijit/xplr) -> Very graphical TUI file explorer, best on large screens (sayanarijit/xplr on GitHub)
 - [🌟 **nnn**](https://github.com/jarun/nnn) -> Efficient and elegant
 - [**lf**](https://github.com/gokcehan/lf) -> Cross-platform TUI file explorer (gokcehan/lf on GitHub)
----
 
-### LS-like Directory Viewers 
+</details>
+
+<details>
+<summary><b>LS-like Directory Viewers</b> · 2 tools — eza, lsd</summary>
+
 - [**eza**](https://github.com/eza-community/eza) -> Modern `ls` replacement with colors and Git integration (successor to exa) ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/))
 - [🌟 **lsd**](https://github.com/lsd-rs/lsd) -> Another `ls` clone, cross-platform (Linux/macOS/Windows); can show directory sizes (lsd-rs/lsd) - _personal favorite_
 
-----
+</details>
 
-### Text Editors and Viewers
+<details>
+<summary><b>Text Editors and Viewers</b> · 7 tools — micro, ne, vim, neovim, vimrc, bat, sublime text</summary>
+
 - [**micro**](https://github.com/micro-editor/micro) -> Friendly terminal editor if you are not into vi/vim (micro-editor/micro)
 - [**ne**](https://github.com/vigna/ne) -> Terminal editor (nano-like menus; Esc or F1)
 - [🌟 **vim**](https://github.com/vim/vim) -> Vi Improved - _personal favorite_
@@ -124,16 +130,22 @@ source ~/.bashrc
 - [**bat**](https://github.com/sharkdp/bat) -> `cat` clone with syntax highlighting / git integration ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)) — on Debian/Ubuntu apt the command is often **`batcat`**
 - [**sublime text**](https://www.sublimetext.com) -> GUI editor — _manual install; not in the Lazy installer_
 
----
-### Process Explorers 
+</details>
+
+<details>
+<summary><b>Process Explorers</b> · 5 tools — glances, htop, btop, bottom, system informer</summary>
+
 - [**glances**](https://nicolargo.github.io/glances/) -> Lots of system info in one glance; cross-platform — _Lazy installer uses `pip3 install --user glances` (requires Python/pip already present)_
 - [🌟 **htop**](https://htop.dev) -> Supercharged `top` clone — _personal favorite_
 - [**btop**](https://github.com/aristocratos/btop) -> Fast TUI process/resource monitor ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/))
 - [**bottom**](https://github.com/ClementTsang/bottom) -> Cross-platform process monitor inspired by btop — command is **`btm`**
 - [**system informer**](https://www.systeminformer.com/) -> **Windows-only** successor to Process Hacker — _listed for cross-platform awareness; not in the Lazy installer_
 
----
-### Network-Related Apps
+</details>
+
+<details>
+<summary><b>Network-Related Apps</b> · 10 tools — croc, network-manager, hping3, nmap, bmon, mtr, gping, doggo, neoss, zabbix</summary>
+
 - [**croc**](https://github.com/schollz/croc) -> Securely send files between machines (cross-platform; schollz/croc)
 - [**network-manager**](https://networkmanager.dev/) -> apt package that provides **`nmtui`** (terminal NetworkManager UI)
 - [**hping3**](https://github.com/antirez/hping) -> Advanced ping/packet crafting — install via apt as **`hping3`** (upstream repo is `antirez/hping`)
@@ -144,8 +156,11 @@ source ~/.bashrc
 - [**doggo**](https://github.com/mr-karan/doggo) -> Modern `dig` alternative (DoH/DoT/DoQ); actively maintained successor to [ogham/dog](https://github.com/ogham/dog)
 - [**neoss**](https://github.com/PabloLec/neoss) -> User-friendly `ss` alternative with a TUI
 - [**zabbix**](https://www.zabbix.com) -> Full monitoring stack — _not in the Lazy installer (much heavier than a CLI utility)_
----
-### Misc CLI Terminal Apps
+
+</details>
+
+<details>
+<summary><b>Misc CLI Terminal Apps</b> · 32 tools — systemctl, ncdu, dust, duf, lynis, apt-show-versions, nala, fd, fish, starship, zoxide, atuin, tig, lazygit, delta, miller, most, tldr, lazydocker, json-tui, jc, visidata, eg, procs, sd, ripgrep, ripgrep-all, fzf, fastfetch, pandoc, hyperfine, just</summary>
 
 - [**systemctl**](https://manpages.debian.org/stable/systemd/systemctl.1.en.html) -> Built-in **systemd** service manager (`systemctl status`, `systemctl list-units`, …) — _not installed by the script (already on systemd hosts); former wrapper `chkservice` is effectively unmaintained_
 - [**ncdu**](https://dev.yorhel.nl/ncdu) -> Terminal disk/folder space viewer
@@ -179,8 +194,15 @@ source ~/.bashrc
 - [**pandoc**](https://pandoc.org) -> Universal document converter ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/))
 - [**hyperfine**](https://github.com/sharkdp/hyperfine) -> Command-line benchmarking
 - [**just**](https://github.com/casey/just) -> Command runner / lightweight `make` alternative
+
+</details>
+
 ---
 ## Updates
+
+<details>
+<summary>Version history, newest first</summary>
+
 * 07/14/26 - Tagged [**v5.0.1**](https://github.com/StewAlexander-com/Linux-Tools/releases/tag/v5.0.1): forensic README accuracy pass; `--server` only skips real GUI apps (`xplr` is TUI again)
 * 07/14/26 - Forensic README accuracy pass: fix misleading install claims, jc example, Debian command aliases, glances/tabby/systemctl notes; exclude only real GUI apps from `--server`
 * 07/14/26 - Tagged [**v5.0.0**](https://github.com/StewAlexander-com/Linux-Tools/releases/tag/v5.0.0): secure eget/croc installs; README 2026 freshness; `dog` → `doggo`
@@ -195,7 +217,10 @@ source ~/.bashrc
 * 01/29/23 - Major installer improvements; added eget
 * 11/05/22 - Tool names became links
 
+</details>
+
 ---
+
 ## Installation
 
 ### One tool at a time
@@ -265,6 +290,9 @@ python3 Lazy-Linux-Tool-Installer.py --server --dry-run # preview server set
 
 ## Testing
 
+<details>
+<summary>How to run the test suite, and what it covers (for contributors)</summary>
+
 `test_lazy_linux_tool_installer.py` is a mocked unit-test suite for `Lazy-Linux-Tool-Installer.py` (no real package installs).
 
 ### Running Tests
@@ -298,7 +326,10 @@ OK
 
 Tests mock subprocess/filesystem side effects so they can run on Linux, macOS, or Windows without installing packages. They are **not** end-to-end install tests on a live Debian host.
 
+</details>
+
 ---
+
 ## Sometimes using two apps together can be helpful
 
 * `jc` + `json-tui` (pretty JSON table view):
