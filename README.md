@@ -117,7 +117,9 @@ echo 'alias fd=fdfind'  >> ~/.bashrc
 source ~/.bashrc
 ```
 
-# The full list
+---
+
+## The full list
 
 Sixty-four tools in twelve groups. Every group starts with the command that
 installs it. A few entries are reference-only and marked as such.
