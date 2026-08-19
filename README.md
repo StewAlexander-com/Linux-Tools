@@ -347,9 +347,9 @@ Pin to a release rather than tracking `main`:
 curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/v5.0.1/Lazy-Linux-Tool-Installer.py
 ```
 
-It also needs network access, and prompts once for consent. It skips the
-reference-only entries: vimrc, Sublime Text, System Informer, Zabbix, and
-ncrack. It does not pipe `curl` into a shell — release artifacts are
+It also needs network access, and prompts once for consent. It skips the five
+entries this page lists for reference only: vimrc, Sublime Text, System
+Informer, Zabbix, and ncrack. It does not pipe `curl` into a shell — release artifacts are
 downloaded, sanity-checked, and croc's published SHA-256 is verified.
 
 ---
