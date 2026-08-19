@@ -1,20 +1,72 @@
 # Linux Tools: 2026 Edition
 
-List of Linux tools I put on almost every Linux / Debian host.
+The tools I put on almost every Linux / Debian host, with notes on what each one
+replaces and what Debian actually calls it after you install it.
 
-> **How to read this list:** Most entries below are also installed by [`Lazy-Linux-Tool-Installer.py`](Lazy-Linux-Tool-Installer.py). A few are **reference-only** (configs, Windows-only, or too heavy) and are marked *not in the Lazy installer*. Debian/Ubuntu often renames some commands after apt install — those PATH names are noted inline.
+Install them one at a time, or all at once with
+[`Lazy-Linux-Tool-Installer.py`](#installation).
 
-## Use Eget to download apps from GitHub
-* [Download eget](https://github.com/zyedidia/eget), then run ```$ eget schollz/croc```
-* Change `schollz/croc` to any other GitHub repo discussed below (owner/name form)
+## Looking for a replacement for something?
 
-> **Note:** The Lazy installer **no longer** bootstraps eget/croc with `curl | sh`. It downloads GitHub release artifacts and validates them. Eget remains useful for one-off installs.
+Most people arrive here wanting a better version of a command they already use.
+Start here, then see the [full list](#what-i-typically-install) for the rest.
+
+| You already use | Try instead | Notes |
+|---|---|---|
+| `ls` | [eza](https://github.com/eza-community/eza), [lsd](https://github.com/lsd-rs/lsd) | lsd can show directory sizes |
+| `cat` | [bat](https://github.com/sharkdp/bat) | syntax highlighting; typed as **`batcat`** on Debian |
+| `find` | [fd](https://github.com/sharkdp/fd) | typed as **`fdfind`** on Debian |
+| `grep` | [ripgrep](https://github.com/BurntSushi/ripgrep) | typed as **`rg`**; [rga](https://github.com/phiresky/ripgrep-all) searches PDFs and office docs |
+| `du` | [dust](https://github.com/bootandy/dust) | bar charts |
+| `df` | [duf](https://github.com/muesli/duf) | graphs |
+| `ps` | [procs](https://github.com/dalance/procs) | |
+| `top` | [htop](https://htop.dev), [btop](https://github.com/aristocratos/btop), [bottom](https://github.com/ClementTsang/bottom) | bottom is typed as **`btm`** |
+| `dig` | [doggo](https://github.com/mr-karan/doggo) | DoH/DoT/DoQ; successor to `dog` |
+| `ss` | [neoss](https://github.com/PabloLec/neoss) | TUI |
+| `sed` (find/replace) | [sd](https://github.com/chmln/sd) | |
+| `cd` | [zoxide](https://github.com/ajeetdsouza/zoxide) | learns your habits |
+| `man` | [tldr](https://tldr.sh), [eg](https://github.com/srsudar/eg) | practical examples |
+| `ping` | [gping](https://github.com/orf/gping) | live latency graph |
+| `traceroute` | [mtr](https://www.bitwizard.nl/mtr/) | apt package is often `mtr-tiny` |
+| `less` / `more` | [most](https://www.jedsoft.org/most/) | |
+| `awk` on CSV/JSON | [miller](https://github.com/johnkerl/miller) | typed as **`mlr`** |
+| `apt` | [nala](https://gitlab.com/volian/nala) | friendlier frontend |
+| `make` (as a task runner) | [just](https://github.com/casey/just) | |
+| `git` at the CLI | [tig](https://github.com/jonas/tig), [lazygit](https://github.com/jesseduffield/lazygit), [delta](https://github.com/dandavison/delta) | delta is a diff pager |
+| `nano` / `vi` | [micro](https://github.com/micro-editor/micro), [ne](https://github.com/vigna/ne), [neovim](https://neovim.io) | neovim is typed as **`nvim`** |
+| `docker` CLI | [lazydocker](https://github.com/jesseduffield/lazydocker) | |
+
+## Installed it, but the command isn't found?
+
+Debian and Ubuntu rename several of these to avoid clashing with existing
+packages. This catches almost everyone at least once.
+
+| Tool | apt package | What you actually type |
+|---|---|---|
+| bat | `bat` | **`batcat`** |
+| fd | `fd-find` | **`fdfind`** |
+| bottom | `bottom` | **`btm`** |
+| miller | `miller` | **`mlr`** |
+| ripgrep | `ripgrep` | **`rg`** |
+| ripgrep-all | `ripgrep-all` | **`rga`** |
+| neovim | `neovim` | **`nvim`** |
+| mtr | `mtr-tiny` | **`mtr`** |
+| hping | `hping3` | **`hping3`** |
+| NetworkManager TUI | `network-manager` | **`nmtui`** |
+
+If you would rather keep the upstream names, alias them in your shell:
+
+```bash
+echo 'alias bat=batcat' >> ~/.bashrc
+echo 'alias fd=fdfind'  >> ~/.bashrc
+source ~/.bashrc
+```
 
 #### Table of Contents
-  
+
 - [Linux Tools: 2026 Edition](#linux-tools-2026-edition)
-  - [Use Eget to download apps from GitHub](#use-eget-to-download-apps-from-github)
-      - [Table of Contents](#table-of-contents)
+  - [Looking for a replacement for something?](#looking-for-a-replacement-for-something)
+  - [Installed it, but the command isn't found?](#installed-it-but-the-command-isnt-found)
   - [What I (_typically_) Install](#what-i-typically-install)
     - [Desktop GUI Apps](#desktop-gui-apps)
     - [Terminal File Explorers](#terminal-file-explorers)
@@ -25,6 +77,8 @@ List of Linux tools I put on almost every Linux / Debian host.
     - [Misc CLI Terminal Apps](#misc-cli-terminal-apps)
   - [Updates](#updates)
   - [Installation](#installation)
+    - [One tool at a time](#one-tool-at-a-time)
+    - [Or all of them at once](#or-all-of-them-at-once)
   - [Testing](#testing)
     - [Running Tests](#running-tests)
     - [Test Results](#test-results)
@@ -32,8 +86,14 @@ List of Linux tools I put on almost every Linux / Debian host.
     - [Platform Independence](#platform-independence)
   - [Sometimes using two apps together can be helpful](#sometimes-using-two-apps-together-can-be-helpful)
   - [Sources](#sources)
+  - [License](#license)
 
 ## What I (_typically_) Install
+
+> **How to read this list:** Most entries are also installed by
+> [`Lazy-Linux-Tool-Installer.py`](Lazy-Linux-Tool-Installer.py). A few are
+> **reference-only** (configs, Windows-only, or too heavy) and are marked
+> *not in the Lazy installer*.
 
 ### Desktop GUI Apps
 - [**geany**](https://www.geany.org) -> GUI editor like "notepad++" for Windows
@@ -137,6 +197,24 @@ List of Linux tools I put on almost every Linux / Debian host.
 
 ---
 ## Installation
+
+### One tool at a time
+
+Nothing here requires the installer. Most entries are a single apt package, and
+the ones that are not link to their own install instructions:
+
+```bash
+sudo apt install bat fd-find ripgrep fzf htop ncdu tldr
+```
+
+For tools published only as GitHub releases, [eget](https://github.com/zyedidia/eget)
+fetches a binary from any repo in `owner/name` form:
+
+```bash
+eget schollz/croc
+```
+
+### Or all of them at once
 
 [`Lazy-Linux-Tool-Installer.py`](Lazy-Linux-Tool-Installer.py) installs the **tool definitions in that script** (currently ~60 entries): checks PATH, installs missing tools via apt/pip/snap/eget (and a verified GitHub install for croc), and skips anything already present.
 
@@ -243,3 +321,8 @@ rg --files | fzf
 4. [NetworkManager](https://networkmanager.dev/)
 5. [micro editor](https://github.com/micro-editor/micro)
 6. [jc docs — lsof parser](https://kellyjonbrazil.github.io/jc/docs/parsers/lsof.html)
+
+---
+## License
+
+[MIT](LICENSE). Use it, fork it, ship it.
