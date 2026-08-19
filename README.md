@@ -3,9 +3,23 @@
 Sixty-four tools I put on almost every Linux / Debian host: what each one
 replaces, and what Debian actually calls it once installed.
 
-**Jump to —** [Start here](#start-here) · [Replace a command you use](#looking-for-a-replacement-for-something) · [Command not found?](#installed-it-but-the-command-isnt-found) · [Install everything](#installation)
+**Jump to —** [Start here](#start-here) · [Replace a command you use](#looking-for-a-replacement-for-something) · [Command not found?](#installed-it-but-the-command-isnt-found) · [Installer options](#installation)
 
 **Tools by job —** [Files, search, disk](#files-search-and-disk-8) · [Shell & prompt](#shell-and-prompt-4) · [`ls` replacements](#ls-replacements-2) · [Editors](#text-editors-and-viewers-7) · [Monitors](#process-and-system-monitors-5) · [Network](#network-10) · [Git](#git-3) · [Data & documents](#data-and-documents-5) · [System & packages](#system-and-packages-6) · [Docs & benchmarks](#docs-containers-and-benchmarks-6) · [File explorers](#terminal-file-explorers-3) · [Desktop GUI](#desktop-gui-apps-5)
+
+**Or just download them all —** [`Lazy-Linux-Tool-Installer.py`](Lazy-Linux-Tool-Installer.py)
+installs everything below that you do not already have:
+
+```bash
+curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/main/Lazy-Linux-Tool-Installer.py
+chmod +x Lazy-Linux-Tool-Installer.py
+
+python3 Lazy-Linux-Tool-Installer.py --dry-run   # preview, changes nothing
+python3 Lazy-Linux-Tool-Installer.py             # go
+```
+
+Debian-family only, and needs `sudo` plus `curl`.
+[Options and security notes.](#installation)
 
 ## Start here
 
@@ -38,9 +52,6 @@ they need [eget](https://github.com/zyedidia/eget):
 ```bash
 for r in eza-community/eza ajeetdsouza/zoxide bootandy/dust micro-editor/micro; do eget "$r"; done
 ```
-
-Or install all sixty-four at once with
-[`Lazy-Linux-Tool-Installer.py`](#installation).
 
 ## Looking for a replacement for something?
 
@@ -302,12 +313,6 @@ sudo snap install --classic code
 [`Lazy-Linux-Tool-Installer.py`](Lazy-Linux-Tool-Installer.py) checks your PATH,
 installs whatever is missing via apt, pip, snap, or eget, and skips anything you
 already have.
-
-```bash
-curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/main/Lazy-Linux-Tool-Installer.py
-chmod +x Lazy-Linux-Tool-Installer.py
-python3 Lazy-Linux-Tool-Installer.py
-```
 
 ```bash
 python3 Lazy-Linux-Tool-Installer.py --dry-run   # preview, change nothing
