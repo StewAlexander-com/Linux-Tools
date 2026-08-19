@@ -35,15 +35,26 @@ The seven worth having on any box:
 - **[tldr](https://tldr.sh)** — man pages as practical examples
 
 ```bash
-sudo apt install bat fd-find ripgrep fzf htop ncdu tldr
+sudo apt install bat fd-find ripgrep fzf htop ncdu tealdeer
 
-# Debian renames two of them. After installing, you type:
+# Three of those are typed differently from the package you install:
 #   batcat   not  bat
 #   fdfind   not  fd
+#   tldr     is what tealdeer installs
 ```
 
 Four more worth having. These are single binaries rather than apt packages, so
-they need [eget](https://github.com/zyedidia/eget):
+they need [eget](https://github.com/zyedidia/eget), which is not in apt. Get it
+once, checksum-verified:
+
+```bash
+curl -o eget.sh https://zyedidia.github.io/eget.sh
+echo "0e64b8a3c13f531da005096cc364ac77835bda54276fedef6c62f3dbdc1ee919  eget.sh" | sha256sum -c
+bash eget.sh
+sudo mv eget /usr/local/bin/
+```
+
+Then:
 
 - **[eza](https://github.com/eza-community/eza)** — `ls` with colour and git status
 - **[zoxide](https://github.com/ajeetdsouza/zoxide)** — `cd` that learns your habits
@@ -51,7 +62,7 @@ they need [eget](https://github.com/zyedidia/eget):
 - **[micro](https://github.com/micro-editor/micro)** — a friendly `nano` replacement
 
 ```bash
-for r in eza-community/eza ajeetdsouza/zoxide bootandy/dust micro-editor/micro; do eget "$r"; done
+for r in eza-community/eza ajeetdsouza/zoxide bootandy/dust micro-editor/micro; do sudo eget --to /usr/local/bin "$r"; done
 ```
 
 ## Looking for a replacement for something?
@@ -77,7 +88,7 @@ is grouped by category instead, for browsing.
 | `less` / `more` | [most](https://www.jedsoft.org/most/) | multiple windows |
 | `ls` | [eza](https://github.com/eza-community/eza) | [lsd](https://github.com/lsd-rs/lsd) also shows directory sizes |
 | `make` as a task runner | [just](https://github.com/casey/just) | |
-| `man` | [tldr](https://tldr.sh) | practical examples; [eg](https://github.com/srsudar/eg) is similar |
+| `man` | [tldr](https://tldr.sh) | practical examples; apt: `tealdeer`; [eg](https://github.com/srsudar/eg) is similar |
 | `nano` / `vi` | [micro](https://github.com/micro-editor/micro) | [ne](https://github.com/vigna/ne) and [neovim](https://neovim.io) are heavier |
 | `ping` | [gping](https://github.com/orf/gping) | live latency graph |
 | `ps` | [procs](https://github.com/dalance/procs) | |
@@ -104,6 +115,7 @@ bottom        you type   btm
 neovim        you type   nvim
 
 # Here it is the apt package name that differs, not the command
+tldr          sudo apt install tealdeer
 mtr           sudo apt install mtr-tiny
 hping3        sudo apt install hping3
 nmtui         sudo apt install network-manager
@@ -124,11 +136,15 @@ source ~/.bashrc
 Sixty-four tools in twelve groups. Every group starts with the command that
 installs it. A few entries are reference-only and marked as such.
 
+The `eget` lines fetch a binary straight from a project's GitHub releases and
+drop it on your PATH. They need eget itself, which is
+[installed under Start here](#start-here).
+
 ### Files, search, and disk (8)
 
 ```bash
 sudo apt install ncdu fd-find fzf ripgrep
-for r in bootandy/dust muesli/duf phiresky/ripgrep-all chmln/sd; do eget "$r"; done
+for r in bootandy/dust muesli/duf phiresky/ripgrep-all chmln/sd; do sudo eget --to /usr/local/bin "$r"; done
 ```
 
 - [**ncdu**](https://dev.yorhel.nl/ncdu) — Terminal disk/folder space viewer
@@ -144,7 +160,7 @@ for r in bootandy/dust muesli/duf phiresky/ripgrep-all chmln/sd; do eget "$r"; d
 
 ```bash
 sudo apt install fish
-for r in starship/starship ajeetdsouza/zoxide atuinsh/atuin; do eget "$r"; done
+for r in starship/starship ajeetdsouza/zoxide atuinsh/atuin; do sudo eget --to /usr/local/bin "$r"; done
 ```
 
 - [**fish**](https://fishshell.com) — Friendly interactive shell
@@ -155,7 +171,7 @@ for r in starship/starship ajeetdsouza/zoxide atuinsh/atuin; do eget "$r"; done
 ### `ls` replacements (2)
 
 ```bash
-for r in eza-community/eza lsd-rs/lsd; do eget "$r"; done
+for r in eza-community/eza lsd-rs/lsd; do sudo eget --to /usr/local/bin "$r"; done
 ```
 
 - [**eza**](https://github.com/eza-community/eza) — Modern `ls` replacement with colors and Git integration (successor to exa)
@@ -165,7 +181,7 @@ for r in eza-community/eza lsd-rs/lsd; do eget "$r"; done
 
 ```bash
 sudo apt install bat ne neovim vim
-for r in micro-editor/micro; do eget "$r"; done
+sudo eget --to /usr/local/bin micro-editor/micro
 ```
 
 - [**micro**](https://github.com/micro-editor/micro) — Friendly terminal editor if you are not into vi/vim (micro-editor/micro)
@@ -180,7 +196,7 @@ for r in micro-editor/micro; do eget "$r"; done
 
 ```bash
 sudo apt install htop
-for r in aristocratos/btop ClementTsang/bottom; do eget "$r"; done
+for r in aristocratos/btop ClementTsang/bottom; do sudo eget --to /usr/local/bin "$r"; done
 pip3 install --user glances
 ```
 
@@ -194,8 +210,8 @@ pip3 install --user glances
 
 ```bash
 sudo apt install bmon hping3 mtr-tiny network-manager nmap
-for r in orf/gping mr-karan/doggo PabloLec/neoss; do eget "$r"; done
-eget schollz/croc   # checksum-verified by the installer
+for r in orf/gping mr-karan/doggo PabloLec/neoss; do sudo eget --to /usr/local/bin "$r"; done
+sudo eget --to /usr/local/bin schollz/croc   # installer verifies its SHA-256
 ```
 
 - [**croc**](https://github.com/schollz/croc) — Securely send files between machines (cross-platform; schollz/croc)
@@ -213,7 +229,7 @@ eget schollz/croc   # checksum-verified by the installer
 
 ```bash
 sudo apt install tig
-for r in jesseduffield/lazygit dandavison/delta; do eget "$r"; done
+for r in jesseduffield/lazygit dandavison/delta; do sudo eget --to /usr/local/bin "$r"; done
 ```
 
 - [**tig**](https://github.com/jonas/tig) — TUI git client
@@ -224,7 +240,7 @@ for r in jesseduffield/lazygit dandavison/delta; do eget "$r"; done
 
 ```bash
 sudo apt install miller jc pandoc
-for r in ArthurSonzogni/json-tui; do eget "$r"; done
+sudo eget --to /usr/local/bin ArthurSonzogni/json-tui
 pip3 install --user visidata
 ```
 
@@ -238,7 +254,7 @@ pip3 install --user visidata
 
 ```bash
 sudo apt install lynis apt-show-versions nala
-for r in fastfetch-cli/fastfetch dalance/procs; do eget "$r"; done
+for r in fastfetch-cli/fastfetch dalance/procs; do sudo eget --to /usr/local/bin "$r"; done
 ```
 
 - [**systemctl**](https://manpages.debian.org/stable/systemd/systemctl.1.en.html) — Built-in **systemd** service manager (`systemctl status`, `systemctl list-units`, …) — _not installed by the script (already on systemd hosts); former wrapper `chkservice` is effectively unmaintained_
@@ -252,7 +268,7 @@ for r in fastfetch-cli/fastfetch dalance/procs; do eget "$r"; done
 
 ```bash
 sudo apt install most
-for r in srsudar/eg jesseduffield/lazydocker sharkdp/hyperfine casey/just; do eget "$r"; done
+for r in srsudar/eg jesseduffield/lazydocker sharkdp/hyperfine casey/just; do sudo eget --to /usr/local/bin "$r"; done
 pip3 install --user tldr
 ```
 
@@ -267,7 +283,7 @@ pip3 install --user tldr
 
 ```bash
 sudo apt install nnn
-for r in sayanarijit/xplr gokcehan/lf; do eget "$r"; done
+for r in sayanarijit/xplr gokcehan/lf; do sudo eget --to /usr/local/bin "$r"; done
 ```
 
 - [**xplr**](https://github.com/sayanarijit/xplr) — Very graphical TUI file explorer, best on large screens (sayanarijit/xplr on GitHub)
@@ -278,7 +294,7 @@ for r in sayanarijit/xplr gokcehan/lf; do eget "$r"; done
 
 ```bash
 sudo apt install geany guake wireshark
-for r in Eugeny/tabby; do eget "$r"; done
+sudo eget --to /usr/local/bin Eugeny/tabby
 sudo snap install --classic code
 ```
 
