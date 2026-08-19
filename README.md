@@ -313,11 +313,11 @@ sudo snap install --classic code
 
 ## Installer options and notes
 
-It checks your PATH and installs what is missing via apt, pip, snap, or eget,
-whichever suits the tool.
+`Lazy-Linux-Tool-Installer.py` routes each tool to apt, pip, snap, or eget,
+whichever suits it.
 
 ```bash
-python3 Lazy-Linux-Tool-Installer.py --dry-run   # preview, change nothing
+python3 Lazy-Linux-Tool-Installer.py --dry-run   # preview, changes nothing
 python3 Lazy-Linux-Tool-Installer.py --server    # skip the five desktop GUI apps
 python3 Lazy-Linux-Tool-Installer.py --help
 ```
@@ -329,10 +329,9 @@ curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/v5.0.1/L
 ```
 
 It also needs network access, and prompts once for consent. It skips the
-reference-only entries: vimrc, Sublime
-Text, System Informer, Zabbix, ncrack. It does not pipe `curl` into a shell —
-release artifacts are downloaded, sanity-checked, and croc's published SHA-256
-is verified.
+reference-only entries: vimrc, Sublime Text, System Informer, Zabbix, and
+ncrack. It does not pipe `curl` into a shell — release artifacts are
+downloaded, sanity-checked, and croc's published SHA-256 is verified.
 
 ---
 
