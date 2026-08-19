@@ -5,9 +5,7 @@ replaces, and what Debian actually calls it once installed.
 
 ## Start here
 
-Sixty-four tools is a lot to wade through. If you take nothing else from this
-page, take these seven. They install with one command and you will use them the
-same day:
+The seven worth having on any box:
 
 - **[bat](https://github.com/sharkdp/bat)** — `cat` with syntax highlighting and paging
 - **[fd](https://github.com/sharkdp/fd)** — `find` with sane defaults, and far less typing
@@ -19,26 +17,32 @@ same day:
 
 ```bash
 sudo apt install bat fd-find ripgrep fzf htop ncdu tldr
+
+# Debian renames two of them. After installing, you type:
+#   batcat   not  bat
+#   fdfind   not  fd
 ```
 
-Two of those are renamed on Debian: `bat` is typed **`batcat`** and `fd` is
-typed **`fdfind`**. [Why, and how to alias them
-back.](#installed-it-but-the-command-isnt-found)
+Four more worth having. These are single binaries rather than apt packages, so
+they need [eget](https://github.com/zyedidia/eget):
 
-Four more worth the extra step, each a single binary rather than an apt
-package: **[eza](https://github.com/eza-community/eza)** for `ls`, **[zoxide](https://github.com/ajeetdsouza/zoxide)** for `cd`, **[dust](https://github.com/bootandy/dust)** for
-`du`, and **[micro](https://github.com/micro-editor/micro)** for `nano`. See [Installation](#installation).
+- **[eza](https://github.com/eza-community/eza)** — `ls` with colour and git status
+- **[zoxide](https://github.com/ajeetdsouza/zoxide)** — `cd` that learns your habits
+- **[dust](https://github.com/bootandy/dust)** — `du` as a bar chart
+- **[micro](https://github.com/micro-editor/micro)** — a friendly `nano` replacement
 
-Then browse the [full list](#what-i-typically-install), look up a command you
-already use in the [table below](#looking-for-a-replacement-for-something), or
-install everything at once with
+```bash
+for r in eza-community/eza ajeetdsouza/zoxide bootandy/dust micro-editor/micro; do eget "$r"; done
+```
+
+Or install all sixty-four at once with
 [`Lazy-Linux-Tool-Installer.py`](#installation).
 
 ## Looking for a replacement for something?
 
 Most people arrive here wanting a better version of a command they already use,
 so this is sorted by the command you already know. One recommendation per row;
-alternatives are in the notes. The [full list](#what-i-typically-install) below
+alternatives are in the notes. The [full list](#the-full-list) below
 is grouped by category instead, for browsing.
 
 | You already use | Try instead | Notes |
@@ -68,26 +72,28 @@ is grouped by category instead, for browsing.
 
 ## Installed it, but the command isn't found?
 
-<details>
-<summary>Debian and Ubuntu rename ten of these — bat, fd, bottom, miller, ripgrep, ripgrep-all, neovim, mtr, hping, NetworkManager</summary>
+The name you install is often not the name you type, for three different
+reasons. Only the first two are Debian's doing:
 
-They are renamed to avoid clashing with existing packages. This catches almost
-everyone at least once.
+```text
+# Debian renames these, and only these
+bat           you type   batcat
+fd            you type   fdfind
 
-| Tool | apt package | What you actually type |
-|---|---|---|
-| bat | `bat` | **`batcat`** |
-| fd | `fd-find` | **`fdfind`** |
-| bottom | `bottom` | **`btm`** |
-| miller | `miller` | **`mlr`** |
-| ripgrep | `ripgrep` | **`rg`** |
-| ripgrep-all | `ripgrep-all` | **`rga`** |
-| neovim | `neovim` | **`nvim`** |
-| mtr | `mtr-tiny` | **`mtr`** |
-| hping | `hping3` | **`hping3`** |
-| NetworkManager TUI | `network-manager` | **`nmtui`** |
+# These ship under a short name upstream, on every distro
+ripgrep       you type   rg
+ripgrep-all   you type   rga
+miller        you type   mlr
+bottom        you type   btm
+neovim        you type   nvim
 
-If you would rather keep the upstream names, alias them in your shell:
+# Here it is the apt package name that differs, not the command
+mtr           sudo apt install mtr-tiny
+hping3        sudo apt install hping3
+nmtui         sudo apt install network-manager
+```
+
+To keep the upstream names for the two Debian renames:
 
 ```bash
 echo 'alias bat=batcat' >> ~/.bashrc
@@ -95,124 +101,174 @@ echo 'alias fd=fdfind'  >> ~/.bashrc
 source ~/.bashrc
 ```
 
-</details>
+## The full list
 
-## What I (_typically_) Install
+Sixty-four tools in twelve groups. Every group starts with the command that
+installs it. A few entries are reference-only and marked as such.
 
+### Files, search, and disk (8)
 
-> **How to read this list:** Most entries are also installed by
-> [`Lazy-Linux-Tool-Installer.py`](Lazy-Linux-Tool-Installer.py). A few are
-> **reference-only** (configs, Windows-only, or too heavy) and are marked
-> *not in the Lazy installer*.
+```bash
+sudo apt install ncdu fd-find fzf ripgrep
+for r in bootandy/dust muesli/duf phiresky/ripgrep-all chmln/sd; do eget "$r"; done
+```
 
-Each category is collapsed. The tool names stay visible on every row, so you can scan or `Ctrl+F` the whole set without opening anything — click a row only when you want the descriptions.
+- [**ncdu**](https://dev.yorhel.nl/ncdu) — Terminal disk/folder space viewer
+- [**dust**](https://github.com/bootandy/dust) — Friendlier `du` with bar charts
+- [**duf**](https://github.com/muesli/duf) — Friendlier `df` with graphs
+- [**fd**](https://github.com/sharkdp/fd) — Friendlier `find` (sharkdp/fd); Debian/Ubuntu apt package `fd-find`, command often **`fdfind`**
+- [**fzf**](https://github.com/junegunn/fzf) — Fuzzy finder for files, history, and pipelines
+- [**ripgrep**](https://github.com/BurntSushi/ripgrep) — Fast recursive search — command is **`rg`**
+- [**ripgrep-all**](https://github.com/phiresky/ripgrep-all) — ripgrep across PDFs, office docs, and other rich formats — command is **`rga`**
+- [**sd**](https://github.com/chmln/sd) — Simpler `sed`-like find/replace
 
-<details>
-<summary><b>Desktop GUI Apps</b> · 5 tools — geany, wireshark, Visual Studio Code, guake, tabby</summary>
+### Shell and prompt (4)
 
-- [**geany**](https://www.geany.org) -> GUI editor like "notepad++" for Windows
-- [**wireshark**](https://www.wireshark.org) -> network packet analyzer
-- [**Visual Studio Code**](https://code.visualstudio.com) -> via snap: ```sudo snap install --classic code``` (Lazy installer uses the same)
-- [**guake**](https://github.com/Guake/guake) -> dropdown GUI terminal for Linux
-- [**tabby**](https://tabby.sh) -> Modern cross-platform terminal (desktop app; GitHub releases are AppImage/`.deb`/tarballs, not a tiny static CLI) ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/))
+```bash
+sudo apt install fish
+for r in starship/starship ajeetdsouza/zoxide atuinsh/atuin; do eget "$r"; done
+```
 
-</details>
+- [**fish**](https://fishshell.com) — Friendly interactive shell
+- [**starship**](https://starship.rs) — Cross-shell customizable prompt
+- [**zoxide**](https://github.com/ajeetdsouza/zoxide) — Smarter `cd` that learns your habits
+- [**atuin**](https://github.com/atuinsh/atuin) — Shell history search/sync across machines
 
-<details>
-<summary><b>Terminal File Explorers</b> · 3 tools — xplr, nnn, lf</summary>
+### `ls` replacements (2)
 
-- [**xplr**](https://github.com/sayanarijit/xplr) -> Very graphical TUI file explorer, best on large screens (sayanarijit/xplr on GitHub)
-- [🌟 **nnn**](https://github.com/jarun/nnn) -> Efficient and elegant
-- [**lf**](https://github.com/gokcehan/lf) -> Cross-platform TUI file explorer (gokcehan/lf on GitHub)
+```bash
+for r in eza-community/eza lsd-rs/lsd; do eget "$r"; done
+```
 
-</details>
+- [**eza**](https://github.com/eza-community/eza) — Modern `ls` replacement with colors and Git integration (successor to exa)
+- [🌟 **lsd**](https://github.com/lsd-rs/lsd) — Another `ls` clone, cross-platform (Linux/macOS/Windows); can show directory sizes (lsd-rs/lsd) - _personal favorite_
 
-<details>
-<summary><b>LS-like Directory Viewers</b> · 2 tools — eza, lsd</summary>
+### Text editors and viewers (7)
 
-- [**eza**](https://github.com/eza-community/eza) -> Modern `ls` replacement with colors and Git integration (successor to exa) ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/))
-- [🌟 **lsd**](https://github.com/lsd-rs/lsd) -> Another `ls` clone, cross-platform (Linux/macOS/Windows); can show directory sizes (lsd-rs/lsd) - _personal favorite_
+```bash
+sudo apt install bat ne neovim vim
+for r in micro-editor/micro; do eget "$r"; done
+```
 
-</details>
+- [**micro**](https://github.com/micro-editor/micro) — Friendly terminal editor if you are not into vi/vim (micro-editor/micro)
+- [**ne**](https://github.com/vigna/ne) — Terminal editor (nano-like menus; Esc or F1)
+- [🌟 **vim**](https://github.com/vim/vim) — Vi Improved - _personal favorite_
+- [**neovim**](https://neovim.io) — Modern Vim-compatible editor (apt package `neovim`; command `nvim`)
+- [**vimrc**](https://github.com/amix/vimrc) — Shared vim config (amix/vimrc); see [⭐ **vim_awesome** based on this](https://github.com/ArthurChiao/vim_awesome) — _configs only; not installed by the Lazy installer_
+- [**bat**](https://github.com/sharkdp/bat) — `cat` clone with syntax highlighting / git integration — on Debian/Ubuntu apt the command is often **`batcat`**
+- [**sublime text**](https://www.sublimetext.com) — GUI editor — _manual install; not in the Lazy installer_
 
-<details>
-<summary><b>Text Editors and Viewers</b> · 7 tools — micro, ne, vim, neovim, vimrc, bat, sublime text</summary>
+### Process and system monitors (5)
 
-- [**micro**](https://github.com/micro-editor/micro) -> Friendly terminal editor if you are not into vi/vim (micro-editor/micro)
-- [**ne**](https://github.com/vigna/ne) -> Terminal editor (nano-like menus; Esc or F1)
-- [🌟 **vim**](https://github.com/vim/vim) -> Vi Improved - _personal favorite_
-- [**neovim**](https://neovim.io) -> Modern Vim-compatible editor (apt package `neovim`; command `nvim`) ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/))
-- [**vimrc**](https://github.com/amix/vimrc) -> Shared vim config (amix/vimrc) -> [⭐ **vim_awesome** based on this](https://github.com/ArthurChiao/vim_awesome) — _configs only; not installed by the Lazy installer_
-- [**bat**](https://github.com/sharkdp/bat) -> `cat` clone with syntax highlighting / git integration ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)) — on Debian/Ubuntu apt the command is often **`batcat`**
-- [**sublime text**](https://www.sublimetext.com) -> GUI editor — _manual install; not in the Lazy installer_
+```bash
+sudo apt install htop
+for r in aristocratos/btop ClementTsang/bottom; do eget "$r"; done
+pip3 install --user glances
+```
 
-</details>
+- [**glances**](https://nicolargo.github.io/glances/) — Lots of system info in one glance; cross-platform — _Lazy installer uses `pip3 install --user glances` (requires Python/pip already present)_
+- [🌟 **htop**](https://htop.dev) — Supercharged `top` clone — _personal favorite_
+- [**btop**](https://github.com/aristocratos/btop) — Fast TUI process/resource monitor
+- [**bottom**](https://github.com/ClementTsang/bottom) — Cross-platform process monitor inspired by btop — command is **`btm`**
+- [**system informer**](https://www.systeminformer.com/) — **Windows-only** successor to Process Hacker — _listed for cross-platform awareness; not in the Lazy installer_
 
-<details>
-<summary><b>Process Explorers</b> · 5 tools — glances, htop, btop, bottom, system informer</summary>
+### Network (10)
 
-- [**glances**](https://nicolargo.github.io/glances/) -> Lots of system info in one glance; cross-platform — _Lazy installer uses `pip3 install --user glances` (requires Python/pip already present)_
-- [🌟 **htop**](https://htop.dev) -> Supercharged `top` clone — _personal favorite_
-- [**btop**](https://github.com/aristocratos/btop) -> Fast TUI process/resource monitor ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/))
-- [**bottom**](https://github.com/ClementTsang/bottom) -> Cross-platform process monitor inspired by btop — command is **`btm`**
-- [**system informer**](https://www.systeminformer.com/) -> **Windows-only** successor to Process Hacker — _listed for cross-platform awareness; not in the Lazy installer_
+```bash
+sudo apt install bmon hping3 mtr-tiny network-manager nmap
+for r in orf/gping mr-karan/doggo PabloLec/neoss; do eget "$r"; done
+eget schollz/croc   # checksum-verified by the installer
+```
 
-</details>
+- [**croc**](https://github.com/schollz/croc) — Securely send files between machines (cross-platform; schollz/croc)
+- [**network-manager**](https://networkmanager.dev/) — apt package that provides **`nmtui`** (terminal NetworkManager UI)
+- [**hping3**](https://github.com/antirez/hping) — Advanced ping/packet crafting — install via apt as **`hping3`** (upstream repo is `antirez/hping`)
+- [**nmap**](https://nmap.org) — Network scanner → related: [**ncrack**](https://github.com/nmap/ncrack) — _ncrack is not auto-installed_
+- [**bmon**](https://github.com/tgraf/bmon) — TUI network bandwidth monitor
+- [**mtr**](https://www.bitwizard.nl/mtr/) — Traceroute + ping (apt package is often `mtr-tiny`; command `mtr`)
+- [**gping**](https://github.com/orf/gping) — Ping with a live latency graph
+- [**doggo**](https://github.com/mr-karan/doggo) — Modern `dig` alternative (DoH/DoT/DoQ); actively maintained successor to [ogham/dog](https://github.com/ogham/dog)
+- [**neoss**](https://github.com/PabloLec/neoss) — User-friendly `ss` alternative with a TUI
+- [**zabbix**](https://www.zabbix.com) — Full monitoring stack — _not in the Lazy installer (much heavier than a CLI utility)_
 
-<details>
-<summary><b>Network-Related Apps</b> · 10 tools — croc, network-manager, hping3, nmap, bmon, mtr, gping, doggo, neoss, zabbix</summary>
+### Git (3)
 
-- [**croc**](https://github.com/schollz/croc) -> Securely send files between machines (cross-platform; schollz/croc)
-- [**network-manager**](https://networkmanager.dev/) -> apt package that provides **`nmtui`** (terminal NetworkManager UI)
-- [**hping3**](https://github.com/antirez/hping) -> Advanced ping/packet crafting — install via apt as **`hping3`** (upstream repo is `antirez/hping`)
-- [**nmap**](https://nmap.org) -> Network scanner → related: [**ncrack**](https://github.com/nmap/ncrack) — _ncrack is not auto-installed_
-- [**bmon**](https://github.com/tgraf/bmon) -> TUI network bandwidth monitor
-- [**mtr**](https://www.bitwizard.nl/mtr/) -> Traceroute + ping (apt package is often `mtr-tiny`; command `mtr`)
-- [**gping**](https://github.com/orf/gping) -> Ping with a live latency graph
-- [**doggo**](https://github.com/mr-karan/doggo) -> Modern `dig` alternative (DoH/DoT/DoQ); actively maintained successor to [ogham/dog](https://github.com/ogham/dog)
-- [**neoss**](https://github.com/PabloLec/neoss) -> User-friendly `ss` alternative with a TUI
-- [**zabbix**](https://www.zabbix.com) -> Full monitoring stack — _not in the Lazy installer (much heavier than a CLI utility)_
+```bash
+sudo apt install tig
+for r in jesseduffield/lazygit dandavison/delta; do eget "$r"; done
+```
 
-</details>
+- [**tig**](https://github.com/jonas/tig) — TUI git client
+- [**lazygit**](https://github.com/jesseduffield/lazygit) — Simple TUI for git
+- [**delta**](https://github.com/dandavison/delta) — Syntax-highlighting pager for git diffs
 
-<details>
-<summary><b>Misc CLI Terminal Apps</b> · 32 tools — systemctl, ncdu, dust, duf, lynis, apt-show-versions, nala, fd, fish, starship, zoxide, atuin, tig, lazygit, delta, miller, most, tldr, lazydocker, json-tui, jc, visidata, eg, procs, sd, ripgrep, ripgrep-all, fzf, fastfetch, pandoc, hyperfine, just</summary>
+### Data and documents (5)
 
-- [**systemctl**](https://manpages.debian.org/stable/systemd/systemctl.1.en.html) -> Built-in **systemd** service manager (`systemctl status`, `systemctl list-units`, …) — _not installed by the script (already on systemd hosts); former wrapper `chkservice` is effectively unmaintained_
-- [**ncdu**](https://dev.yorhel.nl/ncdu) -> Terminal disk/folder space viewer
-- [**dust**](https://github.com/bootandy/dust) -> Friendlier `du` with bar charts ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/))
-- [**duf**](https://github.com/muesli/duf) -> Friendlier `df` with graphs
-- [**lynis**](https://cisofy.com/lynis/) -> Linux security auditing by CISOfy ([GitHub](https://github.com/CISOfy/lynis))
-- [**apt-show-versions**](https://tracker.debian.org/pkg/apt-show-versions) -> Show package versions / upgrades (`apt-show-versions -u`)
-- [**nala**](https://gitlab.com/volian/nala) -> Friendlier apt frontend ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/))
-- [**fd**](https://github.com/sharkdp/fd) -> Friendlier `find` (sharkdp/fd); Debian/Ubuntu apt package `fd-find`, command often **`fdfind`**
-- [**fish**](https://fishshell.com) -> Friendly interactive shell
-- [**starship**](https://starship.rs) -> Cross-shell customizable prompt ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/))
-- [**zoxide**](https://github.com/ajeetdsouza/zoxide) -> Smarter `cd` that learns your habits ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/))
-- [**atuin**](https://github.com/atuinsh/atuin) -> Shell history search/sync across machines
-- [**tig**](https://github.com/jonas/tig) -> TUI git client
-- [**lazygit**](https://github.com/jesseduffield/lazygit) -> Simple TUI for git
-- [**delta**](https://github.com/dandavison/delta) -> Syntax-highlighting pager for git diffs
-- [**miller**](https://github.com/johnkerl/miller) -> awk/sed-like tool for CSV/JSON/etc. — command is **`mlr`**
-- [**most**](https://www.jedsoft.org/most/) -> Pager with more features than less/more
-- [**tldr**](https://tldr.sh) -> Simplified practical man pages ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/)) — Lazy installer uses `pip3 install --user tldr`
-- [**lazydocker**](https://github.com/jesseduffield/lazydocker) -> TUI for Docker
-- [**json-tui**](https://github.com/ArthurSonzogni/json-tui) -> Terminal JSON viewer with table view
-- [**jc**](https://github.com/kellyjonbrazil/jc) -> Convert common command output to JSON
-- [**visidata**](https://www.visidata.org/) -> Interactive viewer for CSV and other tabular data — Lazy installer uses `pip3 install --user visidata`
-- [**eg**](https://github.com/srsudar/eg) -> Useful command examples at the CLI (similar niche to [tldr](https://tldr.sh/))
-- [**procs**](https://github.com/dalance/procs) -> Modern `ps` replacement
-- [**sd**](https://github.com/chmln/sd) -> Simpler `sed`-like find/replace
-- [**ripgrep**](https://github.com/BurntSushi/ripgrep) -> Fast recursive search — command is **`rg`** ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/))
-- [**ripgrep-all**](https://github.com/phiresky/ripgrep-all) -> ripgrep across PDFs, office docs, and other rich formats — command is **`rga`**
-- [**fzf**](https://github.com/junegunn/fzf) -> Fuzzy finder for files, history, and pipelines
-- [**fastfetch**](https://github.com/fastfetch-cli/fastfetch) -> Fast system-info display (neofetch-style) ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/))
-- [**pandoc**](https://pandoc.org) -> Universal document converter ([source thread](https://www.reddit.com/r/selfhosted/comments/1fg3cou/linux_cli_tool_upgradesalternatives/))
-- [**hyperfine**](https://github.com/sharkdp/hyperfine) -> Command-line benchmarking
-- [**just**](https://github.com/casey/just) -> Command runner / lightweight `make` alternative
+```bash
+sudo apt install miller jc pandoc
+for r in ArthurSonzogni/json-tui; do eget "$r"; done
+pip3 install --user visidata
+```
 
-</details>
+- [**miller**](https://github.com/johnkerl/miller) — awk/sed-like tool for CSV/JSON/etc. — command is **`mlr`**
+- [**jc**](https://github.com/kellyjonbrazil/jc) — Convert common command output to JSON
+- [**json-tui**](https://github.com/ArthurSonzogni/json-tui) — Terminal JSON viewer with table view
+- [**visidata**](https://www.visidata.org/) — Interactive viewer for CSV and other tabular data — Lazy installer uses `pip3 install --user visidata`
+- [**pandoc**](https://pandoc.org) — Universal document converter
 
+### System and packages (6)
+
+```bash
+sudo apt install lynis apt-show-versions nala
+for r in fastfetch-cli/fastfetch dalance/procs; do eget "$r"; done
+```
+
+- [**systemctl**](https://manpages.debian.org/stable/systemd/systemctl.1.en.html) — Built-in **systemd** service manager (`systemctl status`, `systemctl list-units`, …) — _not installed by the script (already on systemd hosts); former wrapper `chkservice` is effectively unmaintained_
+- [**lynis**](https://cisofy.com/lynis/) — Linux security auditing by CISOfy ([GitHub](https://github.com/CISOfy/lynis))
+- [**apt-show-versions**](https://tracker.debian.org/pkg/apt-show-versions) — Show package versions / upgrades (`apt-show-versions -u`)
+- [**nala**](https://gitlab.com/volian/nala) — Friendlier apt frontend
+- [**fastfetch**](https://github.com/fastfetch-cli/fastfetch) — Fast system-info display (neofetch-style)
+- [**procs**](https://github.com/dalance/procs) — Modern `ps` replacement
+
+### Docs, containers, and benchmarks (6)
+
+```bash
+sudo apt install most
+for r in srsudar/eg jesseduffield/lazydocker sharkdp/hyperfine casey/just; do eget "$r"; done
+pip3 install --user tldr
+```
+
+- [**tldr**](https://tldr.sh) — Simplified practical man pages — Lazy installer uses `pip3 install --user tldr`
+- [**eg**](https://github.com/srsudar/eg) — Useful command examples at the CLI (similar niche to [tldr](https://tldr.sh/))
+- [**most**](https://www.jedsoft.org/most/) — Pager with more features than less/more
+- [**lazydocker**](https://github.com/jesseduffield/lazydocker) — TUI for Docker
+- [**hyperfine**](https://github.com/sharkdp/hyperfine) — Command-line benchmarking
+- [**just**](https://github.com/casey/just) — Command runner / lightweight `make` alternative
+
+### Terminal file explorers (3)
+
+```bash
+sudo apt install nnn
+for r in sayanarijit/xplr gokcehan/lf; do eget "$r"; done
+```
+
+- [**xplr**](https://github.com/sayanarijit/xplr) — Very graphical TUI file explorer, best on large screens (sayanarijit/xplr on GitHub)
+- [🌟 **nnn**](https://github.com/jarun/nnn) — Efficient and elegant
+- [**lf**](https://github.com/gokcehan/lf) — Cross-platform TUI file explorer (gokcehan/lf on GitHub)
+
+### Desktop GUI apps (5)
+
+```bash
+sudo apt install geany guake wireshark
+for r in Eugeny/tabby; do eget "$r"; done
+sudo snap install --classic code
+```
+
+- [**Visual Studio Code**](https://code.visualstudio.com) — via snap: ```sudo snap install --classic code``` (Lazy installer uses the same)
+- [**geany**](https://www.geany.org) — GUI editor like "notepad++" for Windows
+- [**wireshark**](https://www.wireshark.org) — network packet analyzer
+- [**guake**](https://github.com/Guake/guake) — dropdown GUI terminal for Linux
+- [**tabby**](https://tabby.sh) — Modern cross-platform terminal (desktop app; GitHub releases are AppImage/`.deb`/tarballs, not a tiny static CLI)
 ---
 ## Updates
 
@@ -239,67 +295,33 @@ Each category is collapsed. The tool names stay visible on every row, so you can
 
 ## Installation
 
-### One tool at a time
-
-Nothing here requires the installer. Roughly half the list is a single apt
-package: see [Start here](#start-here) for the seven worth having first, and the
-[rename table](#installed-it-but-the-command-isnt-found) if a tool installs but
-the command comes back not found.
-
-The rest are published only as GitHub releases.
-[eget](https://github.com/zyedidia/eget) fetches a binary from any repo given in
-`owner/name` form, which covers every remaining entry:
+[`Lazy-Linux-Tool-Installer.py`](Lazy-Linux-Tool-Installer.py) checks your PATH,
+installs whatever is missing via apt, pip, snap, or eget, and skips anything you
+already have.
 
 ```bash
-eget eza-community/eza
-```
-
-### Or all of them at once
-
-[`Lazy-Linux-Tool-Installer.py`](Lazy-Linux-Tool-Installer.py) installs the **tool definitions in that script** (currently ~60 entries): checks PATH, installs missing tools via apt/pip/snap/eget (and a verified GitHub install for croc), and skips anything already present.
-
-It does **not** install README reference-only items (vimrc configs, Sublime Text, System Informer, Zabbix, ncrack).
-
-**Requires:** Debian-family OS (`apt-get`), `sudo`, `curl`, and network access. You will be prompted once for consent, then for sudo as needed.
-
-### Quick Install (tracks `main`)
-
-```bash
-curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/main/Lazy-Linux-Tool-Installer.py && chmod +x Lazy-Linux-Tool-Installer.py && python3 Lazy-Linux-Tool-Installer.py
-```
-
-### Pin to release v5.0.1
-
-```bash
-curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/v5.0.1/Lazy-Linux-Tool-Installer.py && chmod +x Lazy-Linux-Tool-Installer.py && python3 Lazy-Linux-Tool-Installer.py
-```
-
-### Download and Run
-
-```bash
-# Latest main
 curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/main/Lazy-Linux-Tool-Installer.py
-# Or pin: curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/v5.0.1/Lazy-Linux-Tool-Installer.py
-
 chmod +x Lazy-Linux-Tool-Installer.py
 python3 Lazy-Linux-Tool-Installer.py
 ```
 
-### Options
-
-- **Default**: Install CLI + desktop GUI tools defined in the script
-- **`--server`**: Skip desktop GUI apps only (`geany`, `wireshark`, `code`/VS Code, `guake`, `tabby`). TUI tools such as `xplr`/`htop`/`nnn` still install
-- **`--dry-run` / `-n`**: Preview actions; make no changes
-- **`--help`**: Show all options
-
-**Examples:**
 ```bash
-python3 Lazy-Linux-Tool-Installer.py --server           # headless-friendly set
-python3 Lazy-Linux-Tool-Installer.py --dry-run          # preview
-python3 Lazy-Linux-Tool-Installer.py --server --dry-run # preview server set
+python3 Lazy-Linux-Tool-Installer.py --dry-run   # preview, change nothing
+python3 Lazy-Linux-Tool-Installer.py --server    # skip the five desktop GUI apps
+python3 Lazy-Linux-Tool-Installer.py --help
 ```
 
-> **Security note:** The installer does not use `curl | sh` or `curl | bash` for eget or croc. It downloads GitHub release artifacts, applies binary sanity checks, verifies croc’s published SHA-256 checksums, and runs simple post-install probes for those binaries.
+Pin to a release rather than tracking `main`:
+
+```bash
+curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/v5.0.1/Lazy-Linux-Tool-Installer.py
+```
+
+Needs a Debian-family OS (`apt-get`), `sudo`, `curl`, and network access, and
+prompts once for consent. It skips the reference-only entries: vimrc, Sublime
+Text, System Informer, Zabbix, ncrack. It does not pipe `curl` into a shell —
+release artifacts are downloaded, sanity-checked, and croc's published SHA-256
+is verified.
 
 ---
 
