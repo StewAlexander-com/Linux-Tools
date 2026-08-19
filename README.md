@@ -1,9 +1,37 @@
 # Linux Tools: 2026 Edition
 
-The tools I put on almost every Linux / Debian host, with notes on what each one
-replaces and what Debian actually calls it after you install it.
+Sixty-four tools I put on almost every Linux / Debian host: what each one
+replaces, and what Debian actually calls it once installed.
 
-Install them one at a time, or all at once with
+## Start here
+
+Sixty-four tools is a lot to wade through. If you take nothing else from this
+page, take these seven. They install with one command and you will use them the
+same day:
+
+- **[bat](https://github.com/sharkdp/bat)** — `cat` with syntax highlighting and paging
+- **[fd](https://github.com/sharkdp/fd)** — `find` with sane defaults, and far less typing
+- **[ripgrep](https://github.com/BurntSushi/ripgrep)** — `grep`, dramatically faster
+- **[fzf](https://github.com/junegunn/fzf)** — fuzzy-find anything; pipe any list into it
+- **[htop](https://htop.dev)** — a `top` you can actually read
+- **[ncdu](https://dev.yorhel.nl/ncdu)** — find what filled the disk
+- **[tldr](https://tldr.sh)** — man pages as practical examples
+
+```bash
+sudo apt install bat fd-find ripgrep fzf htop ncdu tldr
+```
+
+Two of those are renamed on Debian: `bat` is typed **`batcat`** and `fd` is
+typed **`fdfind`**. [Why, and how to alias them
+back.](#installed-it-but-the-command-isnt-found)
+
+Four more worth the extra step, each a single binary rather than an apt
+package: **[eza](https://github.com/eza-community/eza)** for `ls`, **[zoxide](https://github.com/ajeetdsouza/zoxide)** for `cd`, **[dust](https://github.com/bootandy/dust)** for
+`du`, and **[micro](https://github.com/micro-editor/micro)** for `nano`. See [Installation](#installation).
+
+Then browse the [full list](#what-i-typically-install), look up a command you
+already use in the [table below](#looking-for-a-replacement-for-something), or
+install everything at once with
 [`Lazy-Linux-Tool-Installer.py`](#installation).
 
 ## Looking for a replacement for something?
@@ -68,25 +96,6 @@ source ~/.bashrc
 ```
 
 </details>
-
-#### Table of Contents
-
-- [Linux Tools: 2026 Edition](#linux-tools-2026-edition)
-  - [Looking for a replacement for something?](#looking-for-a-replacement-for-something)
-  - [Installed it, but the command isn't found?](#installed-it-but-the-command-isnt-found)
-  - [What I (_typically_) Install](#what-i-typically-install)
-  - [Updates](#updates)
-  - [Installation](#installation)
-    - [One tool at a time](#one-tool-at-a-time)
-    - [Or all of them at once](#or-all-of-them-at-once)
-  - [Testing](#testing)
-    - [Running Tests](#running-tests)
-    - [Test Results](#test-results)
-    - [Test Coverage](#test-coverage)
-    - [Platform Independence](#platform-independence)
-  - [Sometimes using two apps together can be helpful](#sometimes-using-two-apps-together-can-be-helpful)
-  - [Sources](#sources)
-  - [License](#license)
 
 ## What I (_typically_) Install
 
@@ -232,18 +241,17 @@ Each category is collapsed. The tool names stay visible on every row, so you can
 
 ### One tool at a time
 
-Nothing here requires the installer. Most entries are a single apt package, and
-the ones that are not link to their own install instructions:
+Nothing here requires the installer. Roughly half the list is a single apt
+package: see [Start here](#start-here) for the seven worth having first, and the
+[rename table](#installed-it-but-the-command-isnt-found) if a tool installs but
+the command comes back not found.
+
+The rest are published only as GitHub releases.
+[eget](https://github.com/zyedidia/eget) fetches a binary from any repo given in
+`owner/name` form, which covers every remaining entry:
 
 ```bash
-sudo apt install bat fd-find ripgrep fzf htop ncdu tldr
-```
-
-For tools published only as GitHub releases, [eget](https://github.com/zyedidia/eget)
-fetches a binary from any repo in `owner/name` form:
-
-```bash
-eget schollz/croc
+eget eza-community/eza
 ```
 
 ### Or all of them at once
