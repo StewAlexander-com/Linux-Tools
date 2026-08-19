@@ -314,6 +314,12 @@ sudo snap install --classic code
 <details>
 <summary>Version history, newest first</summary>
 
+* 08/19/26 - Tagged [**v5.1.0**](https://github.com/StewAlexander-com/Linux-Tools/releases/tag/v5.1.0): `neoss` and `eg` install again, new npm method, MIT license, README rebuilt for first-time visitors
+* 08/19/26 - Fixed `neoss` (now npm) and `eg` (now pip): both were declared as eget tools, but eget could never fetch either one
+* 08/19/26 - Added an opt-in test that asks GitHub whether every eget tool still ships a Linux binary, so this cannot go unnoticed again
+* 08/19/26 - Working `eget` and `tldr` instructions: `eget` had no install steps and put binaries outside `PATH`; `tldr` is not in Debian stable, so `tealdeer` provides it
+* 08/19/26 - README rebuilt around a first-time visitor: a "Start here" set, an install command per group, and the command names Debian actually gives you
+* 08/19/26 - Added an MIT LICENSE
 * 07/14/26 - Tagged [**v5.0.1**](https://github.com/StewAlexander-com/Linux-Tools/releases/tag/v5.0.1): forensic README accuracy pass; `--server` only skips real GUI apps (`xplr` is TUI again)
 * 07/14/26 - Forensic README accuracy pass: fix misleading install claims, jc example, Debian command aliases, glances/tabby/systemctl notes; exclude only real GUI apps from `--server`
 * 07/14/26 - Tagged [**v5.0.0**](https://github.com/StewAlexander-com/Linux-Tools/releases/tag/v5.0.0): secure eget/croc installs; README 2026 freshness; `dog` → `doggo`
@@ -346,7 +352,7 @@ python3 Lazy-Linux-Tool-Installer.py --help
 Pin to a release rather than tracking `main`:
 
 ```bash
-curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/v5.0.1/Lazy-Linux-Tool-Installer.py
+curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/v5.1.0/Lazy-Linux-Tool-Installer.py
 ```
 
 It also needs network access, and prompts once for consent. It skips the five
