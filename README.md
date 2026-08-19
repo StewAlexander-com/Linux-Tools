@@ -8,38 +8,43 @@ Install them one at a time, or all at once with
 
 ## Looking for a replacement for something?
 
-Most people arrive here wanting a better version of a command they already use.
-Start here, then see the [full list](#what-i-typically-install) for the rest.
+Most people arrive here wanting a better version of a command they already use,
+so this is sorted by the command you already know. One recommendation per row;
+alternatives are in the notes. The [full list](#what-i-typically-install) below
+is grouped by category instead, for browsing.
 
 | You already use | Try instead | Notes |
 |---|---|---|
-| `ls` | [eza](https://github.com/eza-community/eza), [lsd](https://github.com/lsd-rs/lsd) | lsd can show directory sizes |
-| `cat` | [bat](https://github.com/sharkdp/bat) | syntax highlighting; typed as **`batcat`** on Debian |
-| `find` | [fd](https://github.com/sharkdp/fd) | typed as **`fdfind`** on Debian |
-| `grep` | [ripgrep](https://github.com/BurntSushi/ripgrep) | typed as **`rg`**; [rga](https://github.com/phiresky/ripgrep-all) searches PDFs and office docs |
-| `du` | [dust](https://github.com/bootandy/dust) | bar charts |
-| `df` | [duf](https://github.com/muesli/duf) | graphs |
-| `ps` | [procs](https://github.com/dalance/procs) | |
-| `top` | [htop](https://htop.dev), [btop](https://github.com/aristocratos/btop), [bottom](https://github.com/ClementTsang/bottom) | bottom is typed as **`btm`** |
-| `dig` | [doggo](https://github.com/mr-karan/doggo) | DoH/DoT/DoQ; successor to `dog` |
-| `ss` | [neoss](https://github.com/PabloLec/neoss) | TUI |
-| `sed` (find/replace) | [sd](https://github.com/chmln/sd) | |
-| `cd` | [zoxide](https://github.com/ajeetdsouza/zoxide) | learns your habits |
-| `man` | [tldr](https://tldr.sh), [eg](https://github.com/srsudar/eg) | practical examples |
-| `ping` | [gping](https://github.com/orf/gping) | live latency graph |
-| `traceroute` | [mtr](https://www.bitwizard.nl/mtr/) | apt package is often `mtr-tiny` |
-| `less` / `more` | [most](https://www.jedsoft.org/most/) | |
-| `awk` on CSV/JSON | [miller](https://github.com/johnkerl/miller) | typed as **`mlr`** |
 | `apt` | [nala](https://gitlab.com/volian/nala) | friendlier frontend |
-| `make` (as a task runner) | [just](https://github.com/casey/just) | |
-| `git` at the CLI | [tig](https://github.com/jonas/tig), [lazygit](https://github.com/jesseduffield/lazygit), [delta](https://github.com/dandavison/delta) | delta is a diff pager |
-| `nano` / `vi` | [micro](https://github.com/micro-editor/micro), [ne](https://github.com/vigna/ne), [neovim](https://neovim.io) | neovim is typed as **`nvim`** |
-| `docker` CLI | [lazydocker](https://github.com/jesseduffield/lazydocker) | |
+| `awk` on CSV/JSON | [miller](https://github.com/johnkerl/miller) | Debian: `mlr` |
+| `cat` | [bat](https://github.com/sharkdp/bat) | syntax highlighting; Debian: `batcat` |
+| `cd` | [zoxide](https://github.com/ajeetdsouza/zoxide) | learns your habits |
+| `df` | [duf](https://github.com/muesli/duf) | graphs |
+| `dig` | [doggo](https://github.com/mr-karan/doggo) | DoH/DoT/DoQ; successor to `dog` |
+| `docker` CLI | [lazydocker](https://github.com/jesseduffield/lazydocker) | TUI |
+| `du` | [dust](https://github.com/bootandy/dust) | bar charts |
+| `find` | [fd](https://github.com/sharkdp/fd) | Debian: `fdfind` |
+| `git` at the CLI | [lazygit](https://github.com/jesseduffield/lazygit) | [tig](https://github.com/jonas/tig) is lighter; [delta](https://github.com/dandavison/delta) is a diff pager |
+| `grep` | [ripgrep](https://github.com/BurntSushi/ripgrep) | Debian: `rg`; [rga](https://github.com/phiresky/ripgrep-all) searches PDFs and office docs |
+| `less` / `more` | [most](https://www.jedsoft.org/most/) | multiple windows |
+| `ls` | [eza](https://github.com/eza-community/eza) | [lsd](https://github.com/lsd-rs/lsd) also shows directory sizes |
+| `make` as a task runner | [just](https://github.com/casey/just) | |
+| `man` | [tldr](https://tldr.sh) | practical examples; [eg](https://github.com/srsudar/eg) is similar |
+| `nano` / `vi` | [micro](https://github.com/micro-editor/micro) | [ne](https://github.com/vigna/ne) and [neovim](https://neovim.io) are heavier |
+| `ping` | [gping](https://github.com/orf/gping) | live latency graph |
+| `ps` | [procs](https://github.com/dalance/procs) | |
+| `sed` for find/replace | [sd](https://github.com/chmln/sd) | simpler syntax |
+| `ss` | [neoss](https://github.com/PabloLec/neoss) | TUI |
+| `top` | [htop](https://htop.dev) | [btop](https://github.com/aristocratos/btop) and [bottom](https://github.com/ClementTsang/bottom) (`btm`) look nicer |
+| `traceroute` | [mtr](https://www.bitwizard.nl/mtr/) | Debian: `mtr-tiny` |
 
 ## Installed it, but the command isn't found?
 
-Debian and Ubuntu rename several of these to avoid clashing with existing
-packages. This catches almost everyone at least once.
+<details>
+<summary>Debian and Ubuntu rename ten of these — bat, fd, bottom, miller, ripgrep, ripgrep-all, neovim, mtr, hping, NetworkManager</summary>
+
+They are renamed to avoid clashing with existing packages. This catches almost
+everyone at least once.
 
 | Tool | apt package | What you actually type |
 |---|---|---|
@@ -61,6 +66,8 @@ echo 'alias bat=batcat' >> ~/.bashrc
 echo 'alias fd=fdfind'  >> ~/.bashrc
 source ~/.bashrc
 ```
+
+</details>
 
 #### Table of Contents
 
