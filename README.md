@@ -1,13 +1,15 @@
 # Linux Tools: 2026 Edition
 
-Sixty-four tools I put on almost every Linux / Debian host: what each one
-replaces, and what Debian actually calls it once installed.
+Sixty-four command-line tools for Debian and Ubuntu: what each one replaces,
+and what Debian actually calls it once installed.
 
-- **Jump to —** [Start here](#start-here) · [Replace a command you use](#looking-for-a-replacement-for-something) · [Command not found?](#installed-it-but-the-command-isnt-found) · [Installer options](#installation)
-- **Tools by job —** [Files, search, disk](#files-search-and-disk-8) · [Shell & prompt](#shell-and-prompt-4) · [`ls` replacements](#ls-replacements-2) · [Editors](#text-editors-and-viewers-7) · [Monitors](#process-and-system-monitors-5) · [Network](#network-10) · [Git](#git-3) · [Data & documents](#data-and-documents-5) · [System & packages](#system-and-packages-6) · [Docs & benchmarks](#docs-containers-and-benchmarks-6) · [File explorers](#terminal-file-explorers-3) · [Desktop GUI](#desktop-gui-apps-5)
+- **Start with —** [the seven essentials](#start-here) · [replacing a command you already use](#looking-for-a-replacement-for-something) · [why a command isn't found](#installed-it-but-the-command-isnt-found)
+- **Or browse by job —** [Files, search, disk](#files-search-and-disk-8) · [Shell & prompt](#shell-and-prompt-4) · [`ls` replacements](#ls-replacements-2) · [Editors](#text-editors-and-viewers-7) · [Monitors](#process-and-system-monitors-5) · [Network](#network-10) · [Git](#git-3) · [Data & documents](#data-and-documents-5) · [System & packages](#system-and-packages-6) · [Docs & benchmarks](#docs-containers-and-benchmarks-6) · [File explorers](#terminal-file-explorers-3) · [Desktop GUI](#desktop-gui-apps-5)
 
-***Or just download them all —*** [`Lazy-Linux-Tool-Installer.py`](Lazy-Linux-Tool-Installer.py)
-installs everything below that you do not already have:
+## Install all of them at once
+
+[`Lazy-Linux-Tool-Installer.py`](Lazy-Linux-Tool-Installer.py) skips anything you
+already have. Debian-family only; needs `sudo` and `curl`.
 
 ```bash
 curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/main/Lazy-Linux-Tool-Installer.py
@@ -17,8 +19,8 @@ python3 Lazy-Linux-Tool-Installer.py --dry-run   # preview, changes nothing
 python3 Lazy-Linux-Tool-Installer.py             # go
 ```
 
-Debian-family only, and needs `sudo` plus `curl`.
-[Options and security notes.](#installation)
+Flags, pinning to a release, and the security notes are
+[further down](#installer-options-and-notes).
 
 ## Start here
 
@@ -307,11 +309,10 @@ sudo snap install --classic code
 
 ---
 
-## Installation
+## Installer options and notes
 
-[`Lazy-Linux-Tool-Installer.py`](Lazy-Linux-Tool-Installer.py) checks your PATH,
-installs whatever is missing via apt, pip, snap, or eget, and skips anything you
-already have.
+It checks your PATH and installs what is missing via apt, pip, snap, or eget,
+whichever suits the tool.
 
 ```bash
 python3 Lazy-Linux-Tool-Installer.py --dry-run   # preview, change nothing
@@ -325,8 +326,8 @@ Pin to a release rather than tracking `main`:
 curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/v5.0.1/Lazy-Linux-Tool-Installer.py
 ```
 
-Needs a Debian-family OS (`apt-get`), `sudo`, `curl`, and network access, and
-prompts once for consent. It skips the reference-only entries: vimrc, Sublime
+It also needs network access, and prompts once for consent. It skips the
+reference-only entries: vimrc, Sublime
 Text, System Informer, Zabbix, ncrack. It does not pipe `curl` into a shell —
 release artifacts are downloaded, sanity-checked, and croc's published SHA-256
 is verified.
