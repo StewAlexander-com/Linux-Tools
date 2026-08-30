@@ -31,6 +31,23 @@ ELF_MAGIC = b"\x7fELF"
 # Official eget.sh checksum from upstream README (may lag script updates).
 # Prefer GitHub release binaries over the bootstrap script for this reason.
 EGET_GITHUB_REPO = "zyedidia/eget"
+# Same checksum-verified recipe as README. Printed once if bootstrap fails.
+EGET_MANUAL_INSTALL = """\
+Could not install eget (needed to fetch GitHub-release tools).
+
+Install it once, then re-run this script:
+
+  curl -o eget.sh https://zyedidia.github.io/eget.sh
+  echo "0e64b8a3c13f531da005096cc364ac77835bda54276fedef6c62f3dbdc1ee919  eget.sh" > eget.sh.sha256
+  sha256sum -c eget.sh.sha256
+  bash eget.sh
+  sudo mv eget /usr/local/bin/
+"""
+EGET_SKIP_ASSET_SUFFIXES = (
+    ".yml", ".yaml", ".json", ".txt", ".md", ".sha256", ".sha256sum",
+    ".sig", ".asc", ".pem", ".sbom", ".deb", ".rpm", ".msi", ".dmg",
+    ".blockmap", ".pacman",
+)
 
 
 class InstallMethod(Enum):
@@ -94,18 +111,24 @@ class SystemChecker:
 
 class Installer:
     """Handle tool installation with different methods."""
+
+    # Set when bootstrap fails so each eget tool does not retry GitHub + the
+    # same error. Reset only by a new process (or tests).
+    _eget_install_failed = False
     
     @staticmethod
-    def run_command(cmd: List[str], check: bool = False, capture_output: bool = False, timeout: int = DEFAULT_CMD_TIMEOUT) -> subprocess.CompletedProcess:
+    def run_command(cmd: List[str], check: bool = False, capture_output: bool = False, timeout: int = DEFAULT_CMD_TIMEOUT, stdin=None) -> subprocess.CompletedProcess:
         """Run command with proper error handling and timeout."""
         try:
-            return subprocess.run(
-                cmd,
-                check=check,
-                capture_output=capture_output,
-                text=True,
-                timeout=timeout
-            )
+            kwargs = {
+                "check": check,
+                "capture_output": capture_output,
+                "text": True,
+                "timeout": timeout,
+            }
+            if stdin is not None:
+                kwargs["stdin"] = stdin
+            return subprocess.run(cmd, **kwargs)
         except subprocess.TimeoutExpired:
             # Return CompletedProcess with timeout exit code (124) to avoid crashes
             print(f"Command timed out after {timeout}s: {' '.join(cmd)}")
@@ -133,8 +156,123 @@ class Installer:
             "armv6l": "arm",
             "i386": "386",
             "i686": "386",
+            "riscv64": "riscv64",
         }
         return arch_map.get(machine)
+
+    @staticmethod
+    def resolve_eget() -> Optional[str]:
+        """Find eget on PATH or in the well-known install locations."""
+        found = shutil.which("eget")
+        if found:
+            return found
+        for candidate in (os.path.join(INSTALL_BIN_DIR, "eget"), "/usr/bin/eget"):
+            if os.path.isfile(candidate) and os.access(candidate, os.X_OK):
+                return candidate
+        return None
+
+    @staticmethod
+    def ensure_eget() -> bool:
+        """Make eget available once. On failure, print the README install steps."""
+        if Installer.resolve_eget():
+            return True
+        if Installer._eget_install_failed:
+            return False
+        print("eget not found, installing eget first...")
+        if Installer.install_eget() and Installer.resolve_eget():
+            return True
+        Installer._eget_install_failed = True
+        print(EGET_MANUAL_INSTALL)
+        return False
+
+    @staticmethod
+    def _arch_asset_needles(arch: str) -> Tuple[Tuple[str, ...], Tuple[str, ...]]:
+        """(substrings that identify arch, substrings that would be a different arch)."""
+        if arch == "amd64":
+            return ("x86_64", "amd64", "x86-64", "x64"), ("arm64", "aarch64", "i386", "i686")
+        if arch == "arm64":
+            return ("aarch64", "arm64", "armv8"), ("x86_64", "amd64", "x64", "armv7", "armv6")
+        if arch == "arm":
+            return ("armv7", "armhf", "armv6", "arm32"), ("arm64", "aarch64", "amd64", "x86_64", "x64")
+        if arch == "386":
+            return ("i386", "i686", "i586", "386", "x86_32"), ("x86_64", "amd64", "x64")
+        if arch == "riscv64":
+            return ("riscv64",), ("amd64", "x86_64", "arm64", "aarch64")
+        return (arch,), ()
+
+    @staticmethod
+    def pick_linux_release_asset(assets: List[dict], arch: str) -> Optional[dict]:
+        """Choose one linux binary asset for arch. Prefers gnu .tar.gz over musl/zip/deb."""
+        needles, anti = Installer._arch_asset_needles(arch)
+        scored: List[Tuple[int, str, dict]] = []
+        for asset in assets:
+            name = asset.get("name") or ""
+            url = asset.get("browser_download_url")
+            if not name or not url:
+                continue
+            lowered = name.lower()
+            if lowered.endswith(EGET_SKIP_ASSET_SUFFIXES):
+                continue
+            if any(token in lowered for token in anti):
+                continue
+            if not any(token in lowered for token in needles):
+                continue
+            linuxish = "linux" in lowered
+            musl_without_linux = "musl" in lowered and not linuxish
+            if not linuxish and not musl_without_linux:
+                continue
+            score = 35
+            if lowered.endswith((".tar.gz", ".tgz")):
+                score = 10
+            elif lowered.endswith((".tar.bz2", ".tbz", ".tar.xz", ".txz", ".tar.zst")):
+                score = 12
+            elif lowered.endswith(".zip"):
+                score = 30
+            elif lowered.endswith(".appimage"):
+                score = 40
+            if "polyfilled" in lowered:
+                score += 15
+            if "musl" in lowered:
+                score += 4
+            if "gnu" in lowered:
+                score -= 2
+            if not linuxish:
+                score += 8
+            scored.append((score, name, asset))
+        if not scored:
+            return None
+        scored.sort(key=lambda item: (item[0], item[1]))
+        return scored[0][2]
+
+    @staticmethod
+    def _checksum_hex_for_asset(assets: List[dict], asset_name: str) -> Optional[str]:
+        """Return a published SHA-256 for asset_name if a sidecar file exists."""
+        companions = {f"{asset_name}.sha256", f"{asset_name}.sha256sum"}
+        sidecar = next((a for a in assets if a.get("name") in companions and a.get("browser_download_url")), None)
+        if not sidecar:
+            return None
+        with tempfile.NamedTemporaryFile(prefix="eget-sum-", suffix=".sha256", delete=False) as tmp:
+            path = tmp.name
+        try:
+            if not Installer.download_file(sidecar["browser_download_url"], path):
+                return None
+            with open(path, "r", encoding="utf-8") as handle:
+                parts = handle.read().split()
+            return parts[0] if parts else None
+        except (OSError, IndexError):
+            return None
+        finally:
+            try:
+                os.unlink(path)
+            except OSError:
+                pass
+
+    @staticmethod
+    def _print_captured_output(result: subprocess.CompletedProcess) -> None:
+        """Show eget's own error text; capture_output otherwise hides it."""
+        for stream in (result.stdout, result.stderr):
+            if stream and str(stream).strip():
+                print(str(stream).rstrip())
 
     @staticmethod
     def sha256_file(path: str) -> str:
@@ -335,23 +473,65 @@ class Installer:
     
     @staticmethod
     def install_via_eget(repo: str, binary_name: str) -> bool:
-        """Install package via eget from GitHub (eget verifies release checksums when present)."""
-        if not SystemChecker.has_command("eget"):
-            print("eget not found, installing eget first...")
-            if not Installer.install_eget():
-                return False
-        
+        """Install a GitHub-release binary via eget, non-interactively.
+
+        Picks one linux asset ourselves so eget does not prompt (gnu vs musl,
+        tar vs zip). Invokes the resolved eget path with --to a temp file and
+        stdin closed, then moves the result into /usr/local/bin.
+        """
+        if not Installer.ensure_eget():
+            return False
+        eget = Installer.resolve_eget()
+        if not eget:
+            return False
+
+        arch = Installer.linux_goarch()
+        if not arch:
+            print(f"Unsupported architecture for eget: {platform.machine()}")
+            print("eget cannot choose a binary package for this machine.")
+            return False
+
         print(f"Installing {binary_name} via eget from {repo}...")
-        result = Installer.run_command(
-            ["eget", repo],
-            capture_output=True,
-            timeout=NETWORK_CMD_TIMEOUT,
-        )
-        
-        if result.returncode == 0 and os.path.exists(binary_name):
-            return Installer.install_binary_to_path(binary_name, binary_name)
-        print(f"eget did not produce expected binary '{binary_name}'")
-        return False
+        tag, assets = Installer.fetch_latest_release_assets(repo)
+        if not assets:
+            print(f"No GitHub release assets for {repo}")
+            return False
+        asset = Installer.pick_linux_release_asset(assets, arch)
+        if not asset:
+            print(
+                f"No linux/{arch} binary on {repo} release {tag!r} "
+                f"that eget can install"
+            )
+            return False
+
+        url = asset["browser_download_url"]
+        verify_hash = Installer._checksum_hex_for_asset(assets, asset["name"])
+
+        with tempfile.TemporaryDirectory(prefix="eget-pkg-") as tmpdir:
+            dest = os.path.join(tmpdir, binary_name)
+            attempts = [
+                [eget, "--to", dest, "--file", binary_name, url],
+                [eget, "--to", dest, url],
+            ]
+            last = None
+            for args in attempts:
+                cmd = list(args)
+                if verify_hash:
+                    cmd[1:1] = ["--verify-sha256", verify_hash]
+                result = Installer.run_command(
+                    cmd,
+                    capture_output=True,
+                    timeout=NETWORK_CMD_TIMEOUT,
+                    stdin=subprocess.DEVNULL,
+                )
+                last = result
+                if result.returncode == 0 and os.path.isfile(dest) and os.path.getsize(dest) > 0:
+                    return Installer.install_binary_to_path(dest, binary_name)
+            if last is not None:
+                print(f"eget failed (exit {last.returncode}) for {repo} ({asset['name']})")
+                Installer._print_captured_output(last)
+            print(f"eget did not produce expected binary '{binary_name}'")
+            return False
     
     @staticmethod
     def install_eget() -> bool:
@@ -911,6 +1091,27 @@ def main():
     
     # Get tools by category for better organization
     tools_by_category = ToolManager.get_tools_by_category(server_mode=server_mode)
+
+    missing_eget = [
+        tool
+        for tools in tools_by_category.values()
+        for tool in tools
+        if tool.method == InstallMethod.EGET and not ToolManager.check_tool_installed(tool)
+    ]
+    if missing_eget:
+        if dry_run:
+            eget_path = Installer.resolve_eget()
+            if eget_path:
+                print(f"\n[DRY RUN] eget found at {eget_path}; {len(missing_eget)} GitHub-release tools would use it")
+            else:
+                print("\n[DRY RUN] eget is not installed; would try to install it first.")
+                print("If that failed, you would be asked to install it with:")
+                print(EGET_MANUAL_INSTALL)
+        elif not Installer.ensure_eget():
+            print(
+                f"Skipping {len(missing_eget)} GitHub-release tool(s) until eget is "
+                "installed. apt/pip/snap/npm tools continue."
+            )
     
     # Track installation results
     installed_count = 0

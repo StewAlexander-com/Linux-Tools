@@ -130,6 +130,9 @@ class TestSystemChecker(unittest.TestCase):
 
 class TestInstaller(unittest.TestCase):
     """Test Installer class."""
+
+    def setUp(self):
+        dlt.Installer._eget_install_failed = False
     
     @patch.object(dlt, 'subprocess')
     def test_run_command_success(self, mock_subprocess):
@@ -249,36 +252,94 @@ class TestInstaller(unittest.TestCase):
         self.assertFalse(dlt.Installer.install_via_npm('neoss'))
 
     @patch.object(dlt.Installer, 'install_binary_to_path')
-    @patch.object(dlt, 'subprocess')
-    @patch.object(dlt, 'os')
-    @patch.object(dlt, 'shutil')
-    def test_install_via_eget_success(self, mock_shutil, mock_os, mock_subprocess, mock_install_bin):
-        """Test successful eget installation."""
-        mock_shutil.which.return_value = '/usr/local/bin/eget'
-        mock_subprocess.run.return_value = subprocess.CompletedProcess(['eget'], 0)
-        mock_os.path.exists.return_value = True
+    @patch.object(dlt.Installer, 'run_command')
+    @patch.object(dlt.Installer, '_checksum_hex_for_asset', return_value=None)
+    @patch.object(dlt.Installer, 'fetch_latest_release_assets')
+    @patch.object(dlt.Installer, 'linux_goarch', return_value='amd64')
+    @patch.object(dlt.Installer, 'resolve_eget', return_value='/usr/local/bin/eget')
+    def test_install_via_eget_success(self, mock_resolve, mock_arch, mock_fetch, _mock_sum, mock_run, mock_install_bin):
+        """eget is invoked non-interactively with --to and a concrete download URL."""
+        mock_fetch.return_value = (
+            'v0.1.0',
+            [{
+                'name': 'eza_x86_64-unknown-linux-gnu.tar.gz',
+                'browser_download_url': 'https://example.invalid/eza.tar.gz',
+            }],
+        )
+
+        def fake_run(cmd, **kwargs):
+            dest = cmd[cmd.index('--to') + 1]
+            with open(dest, 'wb') as handle:
+                handle.write(b'\x7fELF' + b'\0' * 20)
+            return subprocess.CompletedProcess(cmd, 0, stdout='', stderr='Extracted')
+
+        mock_run.side_effect = fake_run
         mock_install_bin.return_value = True
-        
-        result = dlt.Installer.install_via_eget('sharkdp/bat', 'bat')
+
+        result = dlt.Installer.install_via_eget('eza-community/eza', 'eza')
         self.assertTrue(result)
-        mock_install_bin.assert_called_once_with('bat', 'bat')
-        # Verify timeout is set for network operations
-        call_kwargs = mock_subprocess.run.call_args[1]
-        self.assertIn('timeout', call_kwargs)
-        self.assertGreaterEqual(call_kwargs['timeout'], 30)
+        mock_install_bin.assert_called_once()
+        cmd, kwargs = mock_run.call_args[0][0], mock_run.call_args[1]
+        self.assertEqual(cmd[0], '/usr/local/bin/eget')
+        self.assertIn('--to', cmd)
+        self.assertIn('--file', cmd)
+        self.assertIn('eza', cmd)
+        self.assertIn('https://example.invalid/eza.tar.gz', cmd)
+        self.assertNotIn('eza-community/eza', cmd)
+        self.assertIs(kwargs.get('stdin'), subprocess.DEVNULL)
+        self.assertGreaterEqual(kwargs['timeout'], 30)
 
     @patch.object(dlt.Installer, 'install_eget')
-    @patch.object(dlt, 'subprocess')
-    @patch.object(dlt, 'os')
-    @patch.object(dlt, 'shutil')
-    def test_install_via_eget_no_eget(self, mock_shutil, mock_os, mock_subprocess, mock_install_eget):
-        """Test eget installation when eget is not installed."""
-        mock_shutil.which.return_value = None
+    @patch.object(dlt.Installer, 'resolve_eget', return_value=None)
+    def test_install_via_eget_no_eget(self, mock_resolve, mock_install_eget):
+        """Missing eget: one bootstrap attempt, then the README recipe, not a silent False."""
         mock_install_eget.return_value = False
-        
-        result = dlt.Installer.install_via_eget('sharkdp/bat', 'bat')
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            result = dlt.Installer.install_via_eget('sharkdp/bat', 'bat')
         self.assertFalse(result)
         mock_install_eget.assert_called_once()
+        output = buf.getvalue()
+        self.assertIn('eget.sh', output)
+        self.assertIn('/usr/local/bin', output)
+
+    @patch.object(dlt.Installer, 'install_eget')
+    @patch.object(dlt.Installer, 'resolve_eget', return_value=None)
+    def test_ensure_eget_does_not_retry_after_failure(self, mock_resolve, mock_install_eget):
+        """Fail-fast: the second missing-eget tool must not hit GitHub again."""
+        mock_install_eget.return_value = False
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            self.assertFalse(dlt.Installer.ensure_eget())
+            self.assertFalse(dlt.Installer.ensure_eget())
+        self.assertEqual(mock_install_eget.call_count, 1)
+        self.assertIn('eget.sh', buf.getvalue())
+        self.assertEqual(buf.getvalue().count('Could not install eget'), 1)
+
+    @patch.object(dlt.Installer, 'install_binary_to_path', return_value=False)
+    @patch.object(dlt.Installer, 'run_command')
+    @patch.object(dlt.Installer, '_checksum_hex_for_asset', return_value=None)
+    @patch.object(dlt.Installer, 'fetch_latest_release_assets')
+    @patch.object(dlt.Installer, 'linux_goarch', return_value='amd64')
+    @patch.object(dlt.Installer, 'resolve_eget', return_value='/usr/local/bin/eget')
+    def test_install_via_eget_prints_stderr(self, _resolve, _arch, mock_fetch, _sum, mock_run, _install):
+        """A failed eget run must show eget's own error, not only 'did not produce'."""
+        mock_fetch.return_value = (
+            'v1',
+            [{
+                'name': 'tool_linux_amd64.tar.gz',
+                'browser_download_url': 'https://example.invalid/tool.tar.gz',
+            }],
+        )
+        mock_run.return_value = subprocess.CompletedProcess(
+            ['eget'], 1, stdout='', stderr='3 matches found: please select manually',
+        )
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            self.assertFalse(dlt.Installer.install_via_eget('owner/tool', 'tool'))
+        output = buf.getvalue()
+        self.assertIn('please select manually', output)
+        self.assertIn('eget failed (exit 1)', output)
 
     def test_parse_checksums_file(self):
         """Test checksum file parsing."""
@@ -300,6 +361,29 @@ class TestInstaller(unittest.TestCase):
         self.assertNotIn('| bash', source)
         self.assertNotIn('getcroc.schollz.com', source)
         self.assertNotIn('eget.sh |', source)
+
+    @patch.object(dlt.platform, 'machine', return_value='x86_64')
+    def test_linux_goarch_ubuntu_amd64(self, _machine):
+        self.assertEqual(dlt.Installer.linux_goarch(), 'amd64')
+
+    @patch.object(dlt.platform, 'machine', return_value='riscv64')
+    def test_linux_goarch_riscv64(self, _machine):
+        self.assertEqual(dlt.Installer.linux_goarch(), 'riscv64')
+
+    @patch.object(dlt, 'shutil')
+    def test_resolve_eget_prefers_path(self, mock_shutil):
+        mock_shutil.which.return_value = '/home/user/bin/eget'
+        self.assertEqual(dlt.Installer.resolve_eget(), '/home/user/bin/eget')
+
+    @patch.object(dlt.os, 'access', return_value=True)
+    @patch.object(dlt.os.path, 'isfile')
+    @patch.object(dlt, 'shutil')
+    def test_resolve_eget_usr_local_bin_when_not_on_path(self, mock_shutil, mock_isfile, _access):
+        """Debian installer checked /usr/local/bin/eget; the lazy path must too."""
+        mock_shutil.which.return_value = None
+        mock_isfile.side_effect = lambda path: path == '/usr/local/bin/eget'
+        self.assertEqual(dlt.Installer.resolve_eget(), '/usr/local/bin/eget')
+
     @patch.object(dlt, 'subprocess')
     def test_check_apt_available_true(self, mock_subprocess):
         """Test apt package availability check when available."""
@@ -320,6 +404,92 @@ class TestInstaller(unittest.TestCase):
         )
         result = dlt.Installer.check_apt_available('nonexistent')
         self.assertFalse(result)
+
+
+def _assets(*names):
+    return [
+        {'name': name, 'browser_download_url': f'https://example.invalid/{name}'}
+        for name in names
+    ]
+
+
+class TestPickLinuxReleaseAsset(unittest.TestCase):
+    """Installer must pick one file so eget is never asked to prompt."""
+
+    def test_eza_prefers_gnu_tarball_over_musl_and_zip(self):
+        assets = _assets(
+            'eza.exe_x86_64-pc-windows-gnu.tar.gz',
+            'eza_aarch64-unknown-linux-gnu.tar.gz',
+            'eza_x86_64-unknown-linux-gnu.tar.gz',
+            'eza_x86_64-unknown-linux-gnu.zip',
+            'eza_x86_64-unknown-linux-musl.tar.gz',
+            'eza_x86_64-unknown-linux-musl.zip',
+        )
+        picked = dlt.Installer.pick_linux_release_asset(assets, 'amd64')
+        self.assertEqual(picked['name'], 'eza_x86_64-unknown-linux-gnu.tar.gz')
+
+    def test_starship_prefers_gnu_over_musl(self):
+        assets = _assets(
+            'starship-x86_64-unknown-linux-gnu.tar.gz',
+            'starship-x86_64-unknown-linux-gnu.tar.gz.sha256',
+            'starship-x86_64-unknown-linux-musl.tar.gz',
+            'starship-x86_64-unknown-linux-musl.tar.gz.sha256',
+        )
+        picked = dlt.Installer.pick_linux_release_asset(assets, 'amd64')
+        self.assertEqual(picked['name'], 'starship-x86_64-unknown-linux-gnu.tar.gz')
+
+    def test_lazygit_single_linux_tarball(self):
+        assets = _assets(
+            'lazygit_0.64.1_darwin_arm64.tar.gz',
+            'lazygit_0.64.1_linux_arm64.tar.gz',
+            'lazygit_0.64.1_linux_x86_64.tar.gz',
+            'lazygit_0.64.1_windows_x86_64.zip',
+        )
+        picked = dlt.Installer.pick_linux_release_asset(assets, 'amd64')
+        self.assertEqual(picked['name'], 'lazygit_0.64.1_linux_x86_64.tar.gz')
+
+    def test_fastfetch_skips_deb_rpm_zip_and_polyfilled(self):
+        assets = _assets(
+            'fastfetch-linux-amd64-polyfilled.deb',
+            'fastfetch-linux-amd64-polyfilled.tar.gz',
+            'fastfetch-linux-amd64.deb',
+            'fastfetch-linux-amd64.rpm',
+            'fastfetch-linux-amd64.tar.gz',
+            'fastfetch-linux-amd64.zip',
+            'fastfetch-linux-aarch64.tar.gz',
+        )
+        picked = dlt.Installer.pick_linux_release_asset(assets, 'amd64')
+        self.assertEqual(picked['name'], 'fastfetch-linux-amd64.tar.gz')
+
+    def test_btop_musl_only_still_picks(self):
+        assets = _assets(
+            'btop-aarch64-unknown-linux-musl.tar.gz',
+            'btop-x86_64-unknown-linux-musl.tar.gz',
+        )
+        picked = dlt.Installer.pick_linux_release_asset(assets, 'amd64')
+        self.assertEqual(picked['name'], 'btop-x86_64-unknown-linux-musl.tar.gz')
+
+    def test_tabby_prefers_tarball_over_appimage(self):
+        assets = _assets(
+            'tabby-1.0.235-linux-arm64.AppImage',
+            'tabby-1.0.235-linux-x64.AppImage',
+            'tabby-1.0.235-linux-x64.deb',
+            'tabby-1.0.235-linux-x64.tar.gz',
+        )
+        picked = dlt.Installer.pick_linux_release_asset(assets, 'amd64')
+        self.assertEqual(picked['name'], 'tabby-1.0.235-linux-x64.tar.gz')
+
+    def test_arm64_does_not_take_amd64_asset(self):
+        assets = _assets(
+            'eza_aarch64-unknown-linux-gnu.tar.gz',
+            'eza_x86_64-unknown-linux-gnu.tar.gz',
+        )
+        picked = dlt.Installer.pick_linux_release_asset(assets, 'arm64')
+        self.assertEqual(picked['name'], 'eza_aarch64-unknown-linux-gnu.tar.gz')
+
+    def test_no_linux_asset_returns_none(self):
+        assets = _assets('tool-windows_amd64.zip', 'tool-darwin_arm64.tar.gz')
+        self.assertIsNone(dlt.Installer.pick_linux_release_asset(assets, 'amd64'))
 
 
 class TestToolManager(unittest.TestCase):

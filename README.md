@@ -314,6 +314,9 @@ sudo snap install --classic code
 <details>
 <summary>Version history, newest first</summary>
 
+* 08/30/26 - Tagged [**v5.1.1**](https://github.com/StewAlexander-com/Linux-Tools/releases/tag/v5.1.1): eget fail-fast, PATH-aware lookup, non-interactive GitHub-release installs
+* 08/30/26 - eget: fail once with the README install recipe if eget cannot be bootstrapped, instead of failing every GitHub-release tool silently
+* 08/30/26 - eget: find a binary already at `/usr/local/bin/eget`, pick one linux asset (gnu `.tar.gz` over musl/zip/deb), invoke with `--to` and stdin closed so Ubuntu cannot hang on “please select manually”
 * 08/19/26 - Tagged [**v5.1.0**](https://github.com/StewAlexander-com/Linux-Tools/releases/tag/v5.1.0): `neoss` and `eg` install again, new npm method, MIT license, README rebuilt for first-time visitors
 * 08/19/26 - Fixed `neoss` (now npm) and `eg` (now pip): both were declared as eget tools, but eget could never fetch either one
 * 08/19/26 - Added an opt-in test that asks GitHub whether every eget tool still ships a Linux binary, so this cannot go unnoticed again
@@ -352,7 +355,7 @@ python3 Lazy-Linux-Tool-Installer.py --help
 Pin to a release rather than tracking `main`:
 
 ```bash
-curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/v5.1.0/Lazy-Linux-Tool-Installer.py
+curl -O https://raw.githubusercontent.com/StewAlexander-com/Linux-Tools/v5.1.1/Lazy-Linux-Tool-Installer.py
 ```
 
 It also needs network access, and prompts once for consent. It skips the five
@@ -381,7 +384,8 @@ python3 -m unittest test_lazy_linux_tool_installer.TestSystemChecker -v
 
 ### Checking the eget tools against upstream
 
-The mocked tests prove the installer calls `eget` correctly. They cannot prove
+The mocked tests prove the installer finds eget, picks one linux asset, and
+calls eget non-interactively. They cannot prove the chosen URL still exists —
 `eget` will find anything at the other end — a project can stop publishing
 release binaries at any time, and that failure only shows up on a real machine.
 One extra test asks GitHub whether every `eget` tool still ships a Linux binary.
@@ -400,7 +404,7 @@ passing on a partial sweep.
 **Current Status:** ✅ All tests passing
 
 ```
-Ran 53 tests in 0.011s
+Ran 67 tests in 0.014s
 OK (skipped=1)
 ```
 
@@ -409,7 +413,7 @@ The skip is the network test above, which stays out of the offline run.
 ### Test Coverage
 
 - **SystemChecker** — Debian-like detection, command availability, root check, curl/sudo requirements
-- **Installer** — command runner/timeouts, apt/pip/eget/snap paths, curl|sh regression guard
+- **Installer** — command runner/timeouts, apt/pip/eget/snap paths, curl|sh regression guard, eget PATH lookup, fail-fast recipe, linux asset picker
 - **ToolManager** — tool definitions, categories, install routing
 - **User consent** — retries and KeyboardInterrupt handling
 - **Main** — system-check failure and consent decline paths (argv-safe under `unittest`)
